@@ -48,6 +48,7 @@ private:
 	CViewport m_zv;
 	CCamera m_zc;
 	CLightParallel m_zl;
+
 };
 
 
