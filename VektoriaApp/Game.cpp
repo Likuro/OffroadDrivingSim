@@ -2,7 +2,7 @@
 
 CGame::CGame(void)
 {
-	//Mandy war hier
+	//Mandy war hier hihi
 	//Denis war hier
 }
 
