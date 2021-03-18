@@ -4,6 +4,7 @@ CGame::CGame(void)
 {
 	//Mandy war hier
 	//Denis war hier
+	//lulz
 }
 
 CGame::~CGame(void)
