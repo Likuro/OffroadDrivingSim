@@ -2,7 +2,7 @@
 
 CGame::CGame(void)
 {
-	//Hello
+	//Mandy war hier
 }
 
 CGame::~CGame(void)
