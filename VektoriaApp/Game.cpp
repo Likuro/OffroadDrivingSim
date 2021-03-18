@@ -2,6 +2,7 @@
 
 CGame::CGame(void)
 {
+	//Hello
 }
 
 CGame::~CGame(void)
