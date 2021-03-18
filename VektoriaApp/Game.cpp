@@ -2,7 +2,7 @@
 
 CGame::CGame(void)
 {
-	//Mandy war hier
+	//Hello
 }
 
 CGame::~CGame(void)
@@ -19,8 +19,6 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zv.InitFull(&m_zc);
 	m_zl.Init(CHVector(1.0f, -1.0f, -1.0f), CColor(1.0f, 1.0f, 1.0f));
 	m_zgSphere.Init(1.5F, nullptr, 50, 50);
-
-	
 
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
