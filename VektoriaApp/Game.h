@@ -21,6 +21,8 @@
 
 
 #include "Vektoria\Root.h"
+#include "HealthBar.h"
+#include "Kinematics.h"
 
 using namespace Vektoria;
 
@@ -49,6 +51,17 @@ private:
 	CCamera m_zc;
 	CLightParallel m_zl;
 
+
+	CMaterial m_MRed;
+	CMaterial m_MGreen;
+
+	CDeviceKeyboard m_Keyboard;
+
+	CDeviceGameController m_Controller;
+	float controllerSpeed = 0.025f;
+
+	HealthBar* Health;
+	ProgressBar* Speedometer;
 };
 
 

@@ -19,8 +19,12 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// m_zf.SetApiRender(eApiRender_DirectX11_Shadermodel50_Monolight);
 	m_zf.Init(hwnd, procOS); 
 	m_zv.InitFull(&m_zc);
-	m_zl.Init(CHVector(1.0f, -1.0f, -1.0f), CColor(1.0f, 1.0f, 1.0f));
-	m_zgSphere.Init(1.5F, nullptr, 50, 50);
+	m_zl.Init(CHVector(1.0f, 1.0f, 1.0f), CColor(1.0f, 1.0f, 1.0f));
+
+	m_MRed.MakeTextureDiffuse("textures\\red_image.jpg");
+	m_MGreen.MakeTextureDiffuse("textures\\green_image.jpg");
+
+	m_zgSphere.Init(1.5F, &m_MRed, 50, 50);
 
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
@@ -31,13 +35,47 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zpCamera.AddCamera(&m_zc);
 	m_zpSphere.AddGeo(&m_zgSphere);
 
-	m_zpCamera.TranslateZ(8.0f);
+	m_zpCamera.TranslateZ(200.0f);
+	m_zf.AddDeviceKeyboard(&m_Keyboard);
+	m_zf.AddDeviceGameController(&m_Controller);
+
+	// Healthbar
+	Health = new HealthBar(&m_MRed, &m_zv, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
+	// Speedometer
+	Speedometer = new ProgressBar(&m_MRed, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
 {
-	// Hier die Echtzeit-Veränderungen einfügen:
 	m_zr.Tick(fTimeDelta);
+
+	// Controller Steuerung
+	if (abs(m_Controller.GetRelativeX()) > 0.1)
+	{
+		m_zpSphere.TranslateXDelta(m_Controller.GetRelativeX()*controllerSpeed);
+	}
+	if (abs(m_Controller.GetRelativeY()) > 0.1)
+	{
+		m_zpSphere.TranslateYDelta(-m_Controller.GetRelativeY()*controllerSpeed);
+	}
+
+	// HealthBar Test
+	if (m_Keyboard.KeyDown(DIK_Q))
+	{
+		Health->changeHealth(-10.f);
+	}
+
+	// Speedometer Test
+	if (m_Keyboard.KeyPressed(DIK_E))
+	{
+		Speedometer->progressValue += 0.05f;
+		Speedometer->update();
+	}
+	else
+	{
+		Speedometer->progressValue -= 0.005f;
+		Speedometer->update();
+	}
 }
 
 void CGame::Fini()
