@@ -29,6 +29,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
 	m_zr.AddScene(&m_zs);
+
+	//Placement für den RoadManager
+	m_zs.AddPlacement(&drivingScenePlacement);
+
 	m_zs.AddPlacement(&m_zpSphere);
 	m_zs.AddPlacement(&m_zpCamera);
 	m_zs.AddLightParallel(&m_zl);
@@ -43,11 +47,16 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	Health = new HealthBar(&m_MRed, &m_zv, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
 	// Speedometer
 	Speedometer = new ProgressBar(&m_MRed, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
+
+	//RoadMaster erstellen
+	this->RoadMaster = new RoadManager;
+	RoadMaster->init(&drivingScenePlacement);
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
 {
 	m_zr.Tick(fTimeDelta);
+	timetick++;
 
 	// Controller Steuerung
 	if (abs(m_Controller.GetRelativeX()) > 0.1)
@@ -75,6 +84,14 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	{
 		Speedometer->progressValue -= 0.005f;
 		Speedometer->update();
+	}
+
+	// nur alle 5k Ticks -- RoadMaster
+	if (timetick == 5000) {
+
+		this->RoadMaster->updateRoad();
+
+		timetick = 0;
 	}
 }
 

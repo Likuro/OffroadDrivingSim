@@ -23,6 +23,7 @@
 #include "Vektoria\Root.h"
 #include "HealthBar.h"
 #include "Kinematics.h"
+#include "RoadManager.h"
 
 using namespace Vektoria;
 
@@ -62,6 +63,11 @@ private:
 
 	HealthBar* Health;
 	ProgressBar* Speedometer;
+
+	//für den RoadManager
+	RoadManager* RoadMaster;
+	CPlacement drivingScenePlacement;
+	float timetick;
 };
 
 

@@ -33,6 +33,15 @@
     <ClInclude Include="ProgressBar.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="RoadManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadTile.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="PrefabRoad.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -48,6 +57,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ProgressBar.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RoadManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RoadTile.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PrefabRoad.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
