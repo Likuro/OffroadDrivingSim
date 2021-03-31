@@ -24,7 +24,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_MRed.MakeTextureDiffuse("textures\\red_image.jpg");
 	m_MGreen.MakeTextureDiffuse("textures\\green_image.jpg");
 
-	m_zgSphere.Init(1.5F, &m_MRed, 50, 50);
+	m_zgSphere.Init(0.2F, &m_MRed, 50, 50);
 
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
@@ -34,12 +34,18 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zs.AddPlacement(&drivingScenePlacement);
 
 	m_zs.AddPlacement(&m_zpSphere);
-	m_zs.AddPlacement(&m_zpCamera);
+	//m_zs.AddPlacement(&m_zpCamera);
 	m_zs.AddLightParallel(&m_zl);
+	m_zpSphere.AddPlacement(&m_zpCamera);
 	m_zpCamera.AddCamera(&m_zc);
 	m_zpSphere.AddGeo(&m_zgSphere);
 
-	m_zpCamera.TranslateZ(200.0f);
+	m_zpCamera.TranslateZ(16.0f);
+	m_zpCamera.TranslateYDelta(3.0f);
+	m_zpCamera.RotateYDelta(PI);
+	m_zpCamera.RotateXDelta(0.3f);
+	m_zpSphere.TranslateYDelta(1.2f);
+	m_zpSphere.TranslateZDelta(20.0f);
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);
 
@@ -61,11 +67,11 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	// Controller Steuerung
 	if (abs(m_Controller.GetRelativeX()) > 0.1)
 	{
-		m_zpSphere.TranslateXDelta(m_Controller.GetRelativeX()*controllerSpeed);
+		m_zpSphere.TranslateXDelta(-0.1f*(m_Controller.GetRelativeX()*controllerSpeed));
 	}
 	if (abs(m_Controller.GetRelativeY()) > 0.1)
 	{
-		m_zpSphere.TranslateYDelta(-m_Controller.GetRelativeY()*controllerSpeed);
+		m_zpSphere.TranslateZDelta(0.1f*(-m_Controller.GetRelativeY()*controllerSpeed));
 	}
 
 	// HealthBar Test
@@ -87,7 +93,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	}
 
 	// nur alle 5k Ticks -- RoadMaster
-	if (timetick == 5000) {
+	if (timetick == 2200) {
 
 		this->RoadMaster->updateRoad();
 

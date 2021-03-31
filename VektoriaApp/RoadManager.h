@@ -16,7 +16,8 @@ private:
 
 	int activeSpawn;
 	int timesSpawned;
-	char prefabLoadPath[_MAX_PATH];
+	char prefabModelLoadPath[_MAX_PATH];
+	char prefabHitboxLoadPath[_MAX_PATH];
 
 	CPlacement *myPlacement;
 	CPlacement placementRoad[10];
@@ -29,5 +30,8 @@ private:
 
 	//Für die PrefabRoads
 	PrefabRoad* PrefabRoads[5];
+
+	// Kollisionsobjektmenge der RoadTiles
+	CGeos roadTilesHitbox;
 };
 

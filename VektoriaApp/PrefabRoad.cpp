@@ -1,21 +1,27 @@
 #include "PrefabRoad.h"
 
-PrefabRoad::PrefabRoad(char *tmp_path)
+PrefabRoad::PrefabRoad(char* tmp_modelpath, char* tmp_hitboxpath, CGeos *tmp_roadTilesHitbox)
 {
-	strcpy(path, tmp_path);
-	RoadModel = LoadModel.LoadGeo(path, true);
+	strcpy(modelpath, tmp_modelpath);
+	strcpy(hitboxpath, tmp_hitboxpath);
+	roadModel = loadModel.LoadGeo(modelpath, true);
+	roadHitbox = loadHitbox.LoadGeo(hitboxpath, true);
+	tmp_roadTilesHitbox->Add(roadHitbox);
+	
 }
 
 PrefabRoad::~PrefabRoad(void)
 {
 }
 
-void PrefabRoad::addtoScene(CPlacement *tmp_roadPlacement)
+void PrefabRoad::addtoScene(CPlacement *tmp_roadPlacement, CPlacement* tmp_hitboxPlacement)
 {
-	tmp_roadPlacement->AddGeo(RoadModel);
+	tmp_roadPlacement->AddGeo(roadModel);
+	tmp_hitboxPlacement->AddGeo(roadHitbox);
 }
 
-void PrefabRoad::subfromScene(CPlacement* tmp_roadPlacement)
+void PrefabRoad::subfromScene(CPlacement* tmp_roadPlacement, CPlacement* tmp_hitboxPlacement)
 {
-	tmp_roadPlacement->SubGeo(RoadModel);
+	tmp_roadPlacement->SubGeo(roadModel);
+	tmp_hitboxPlacement->SubGeo(roadHitbox);
 }
