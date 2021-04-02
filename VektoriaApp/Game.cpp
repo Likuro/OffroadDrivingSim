@@ -13,6 +13,8 @@ CGame::~CGame(void)
 
 void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CSplash * psplash)
 {
+	srand(time(NULL));
+
 	// Hier die Initialisierung Deiner Vektoria-Objekte einfügen:
 	m_zr.Init(psplash);
 	m_zc.Init(QUARTERPI);
@@ -38,14 +40,16 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zs.AddLightParallel(&m_zl);
 	m_zpSphere.AddPlacement(&m_zpCamera);
 	m_zpCamera.AddCamera(&m_zc);
-	m_zpSphere.AddGeo(&m_zgSphere);
+	//m_zpSphere.AddGeo(&m_zgSphere);
 
-	m_zpCamera.TranslateZ(16.0f);
+	//m_zpCamera.TranslateZ(16.0f);
 	m_zpCamera.TranslateYDelta(3.0f);
 	m_zpCamera.RotateYDelta(PI);
-	m_zpCamera.RotateXDelta(0.3f);
-	m_zpSphere.TranslateYDelta(1.2f);
-	m_zpSphere.TranslateZDelta(20.0f);
+	//m_zpCamera.RotateXDelta(0.3f);
+	//m_zpSphere.TranslateYDelta(1.2f);
+	//m_zpSphere.TranslateZDelta(20.0f);
+	//m_zpCamera.SetTranslationSensitivity(15.f);
+
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);
 
@@ -54,25 +58,47 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Speedometer
 	Speedometer = new ProgressBar(&m_MRed, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
 
+
 	//RoadMaster erstellen
 	this->RoadMaster = new RoadManager;
 	RoadMaster->init(&drivingScenePlacement);
+
+	// ItemManager
+	Items = new ItemManager(5);
+	RandomLocation.AddPlacement(Items->getItem(random));
+	m_zs.AddPlacement(&RandomLocation);
+	BoostTest.AddPlacement(Items->getItem(random));
+	m_zs.AddPlacement(&BoostTest);
+	BoostTest.TranslateX(4.f);
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
 {
 	m_zr.Tick(fTimeDelta);
 	timetick++;
+	m_Keyboard.PlaceWASD(m_zpCamera, fTimeDelta);
 
 	// Controller Steuerung
-	if (abs(m_Controller.GetRelativeX()) > 0.1)
+	if (abs(m_Controller.GetRelativeX()) > 0.1)		// Deadzone
 	{
-		m_zpSphere.TranslateXDelta(-0.1f*(m_Controller.GetRelativeX()*controllerSpeed));
+		m_zpSphere.TranslateXDelta(-0.2f*(m_Controller.GetRelativeX()*controllerSpeed));
 	}
-	if (abs(m_Controller.GetRelativeY()) > 0.1)
+	if (abs(m_Controller.GetRelativeY()) > 0.1)		// Deadzone
 	{
-		m_zpSphere.TranslateZDelta(0.1f*(-m_Controller.GetRelativeY()*controllerSpeed));
+		m_zpSphere.TranslateZDelta(0.2f*(-m_Controller.GetRelativeY()*controllerSpeed));
 	}
+	if (abs(m_Controller.GetRelativeRX()) > 0.1)
+	{
+		m_zpCamera.RotateYDelta(0.025f * (-m_Controller.GetRelativeRX() * controllerSpeed));
+	}
+	//if (abs(m_Controller.GetRelativeRY()) > 0.1)
+	//{
+	//	m_zpCamera.RotateXDelta(0.025f * (m_Controller.GetRelativeRY() * controllerSpeed));
+	//}
+	//if (abs(m_Controller.GetRelativeRZ()) > 0.1)
+	//{
+	//	m_zpSphere.TranslateYDelta(0.05f * (m_Controller.GetRelativeRZ() * controllerSpeed));
+	//}
 
 	// HealthBar Test
 	if (m_Keyboard.KeyDown(DIK_Q))
@@ -99,6 +125,14 @@ void CGame::Tick(float fTime, float fTimeDelta)
 
 		timetick = 0;
 	}
+
+	// ItemManager Test
+	if (m_Keyboard.KeyDown(DIK_B))
+	{
+		RandomLocation.Translate((rand() % 10) - 5, (rand() % 10) - 5, (rand() % 10) - 5);
+	}
+	Items->update(fTime, fTimeDelta);
+
 }
 
 void CGame::Fini()

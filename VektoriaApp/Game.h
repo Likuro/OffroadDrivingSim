@@ -23,6 +23,7 @@
 #include "Vektoria\Root.h"
 #include "HealthBar.h"
 #include "Kinematics.h"
+#include "ItemManager.h"
 #include "RoadManager.h"
 
 using namespace Vektoria;
@@ -63,6 +64,11 @@ private:
 
 	HealthBar* Health;
 	ProgressBar* Speedometer;
+
+	// ItemManager Test
+	CPlacement RandomLocation;
+	CPlacement BoostTest;
+	ItemManager* Items;
 
 	//für den RoadManager
 	RoadManager* RoadMaster;
