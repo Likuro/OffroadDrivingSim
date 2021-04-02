@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  Game.cpp
   C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
   PrefabRoad.cpp
@@ -125,3 +126,6 @@ VektoriaMath_Debug.lib(Ray.obj) : warning LNK4099: PDB "VektoriaMath.pdb" wurde 
 VektoriaMath_Debug.lib(SineWave.obj) : warning LNK4099: PDB "VektoriaMath.pdb" wurde nicht mit "VektoriaMath_Debug.lib(SineWave.obj)" oder an "C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\Debug\VektoriaMath.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
 VektoriaMath_Debug.lib(SineWaves.obj) : warning LNK4099: PDB "VektoriaMath.pdb" wurde nicht mit "VektoriaMath_Debug.lib(SineWaves.obj)" oder an "C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\Debug\VektoriaMath.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
   VektoriaApp.vcxproj -> C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\Debug\VektoriaApp.exe
+=======
+﻿  VektoriaApp.vcxproj -> C:\Users\monix\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\Debug\VektoriaApp.exe
+>>>>>>> Stashed changes
