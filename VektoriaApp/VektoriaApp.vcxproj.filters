@@ -33,6 +33,7 @@
     <ClInclude Include="ProgressBar.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
     <ClInclude Include="RoadManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -40,6 +41,18 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="PrefabRoad.h">
+=======
+    <ClInclude Include="Item.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthItem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="BoostItem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+>>>>>>> Stashed changes
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,6 +72,7 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="RoadManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -66,6 +80,18 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="PrefabRoad.cpp">
+=======
+    <ClCompile Include="Item.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthItem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="BoostItem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+>>>>>>> Stashed changes
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

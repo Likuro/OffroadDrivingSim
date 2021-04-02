@@ -49,7 +49,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -149,8 +149,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoostItem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="HealthItem.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Kinematics.h" />
     <ClInclude Include="PrefabRoad.h" />
     <ClInclude Include="ProgressBar.h" />
@@ -160,8 +164,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoostItem.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="HealthItem.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Kinematics.cpp" />
     <ClCompile Include="PrefabRoad.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
