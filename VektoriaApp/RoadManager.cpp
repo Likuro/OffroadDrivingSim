@@ -10,19 +10,19 @@ void RoadManager::init(CPlacement *tmp_scene)
 	//Prefabs laden
 	strcpy(prefabModelLoadPath, "models/road/startRoad.obj");
 	strcpy(prefabHitboxLoadPath, "models/road/hitbox/startRoadbox.obj");
-	PrefabRoads[0] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox);
+	PrefabRoads[0] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad0.obj");
 	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad0box.obj");
-	PrefabRoads[1] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox);
+	PrefabRoads[1] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad1.obj");
 	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad1box.obj");
-	PrefabRoads[2] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox);
+	PrefabRoads[2] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad2.obj");
 	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad2box.obj");
-	PrefabRoads[3] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox);
+	PrefabRoads[3] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad3.obj");
 	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad3box.obj");
-	PrefabRoads[4] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox);
+	PrefabRoads[4] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
 
 	for (int i = 0; i < 10; i++) {
 		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);

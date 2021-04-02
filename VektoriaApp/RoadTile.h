@@ -22,7 +22,8 @@ private:
 	PrefabRoad* myPrefabRoad;
 	CPlacement* myRoadPlacement;
 	CPlacement myHitboxPlacement;
-	CPlacement myItemSpawns[2];
+	CPlacement myItemSpawn;
+	CHVector myItemSpawnVector;
 	
 
 
