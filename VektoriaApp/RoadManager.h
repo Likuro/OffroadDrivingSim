@@ -20,6 +20,8 @@ private:
 
 	int activeSpawn;
 	int timesSpawned;
+	int lastTile;
+	int nextTile;
 	char prefabModelLoadPath[_MAX_PATH];
 	char prefabHitboxGroundLoadPath[_MAX_PATH];
 	char prefabHitboxFrontalLoadPath[_MAX_PATH];

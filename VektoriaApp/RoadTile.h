@@ -15,6 +15,7 @@ public:
 	void addToScene(PrefabRoad *tmp_myPrefabRoad);
 	void removefromScene();
 	void addItem(CPlacement *tmp_itemPlacement);
+	void removeItem();
 
 private:
 

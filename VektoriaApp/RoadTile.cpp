@@ -28,11 +28,19 @@ void RoadTile::addToScene(PrefabRoad* tmp_myPrefabRoad)
 void RoadTile::removefromScene()
 {
 	this->myPrefabRoad->subfromScene(myRoadPlacement, &myHitboxGroundPlacement, &myHitboxFrontalPlacement);
-	this->myItemSpawn.SubPlacement(myItem);
+	removeItem();
 }
 
 void RoadTile::addItem(CPlacement* tmp_itemPlacement)
 {
 	myItem = tmp_itemPlacement;
 	myItemSpawn.AddPlacement(myItem);
+}
+
+void RoadTile::removeItem()
+{
+	if (myItem != nullptr) {
+		this->myItemSpawn.SubPlacement(myItem);
+		myItem = nullptr;
+	}
 }

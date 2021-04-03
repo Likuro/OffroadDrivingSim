@@ -7,6 +7,8 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	activeSpawn = 0;
 	timesSpawned = 1;
 	myItemManager = tmp_myItemManager;
+	lastTile = 0;
+	nextTile = 0;
 
 	//Prefabs laden
 	strcpy(prefabModelLoadPath, "models/road/startRoad.obj");
@@ -32,7 +34,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/prefabRoad3box.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/prefabRoad3box.obj");
-	PrefabRoads[4] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	PrefabRoads[4] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f));
 
 	for (int i = 0; i < anzahlRoadTiles; i++) {
 		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);
@@ -58,7 +60,12 @@ void RoadManager::updateRoad()
 	//letztes Placement an den Anfang verschieben
 	placementRoad[activeSpawn].TranslateZ(50 + timesSpawned * 5);
 	//RoadTile mit der neuen Geometrie and das verschobene Placement anhängen
-	RoadSector[activeSpawn]->addToScene(PrefabRoads[std::rand() % anzahlPrefabRoads]);
+	nextTile = std::rand() % anzahlPrefabRoads;
+	while (nextTile == lastTile) {
+		nextTile = std::rand() % anzahlPrefabRoads;
+	}
+	lastTile = nextTile;
+	RoadSector[activeSpawn]->addToScene(PrefabRoads[nextTile]);
 	//Ein zufälliges Item an das RoadTile anhängen
 	RoadSector[activeSpawn]->addItem(myItemManager->getItem(random));
 

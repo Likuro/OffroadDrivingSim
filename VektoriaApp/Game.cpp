@@ -130,7 +130,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	{
 		RandomLocation.Translate((rand() % 10) - 5, (rand() % 10) - 5, (rand() % 10) - 5);
 	}
-	Items->update(fTime, fTimeDelta);
+	//Items->update(fTime, fTimeDelta);
 
 }
 
