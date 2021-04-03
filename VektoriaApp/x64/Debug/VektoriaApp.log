@@ -1,5 +1,14 @@
-﻿  RoadManager.cpp
+﻿  Game.cpp
   C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(45,33): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(58,43): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\Game.cpp(16,12): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\Game.cpp(131,80): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\Game.cpp(131,61): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\Game.cpp(131,42): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+  RoadManager.cpp
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(46,33): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(59,43): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+  VektoriaApp.cpp
+  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Code wird generiert...
   VektoriaApp.vcxproj -> C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\x64\Debug\VektoriaApp.exe

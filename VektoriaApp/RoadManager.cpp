@@ -6,6 +6,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	myPlacement = tmp_scene;
 	activeSpawn = 0;
 	timesSpawned = 1;
+	myItemManager = tmp_myItemManager;
 
 	//Prefabs laden
 	strcpy(prefabModelLoadPath, "models/road/startRoad.obj");
@@ -59,7 +60,7 @@ void RoadManager::updateRoad()
 	//RoadTile mit der neuen Geometrie and das verschobene Placement anhängen
 	RoadSector[activeSpawn]->addToScene(PrefabRoads[std::rand() % anzahlPrefabRoads]);
 	//Ein zufälliges Item an das RoadTile anhängen
-	//RoadSector[activeSpawn]->addItem(myItemManager->getItem(random));
+	RoadSector[activeSpawn]->addItem(myItemManager->getItem(random));
 
 	//durch die 10 Raodtiles iterieren, start beim ersten
 	if (activeSpawn == (anzahlRoadTiles-1)) {
