@@ -1,5 +1,5 @@
 ﻿  RoadManager.cpp
   C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(48,33): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(61,43): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-  VektoriaApp.vcxproj -> C:\Users\Likuro\Documents\Visual Studio 2019\Projects\OffroadDrivingSim\x64\Debug\VektoriaApp.exe
+C:\Users\Tobias\Documents\GitHub\Offroad-Sim\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(48,33): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\Users\Tobias\Documents\GitHub\Offroad-Sim\OffroadDrivingSim\VektoriaApp\RoadManager.cpp(61,43): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+  VektoriaApp.vcxproj -> C:\Users\Tobias\Documents\GitHub\Offroad-Sim\OffroadDrivingSim\x64\Debug\VektoriaApp.exe

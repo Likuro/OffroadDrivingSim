@@ -15,6 +15,14 @@ public:
 
 	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager);
 	void updateRoad();
+	CGeos getGeosGround()
+	{
+		return roadTilesHitboxGround;
+	}
+	CGeos getGeosFrontal()
+	{
+		return roadTilesHitboxFrontal;
+	}
 
 private:
 

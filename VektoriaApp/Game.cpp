@@ -39,6 +39,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	//m_zs.AddPlacement(&m_zpCamera);
 	m_zs.AddLightParallel(&m_zl);
 	m_zpSphere.AddPlacement(&m_zpCamera);
+	m_zpSphere.SetTranslationSensitivity(10.f);
 	m_zpCamera.AddCamera(&m_zc);
 	//m_zpSphere.AddGeo(&m_zgSphere);
 
@@ -59,12 +60,13 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	Speedometer = new ProgressBar(&m_MRed, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
 
 	// ItemManager
-	Items = new ItemManager(5);
-	RandomLocation.AddPlacement(Items->getItem(random));
-	m_zs.AddPlacement(&RandomLocation);
-	BoostTest.AddPlacement(Items->getItem(random));
-	m_zs.AddPlacement(&BoostTest);
-	BoostTest.TranslateX(4.f);
+	Items = new ItemManager(25, &m_zpSphere);
+
+	//RandomLocation.AddPlacement(Items->getItem(random));
+	//m_zs.AddPlacement(&RandomLocation);
+	//BoostTest.AddPlacement(Items->getItem(random));
+	//m_zs.AddPlacement(&BoostTest);
+	//BoostTest.TranslateX(4.f);
 
 	//RoadMaster erstellen
 	this->RoadMaster = new RoadManager;
@@ -75,7 +77,47 @@ void CGame::Tick(float fTime, float fTimeDelta)
 {
 	m_zr.Tick(fTimeDelta);
 	timetick++;
-	m_Keyboard.PlaceWASD(m_zpCamera, fTimeDelta);
+	// Tastatur Steuerung
+	// Links/Rechts Verschiebung
+	if (m_Keyboard.KeyDown(DIK_A))
+	{
+		if (m_Keyboard.KeyDown(DIK_D))
+			fAD = 0.f;
+		else
+			fAD = -1.f;
+	}
+	else if (m_Keyboard.KeyDown(DIK_D))
+		fAD = 1.f;
+	else
+		fAD = 0.f;
+	// Vor/Zurück Verschiebung
+	if (m_Keyboard.KeyDown(DIK_W))
+	{
+		if (m_Keyboard.KeyDown(DIK_S))
+			fSW = 0.f;
+		else
+			fSW = -1.f;
+	}
+	else if (m_Keyboard.KeyDown(DIK_S))
+		fSW = 1.f;
+	else
+		fSW = 0.f;
+	// Hoch/Runter Verschiebung
+	if (m_Keyboard.KeyDown(DIK_LSHIFT))
+	{
+		if (m_Keyboard.KeyDown(DIK_SPACE))
+			fFR = 0.f;
+		else
+			fFR = -1.f;
+	}
+	else if (m_Keyboard.KeyDown(DIK_SPACE))
+		fFR = 1.f;
+	else
+		fFR = 0.f;
+	// Fix Geos in RoadManager gibt schönen lesezugriffverletzung
+	
+	//m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Toggle);
+
 
 	// Controller Steuerung
 	if (abs(m_Controller.GetRelativeX()) > 0.1)		// Deadzone
@@ -125,12 +167,8 @@ void CGame::Tick(float fTime, float fTimeDelta)
 		timetick = 0;
 	}
 
-	// ItemManager Test
-	if (m_Keyboard.KeyDown(DIK_B))
-	{
-		RandomLocation.Translate((rand() % 10) - 5, (rand() % 10) - 5, (rand() % 10) - 5);
-	}
-	//Items->update(fTime, fTimeDelta);
+	// ItemManager
+	Items->update(fTime, fTimeDelta);
 
 }
 

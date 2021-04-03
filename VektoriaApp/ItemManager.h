@@ -10,13 +10,16 @@ enum itemType { random, boost, health };
 class ItemManager
 {
 public:
-	ItemManager(int count);
+	ItemManager(int count, CPlacement* player);
 	CPlacement* getItem(itemType type);
 	void update(float fTime, float fTimeDelta);
 
 private:
-	int itemcount;
+	int itemCount;
+	CPlacement* Player;
 	BoostItem* BoostArray;
+	char* boostModelPath = "models\\items\\BoostItem.obj";
 	HealthItem* HealthArray;
+	char* healthModelPath = "models\\items\\HealthItem.obj";
 };
 
