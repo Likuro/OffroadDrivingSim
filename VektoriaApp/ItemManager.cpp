@@ -36,7 +36,7 @@ CPlacement* ItemManager::getItem(itemType type)
 		{
 			if (!BoostArray[i].Transform.IsOn())
 			{
-				BoostArray[i].Transform.SwitchOn();
+				this->BoostArray[i].Transform.SwitchOn();
 				return &BoostArray->Transform;
 			}
 		}
@@ -47,7 +47,7 @@ CPlacement* ItemManager::getItem(itemType type)
 		{
 			if (!HealthArray[i].Transform.IsOn())
 			{
-				HealthArray[i].Transform.SwitchOn();
+				this->HealthArray[i].Transform.SwitchOn();
 				return &HealthArray->Transform;
 			}
 		}

@@ -14,6 +14,7 @@ public:
 
 	void addToScene(PrefabRoad *tmp_myPrefabRoad);
 	void removefromScene();
+	void addItem(CPlacement *tmp_itemPlacement);
 
 private:
 
@@ -21,8 +22,10 @@ private:
 	CGeo* RoadModel;
 	PrefabRoad* myPrefabRoad;
 	CPlacement* myRoadPlacement;
-	CPlacement myHitboxPlacement;
+	CPlacement myHitboxGroundPlacement;
+	CPlacement myHitboxFrontalPlacement;
 	CPlacement myItemSpawn;
+	CPlacement *myItem;
 	CHVector myItemSpawnVector;
 	
 

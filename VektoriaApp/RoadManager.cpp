@@ -1,6 +1,6 @@
 #include "RoadManager.h"
 
-void RoadManager::init(CPlacement *tmp_scene)
+void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 {
 
 	myPlacement = tmp_scene;
@@ -9,31 +9,35 @@ void RoadManager::init(CPlacement *tmp_scene)
 
 	//Prefabs laden
 	strcpy(prefabModelLoadPath, "models/road/startRoad.obj");
-	strcpy(prefabHitboxLoadPath, "models/road/hitbox/startRoadbox.obj");
-	PrefabRoads[0] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/startRoadbox.obj");
+	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/startRoadbox.obj");
+	PrefabRoads[0] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad0.obj");
-	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad0box.obj");
-	PrefabRoads[1] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/prefabRoad0box.obj");
+	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/prefabRoad0box.obj");
+	PrefabRoads[1] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad1.obj");
-	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad1box.obj");
-	PrefabRoads[2] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/prefabRoad1box.obj");
+	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/prefabRoad1box.obj");
+	PrefabRoads[2] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad2.obj");
-	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad2box.obj");
-	PrefabRoads[3] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/prefabRoad2box.obj");
+	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/prefabRoad2box.obj");
+	PrefabRoads[3] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	
 	strcpy(prefabModelLoadPath, "models/road/prefabRoad3.obj");
-	strcpy(prefabHitboxLoadPath, "models/road/hitbox/prefabRoad3box.obj");
-	PrefabRoads[4] = new PrefabRoad(prefabModelLoadPath, prefabHitboxLoadPath, &roadTilesHitbox, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
+	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/prefabRoad3box.obj");
+	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/prefabRoad3box.obj");
+	PrefabRoads[4] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f), CHVector(0.0f, 0.0f, 0.0f));
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < anzahlRoadTiles; i++) {
 		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);
 	}
 
-	//die ersten 10 Roadtiels mit der startRoad initialisieren
-	for (int i = 0; i < 10; i++) {
-		modelRoad[i] = prefabRoad[0];
-	}
-
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < anzahlRoadTiles; i++) {
 
 		//Placements in die Szene hängen
 		myPlacement->AddPlacement(&placementRoad[i]);
@@ -53,10 +57,12 @@ void RoadManager::updateRoad()
 	//letztes Placement an den Anfang verschieben
 	placementRoad[activeSpawn].TranslateZ(50 + timesSpawned * 5);
 	//RoadTile mit der neuen Geometrie and das verschobene Placement anhängen
-	RoadSector[activeSpawn]->addToScene(PrefabRoads[std::rand() % 5]);
+	RoadSector[activeSpawn]->addToScene(PrefabRoads[std::rand() % anzahlPrefabRoads]);
+	//Ein zufälliges Item an das RoadTile anhängen
+	//RoadSector[activeSpawn]->addItem(myItemManager->getItem(random));
 
 	//durch die 10 Raodtiles iterieren, start beim ersten
-	if (activeSpawn >= 9) {
+	if (activeSpawn == (anzahlRoadTiles-1)) {
 		activeSpawn = 0;
 	}
 	else {

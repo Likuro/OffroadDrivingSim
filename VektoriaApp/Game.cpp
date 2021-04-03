@@ -58,11 +58,6 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Speedometer
 	Speedometer = new ProgressBar(&m_MRed, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
 
-
-	//RoadMaster erstellen
-	this->RoadMaster = new RoadManager;
-	RoadMaster->init(&drivingScenePlacement);
-
 	// ItemManager
 	Items = new ItemManager(5);
 	RandomLocation.AddPlacement(Items->getItem(random));
@@ -70,6 +65,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	BoostTest.AddPlacement(Items->getItem(random));
 	m_zs.AddPlacement(&BoostTest);
 	BoostTest.TranslateX(4.f);
+
+	//RoadMaster erstellen
+	this->RoadMaster = new RoadManager;
+	RoadMaster->init(&drivingScenePlacement, Items);
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)

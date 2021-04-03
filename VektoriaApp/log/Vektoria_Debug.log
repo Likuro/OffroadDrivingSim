@@ -3,6 +3,9 @@ Vektoria-Logfile
 
 ****************
 Ok:    Distribudted Graphics API established
+Error: Could not open OBJ File
+Error: Could not open OBJ File
+Error: Could not open OBJ File
 Ok:    Collected materials in virtual hierarchy
 Ok:    Collected materials in real hierarchy
 Ok:    Cyberglasses API established
@@ -13,3 +16,12 @@ Ok:    Scenes created
 Ok:    Hierarchy checked.
 Ok:    Materials created
 Ok:    Viewports created
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
+Error: AddGeo: pgeo is nullptr
