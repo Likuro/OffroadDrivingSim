@@ -1,24 +1,35 @@
 #include "ItemManager.h"
 
-ItemManager::ItemManager(int count)
+ItemManager::ItemManager(int count, CPlacement* player)
 {
-	// Pooling der Items für bessere Performance und einfache Steuerung
 	srand(time(NULL));
-	itemcount = count;
-	BoostArray = new BoostItem[itemcount];
-	HealthArray = new HealthItem[itemcount];
+	Player = player;
+	itemCount = count;
 
-	for (size_t i = 0; i < itemcount; i++)
+	// Geometrien für Items werden einmal geladen
+	CFileWavefront Obj;
+	CGeo* Geometrie;
+	
+	// Items werden gepoolt
+	BoostArray = new BoostItem[itemCount];
+	Geometrie = Obj.LoadGeo(boostModelPath);
+	for (size_t i = 0; i < itemCount; i++)
 	{
+		BoostArray[i].loadGeo(Geometrie);
 		BoostArray[i].Transform.SwitchOff();
+	}
+
+	HealthArray = new HealthItem[itemCount];
+	Geometrie = Obj.LoadGeo(healthModelPath);
+	for (size_t i = 0; i < itemCount; i++)
+	{
+		HealthArray[i].loadGeo(Geometrie);
 		HealthArray[i].Transform.SwitchOff();
 	}
 }
 
 CPlacement* ItemManager::getItem(itemType type)
 {
-	// schaut nach dem ersten Item das verfügbar ist, aktiviert dieses und gibt dies zurück
-
 	if (type == random)
 	{
 		if ((rand() % 2) == 0)
@@ -32,61 +43,97 @@ CPlacement* ItemManager::getItem(itemType type)
 	}
 	if (type == boost)
 	{
-		for (size_t i = 0; i < itemcount; i++)
+		for (size_t i = 0; i < itemCount; i++)
 		{
 			if (!BoostArray[i].Transform.IsOn())
 			{
-				this->BoostArray[i].Transform.SwitchOn();
-				return &BoostArray->Transform;
+				BoostArray[i].Transform.SwitchOn();
+				return &BoostArray[i].Transform;
 			}
 		}
 	}
 	if (type == health)
 	{
-		for (size_t i = 0; i < itemcount; i++)
+		for (size_t i = 0; i < itemCount; i++)
 		{
 			if (!HealthArray[i].Transform.IsOn())
 			{
-				this->HealthArray[i].Transform.SwitchOn();
-				return &HealthArray->Transform;
+				HealthArray[i].Transform.SwitchOn();
+				return &HealthArray[i].Transform;
 			}
 		}
-
 	}
-	else
-	{
-		return nullptr;
-	}
+	return nullptr;
 }
 
 void ItemManager::update(float fTime, float fTimeDelta)
 {
-	// rufe update für alle items auf und checke Kollision mit dem Auto
+	// update Geos und hänge alle aktiven Items an
+	CGeos Geos;
+	//for (size_t i = 0; i < itemCount; i++)
+	//{
+	//	if (BoostArray[i].Transform.IsOn())
+	//	{
+	//		Geos.Add(&BoostArray[i].Geo);
+	//	}
+	//}
+	//for (size_t i = 0; i < itemCount; i++)
+	//{
+	//	if (HealthArray[i].Transform.IsOn())
+	//	{
+	//		Geos.Add(&HealthArray[i].Geo);
+	//	}
+	//}
 
-	for (size_t i = 0; i < itemcount; i++)
+	// rufe update für alle items auf und checkt Kollision mit dem Auto
+	Item* it;
+	CRay ray;
+	ray.Init(Player->GetPos(), CHVector(eAxisX));
+	CHitPoint hitpoint;
+	bool hasHit = false; //  Geos.Intersects(ray, hitpoint) wirft einen Stack Overflow noice
+
+	for (size_t i = 0; i < itemCount; i++)
 	{
-		// Collision Check mit Auto Placement
-		//if (BoostArray[i].Transform.IsColliding())
-		//{
-
-		//}
-
-		BoostArray[i].update(fTime, fTimeDelta);
-		BoostArray[i].lifeTime += fTimeDelta;
-
-		if (BoostArray[i].lifeTime > BoostArray[i].maxLifeTime)
+		it = &BoostArray[i];
+		if (it->Transform.IsOn())
 		{
-			BoostArray[i].lifeTime = 0;
-			BoostArray[i].Transform.SwitchOff();
+			it->update(fTime, fTimeDelta);
+
+			//if (it->Geo.Intersects(ray, hitpoint))
+			//{
+			//	it->trigger();	// muss noch implementiert werden um etwas zu machen
+			//	it->deleteItem();
+			//}
+			if (hasHit && hitpoint.m_pzg->GetID() == it->Geo.GetID())
+			{
+				it->trigger();
+				it->resetItem();
+			}
+			else if (it->lifeTime > it->maxLifeTime)
+			{
+				it->resetItem();
+			}
 		}
 
-		HealthArray[i].update(fTime, fTimeDelta);
-		HealthArray[i].lifeTime += fTimeDelta;
-
-		if (HealthArray[i].lifeTime > HealthArray[i].maxLifeTime)
+		it = &HealthArray[i];
+		if (it->Transform.IsOn())
 		{
-			HealthArray[i].lifeTime = 0;
-			HealthArray[i].Transform.SwitchOff();
+			it->update(fTime, fTimeDelta);
+
+			//if (it->Geo.Intersects(ray, hitpoint))
+			//{
+			//	it->trigger();	// muss noch implementiert werden um etwas zu machen
+			//	it->deleteItem();
+			//}
+			if (hasHit && hitpoint.m_pzg->GetID() == it->Geo.GetID())
+			{
+				it->trigger();
+				it->resetItem();
+			}
+			else if (it->lifeTime > it->maxLifeTime)
+			{
+				it->resetItem();
+			}
 		}
 	}
 }

@@ -74,6 +74,17 @@ private:
 	RoadManager* RoadMaster;
 	CPlacement drivingScenePlacement;
 	float timetick;
+	
+	// rudimentäre Steuerung
+	float fAD = 0;
+	float fSW = 0;
+	float fFR = 0;
+	float fLR = 0;
+	float fUD = 0;
+	float fHeightEye = 1;
+	float fHeightRay = 1;
+	CHitPoint hitpointCollision;
+	CHitPoint hitpointGround;
 };
 
 

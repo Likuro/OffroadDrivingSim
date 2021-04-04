@@ -9,10 +9,6 @@ class BoostItem :
 {
 public:
     BoostItem();
-
     void trigger();
     void update(float fTime, float fTimeDelta);
-
-private:
-    char* modelPath = "models\\items\\BoostItem.obj";
 };
