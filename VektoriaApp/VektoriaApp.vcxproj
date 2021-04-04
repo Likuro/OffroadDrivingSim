@@ -161,6 +161,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="RoadManager.h" />
     <ClInclude Include="RoadTile.h" />
+    <ClInclude Include="SpecialPrefabRoad.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +176,7 @@
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="RoadManager.cpp" />
     <ClCompile Include="RoadTile.cpp" />
+    <ClCompile Include="SpecialPrefabRoad.cpp" />
     <ClCompile Include="VektoriaApp.cpp" />
   </ItemGroup>
   <ItemGroup>

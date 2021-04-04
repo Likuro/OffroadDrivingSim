@@ -13,6 +13,7 @@
     <ClCompile Include="RoadManager.cpp" />
     <ClCompile Include="RoadTile.cpp" />
     <ClCompile Include="VektoriaApp.cpp" />
+    <ClCompile Include="SpecialPrefabRoad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoostItem.h">
@@ -52,6 +53,9 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecialPrefabRoad.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>
