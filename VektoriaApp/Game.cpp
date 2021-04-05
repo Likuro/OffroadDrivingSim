@@ -114,9 +114,9 @@ void CGame::Tick(float fTime, float fTimeDelta)
 		fFR = 1.f;
 	else
 		fFR = 0.f;
-	// Fix Geos in RoadManager gibt schönen lesezugriffverletzung
-	
-	//m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Toggle);
+
+
+	m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Toggle);
 
 
 	// Controller Steuerung

@@ -53,7 +53,6 @@ private:
 	CCamera m_zc;
 	CLightParallel m_zl;
 
-
 	CMaterial m_MRed;
 	CMaterial m_MGreen;
 
@@ -74,7 +73,7 @@ private:
 	RoadManager* RoadMaster;
 	CPlacement drivingScenePlacement;
 	float timetick;
-	
+
 	// rudimentäre Steuerung
 	float fAD = 0;
 	float fSW = 0;

@@ -16,6 +16,7 @@
 
 //Settings für den Spawn
 #define specialSpawnChance 5
+#define itemSpawnChance 5
 
 using namespace Vektoria;
 
@@ -25,14 +26,11 @@ public:
 
 	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager);
 	void updateRoad();
-	CGeos getGeosGround()
-	{
-		return roadTilesHitboxGround;
-	}
-	CGeos getGeosFrontal()
-	{
-		return roadTilesHitboxFrontal;
-	}
+
+	//damit die Hitboxen witergegeben werden können
+	CGeos& getGeosGround();
+	CGeos& getGeosFrontal();
+
 
 private:
 

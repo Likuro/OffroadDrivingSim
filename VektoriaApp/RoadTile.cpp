@@ -34,7 +34,7 @@ void RoadTile::removefromScene()
 void RoadTile::addItem(CPlacement* tmp_itemPlacement)
 {
 	myItem = tmp_itemPlacement;
-	//myItemSpawn.AddPlacement(myItem);
+	myItemSpawn.AddPlacement(myItem);
 }
 
 void RoadTile::removeItem()
