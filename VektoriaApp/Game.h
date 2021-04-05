@@ -25,6 +25,7 @@
 #include "Kinematics.h"
 #include "ItemManager.h"
 #include "RoadManager.h"
+#include "ThirdPersonCamera.h"
 
 using namespace Vektoria;
 
@@ -63,6 +64,7 @@ private:
 
 	HealthBar* Health;
 	ProgressBar* Speedometer;
+	ThirdPersonCamera TPCamera;
 
 	// ItemManager Test
 	CPlacement RandomLocation;

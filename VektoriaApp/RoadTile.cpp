@@ -9,8 +9,8 @@ RoadTile::RoadTile(PrefabRoad* tmp_myPrefabRoad, CPlacement* tmp_roadPlacement)
 	this->myRoadPlacement->AddPlacement(&myItemSpawn);
 	this->myRoadPlacement->AddPlacement(&myHitboxGroundPlacement);
 	this->myRoadPlacement->AddPlacement(&myHitboxFrontalPlacement);
-	this->myHitboxGroundPlacement.SetDrawingOff();
-	this->myHitboxFrontalPlacement.SetDrawingOff();
+	//this->myHitboxGroundPlacement.SetDrawingOff();
+	//this->myHitboxFrontalPlacement.SetDrawingOff();
 }
 
 RoadTile::~RoadTile(void)

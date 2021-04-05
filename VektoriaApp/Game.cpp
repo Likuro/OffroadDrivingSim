@@ -23,33 +23,32 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zv.InitFull(&m_zc);
 	m_zl.Init(CHVector(1.0f, 1.0f, 1.0f), CColor(1.0f, 1.0f, 1.0f));
 
-	m_MRed.MakeTextureDiffuse("textures\\red_image.jpg");
-	m_MGreen.MakeTextureDiffuse("textures\\green_image.jpg");
-
-	m_zgSphere.Init(0.2F, &m_MRed, 50, 50);
-
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
 	m_zr.AddScene(&m_zs);
-
-	//Placement für den RoadManager
-	m_zs.AddPlacement(&drivingScenePlacement);
-
-	m_zs.AddPlacement(&m_zpSphere);
-	//m_zs.AddPlacement(&m_zpCamera);
 	m_zs.AddLightParallel(&m_zl);
-	m_zpSphere.AddPlacement(&m_zpCamera);
-	m_zpSphere.SetTranslationSensitivity(10.f);
-	m_zpCamera.AddCamera(&m_zc);
-	//m_zpSphere.AddGeo(&m_zgSphere);
 
-	//m_zpCamera.TranslateZ(16.0f);
-	m_zpCamera.TranslateYDelta(3.0f);
-	m_zpCamera.RotateYDelta(PI);
-	//m_zpCamera.RotateXDelta(0.3f);
-	//m_zpSphere.TranslateYDelta(1.2f);
-	//m_zpSphere.TranslateZDelta(20.0f);
-	//m_zpCamera.SetTranslationSensitivity(15.f);
+	// 2 Dummy Materials
+	m_MRed.MakeTextureDiffuse("textures\\red_image.jpg");
+	m_MGreen.MakeTextureDiffuse("textures\\green_image.jpg");
+
+	// Dummy Kugel
+	m_zs.AddPlacement(&m_zpSphere);
+	m_zgSphere.Init(1.f, &m_MRed, 50, 50);
+	m_zpSphere.SetTranslationSensitivity(15.f);
+	m_zpSphere.SetRotationSensitivity(2.f);
+	m_zpSphere.AddGeo(&m_zgSphere);
+
+	// Camera
+	TPCamera.Init(80.f, 30.f, eAlignZAxisPositive, &m_zpSphere, &m_zc);
+	m_zs.AddPlacement(&TPCamera);
+	//m_zs.AddPlacement(&m_zpCamera);
+	//m_zpCamera.AddCamera(&m_zc);
+	
+	//m_zpCamera.SetPointing(&m_zpSphere);
+	//m_zpCamera.RotateYDelta(PI);
+	//m_zpCamera.RotateXDelta(PI);
+	//m_zpCamera.PlaceSphericalGlobal(200.f, PI, -QUARTERPI, m_zpSphere);
 
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);
@@ -62,13 +61,9 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// ItemManager
 	Items = new ItemManager(25, &m_zpSphere);
 
-	//RandomLocation.AddPlacement(Items->getItem(random));
-	//m_zs.AddPlacement(&RandomLocation);
-	//BoostTest.AddPlacement(Items->getItem(random));
-	//m_zs.AddPlacement(&BoostTest);
-	//BoostTest.TranslateX(4.f);
-
 	//RoadMaster erstellen
+	//Placement für den RoadManager
+	m_zs.AddPlacement(&drivingScenePlacement);
 	this->RoadMaster = new RoadManager;
 	RoadMaster->init(&drivingScenePlacement, Items);
 }
@@ -79,45 +74,75 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	timetick++;
 	// Tastatur Steuerung
 	// Links/Rechts Verschiebung
-	if (m_Keyboard.KeyDown(DIK_A))
-	{
-		if (m_Keyboard.KeyDown(DIK_D))
-			fAD = 0.f;
-		else
-			fAD = -1.f;
-	}
-	else if (m_Keyboard.KeyDown(DIK_D))
-		fAD = 1.f;
-	else
-		fAD = 0.f;
+	//if (m_Keyboard.KeyPressed(DIK_A))
+	//{
+	//	if (m_Keyboard.KeyPressed(DIK_D))
+	//		fAD = 0.f;
+	//	else
+	//		fAD = -1.f;
+	//}
+	//else if (m_Keyboard.KeyPressed(DIK_D))
+	//	fAD = 1.f;
+	//else
+	//	fAD = 0.f;
 	// Vor/Zurück Verschiebung
-	if (m_Keyboard.KeyDown(DIK_W))
+	if (m_Keyboard.KeyPressed(DIK_W))
 	{
-		if (m_Keyboard.KeyDown(DIK_S))
+		if (m_Keyboard.KeyPressed(DIK_S))
 			fSW = 0.f;
 		else
 			fSW = -1.f;
 	}
-	else if (m_Keyboard.KeyDown(DIK_S))
+	else if (m_Keyboard.KeyPressed(DIK_S))
 		fSW = 1.f;
 	else
 		fSW = 0.f;
 	// Hoch/Runter Verschiebung
-	if (m_Keyboard.KeyDown(DIK_LSHIFT))
+	if (m_Keyboard.KeyPressed(DIK_LSHIFT))
 	{
-		if (m_Keyboard.KeyDown(DIK_SPACE))
+		if (m_Keyboard.KeyPressed(DIK_SPACE))
 			fFR = 0.f;
 		else
 			fFR = -1.f;
 	}
-	else if (m_Keyboard.KeyDown(DIK_SPACE))
+	else if (m_Keyboard.KeyPressed(DIK_SPACE))
 		fFR = 1.f;
 	else
 		fFR = 0.f;
+	// Links/Rechts Drehung
+	if (m_Keyboard.KeyPressed(DIK_A))
+	{
+		if (m_Keyboard.KeyPressed(DIK_D))
+			fLR = 0.f;
+		else
+			fLR = -1.f;
+	}
+	else if (m_Keyboard.KeyPressed(DIK_D))
+		fLR = 1.f;
+	else
+		fLR = 0.f;
+	// Hoch/Runter Drehung 
+	//!Vorsicht funktioniert bei Third - Person - Camera nicht so gut... (überhaupt nicht!)!//
+	//if (m_Keyboard.KeyPressed(DIK_UP))
+	//{
+	//	if (m_Keyboard.KeyPressed(DIK_DOWN))
+	//		fUD = 0.f;
+	//	else
+	//		fUD = -1.f;
+	//}
+	//else if (m_Keyboard.KeyPressed(DIK_DOWN))
+	//	fUD = 1.f;
+	//else
+	//	fUD = 0.f;
 
+	m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
+	TPCamera.update();
 
-	m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Toggle);
-
+	//m_zpCamera.RotateY(PI);
+	//m_zpCamera.RotateXDelta(atanf(20.f/100.f));
+	//m_zpCamera.TranslateZDelta(m_zpSphere.GetPos().GetZ() - 100.f);
+	//m_zpCamera.TranslateYDelta(m_zpSphere.GetPos().GetY() + 20.f);
+	//m_zpCamera.TranslateXDelta(m_zpSphere.GetPos().GetX());
 
 	// Controller Steuerung
 	if (abs(m_Controller.GetRelativeX()) > 0.1)		// Deadzone
