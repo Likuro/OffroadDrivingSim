@@ -54,8 +54,9 @@ private:
 	CCamera m_zc;
 	CLightParallel m_zl;
 
-	CMaterial m_MRed;
-	CMaterial m_MGreen;
+	// Pointlight
+	CPlacement m_RadialLightPlace;
+	CLightRadial m_RadialLight;
 
 	CDeviceKeyboard m_Keyboard;
 
@@ -66,9 +67,7 @@ private:
 	ProgressBar* Speedometer;
 	ThirdPersonCamera TPCamera;
 
-	// ItemManager Test
-	CPlacement RandomLocation;
-	CPlacement BoostTest;
+	// ItemManager
 	ItemManager* Items;
 
 	//für den RoadManager
@@ -86,6 +85,25 @@ private:
 	float fHeightRay = 1;
 	CHitPoint hitpointCollision;
 	CHitPoint hitpointGround;
+
+	// Prototyp Textures
+	CMaterial m_Dark;
+	CMaterial m_Green;
+	CMaterial m_Orange;
+	CMaterial m_Purple;
+	CMaterial m_Red;
+
+	// Prototyp Placements + Geos
+	CPlacement m_pDark;
+	CPlacement m_pGreen;
+	CPlacement m_pOrange;
+	CPlacement m_pPurple;
+	CPlacement m_pRed;
+	CGeoQuad m_gDark;
+	CGeoQuad m_gGreen;
+	CGeoQuad m_gOrange;
+	CGeoQuad m_gPurple;
+	CGeoQuad m_gRed;
 };
 
 

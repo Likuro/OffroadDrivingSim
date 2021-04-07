@@ -19,23 +19,28 @@ void ThirdPersonCamera::update()
 {
 	CHVector followPos = m_FollowObject->GetPos();
 	float angle = asinf(m_height / m_distance);
+	m_CameraSwivel.RotateX(-angle);
+	float yaw = m_FollowObject->GetMat().GetYaw();
+	CHMat mat;
+	mat.RotateY(yaw);
+	CHVector toCamera(0.f, m_height, (m_height / tan(angle)));
+	toCamera = mat * toCamera;
+
 	switch (m_alignement)
 	{
 	case eAlignObjDir:
-		// not fully implemented
-		this->GetMatGlobal().CopyRotationY(m_FollowObject->GetMatGlobal().GetYaw());
+		this->Translate(followPos + toCamera);
+		m_CameraSwivel.RotateYDelta(yaw);
 		break;
 	case eAlignXAxisPositive:
-		// not fully implemented
 		this->Translate(followPos.x - (m_height / tan(angle)), followPos.y + m_height, followPos.z);
+		m_CameraSwivel.RotateYDelta(HALFPI + PI);
 		break;
 	case eAlignZAxisPositive:
-		this->RotateY(HALFPI);
-		this->TranslateDelta(followPos.x, followPos.y + m_height, followPos.z - (m_height / tan(angle)));
-		m_CameraSwivel.RotateY(HALFPI);
+		this->Translate(followPos.x, followPos.y + m_height, followPos.z - (m_height / tan(angle)));
+		m_CameraSwivel.RotateYDelta(PI);
 		break;
 	default:
 		break;
 	}
-	m_CameraSwivel.RotateZDelta(angle);
 }

@@ -69,7 +69,7 @@ CPlacement* ItemManager::getItem(itemType type)
 void ItemManager::update(float fTime, float fTimeDelta)
 {
 	// update Geos und hänge alle aktiven Items an
-	CGeos Geos;
+	//CGeos Geos;
 	//for (size_t i = 0; i < itemCount; i++)
 	//{
 	//	if (BoostArray[i].Transform.IsOn())
@@ -84,13 +84,14 @@ void ItemManager::update(float fTime, float fTimeDelta)
 	//		Geos.Add(&HealthArray[i].Geo);
 	//	}
 	//}
-
+	CHVector vector;
+	vector = CHVector(0.f, 0.f, 0.f);
 	// rufe update für alle items auf und checkt Kollision mit dem Auto
 	Item* it;
 	CRay ray;
-	ray.Init(Player->GetPos(), CHVector(eAxisX));
+	ray.Init(Player->GetPos(), Player->GetDirection());
 	CHitPoint hitpoint;
-	bool hasHit = false; //  Geos.Intersects(ray, hitpoint) wirft einen Stack Overflow noice
+	bool hasHit = false; //Geos.Intersects(ray, hitpoint); //  Geos.Intersects(ray, hitpoint) wirft einen Stack Overflow noice
 
 	for (size_t i = 0; i < itemCount; i++)
 	{
@@ -99,11 +100,11 @@ void ItemManager::update(float fTime, float fTimeDelta)
 		{
 			it->update(fTime, fTimeDelta);
 
-			//if (it->Geo.Intersects(ray, hitpoint))
-			//{
-			//	it->trigger();	// muss noch implementiert werden um etwas zu machen
-			//	it->deleteItem();
-			//}
+			if (hasHit)
+			{
+				//it->trigger();	// muss noch implementiert werden um etwas zu machen
+				//it->resetItem();
+			}
 			if (hasHit && hitpoint.m_pzg->GetID() == it->Geo.GetID())
 			{
 				it->trigger();

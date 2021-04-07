@@ -26,21 +26,62 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
 	m_zr.AddScene(&m_zs);
-	m_zs.AddLightParallel(&m_zl);
+	//m_zs.AddLightParallel(&m_zl);
 
-	// 2 Dummy Materials
-	m_MRed.MakeTextureDiffuse("textures\\red_image.jpg");
-	m_MGreen.MakeTextureDiffuse("textures\\green_image.jpg");
+	// Neues cooles Licht
+	m_zs.AddPlacement(&m_RadialLightPlace);
+	m_RadialLight.Init(CColor(1.f, 1.f, 1.f), 0.1f);
+	m_RadialLightPlace.AddLightRadial(&m_RadialLight);
+	m_RadialLightPlace.TranslateY(100.f);
+
+	// Prototype Textures für Camera Debugging
+	m_Dark.MakeTextureDiffuse("textures\\PrototypeTextures\\Dark\\texture_06.png");
+	m_Green.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
+	m_Orange.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
+	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
+	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
+	// Dark für den Boden
+	m_zs.AddPlacement(&m_pDark);
+	m_gDark.SetAxis(eAxisY);
+	m_gDark.Init(100.f, &m_Dark);
+	m_pDark.AddGeo(&m_gDark);
+	m_pDark.TranslateY(-100.f);
+	// Green für Wand in positive Z-Richtung
+	m_zs.AddPlacement(&m_pGreen);
+	m_gGreen.SetAxis(eAxisZ);
+	m_gGreen.Init(100.f, &m_Green);
+	m_pGreen.AddGeo(&m_gGreen);
+	m_pGreen.RotateY(PI);
+	m_pGreen.TranslateZDelta(100.f);
+	// Orange für Wand in negativer Z-Richtung
+	m_zs.AddPlacement(&m_pOrange);
+	m_gOrange.SetAxis(eAxisZ);
+	m_gOrange.Init(100.f, &m_Orange);
+	m_pOrange.AddGeo(&m_gOrange);
+	m_pOrange.TranslateZDelta(-100.f);
+	// Purple für Wand in positiver X-Richtung
+	m_zs.AddPlacement(&m_pPurple);
+	m_gPurple.SetAxis(eAxisX);
+	m_gPurple.Init(100.f, &m_Purple);
+	m_pPurple.AddGeo(&m_gPurple);
+	m_pPurple.RotateY(PI);
+	m_pPurple.TranslateXDelta(100.f);
+	// Red für Wand in negativer X-Richtung
+	m_zs.AddPlacement(&m_pRed);
+	m_gRed.SetAxis(eAxisX);
+	m_gRed.Init(100.f, &m_Red);
+	m_pRed.AddGeo(&m_gRed);
+	m_pRed.TranslateXDelta(-100.f);
 
 	// Dummy Kugel
 	m_zs.AddPlacement(&m_zpSphere);
-	m_zgSphere.Init(1.f, &m_MRed, 50, 50);
+	m_zgSphere.Init(1.f, &m_Red, 50, 50);
 	m_zpSphere.SetTranslationSensitivity(15.f);
 	m_zpSphere.SetRotationSensitivity(2.f);
 	m_zpSphere.AddGeo(&m_zgSphere);
 
 	// Camera
-	TPCamera.Init(80.f, 30.f, eAlignZAxisPositive, &m_zpSphere, &m_zc);
+	TPCamera.Init(50.f, 10.f, eAlignObjDir, &m_zpSphere, &m_zc);
 	m_zs.AddPlacement(&TPCamera);
 	//m_zs.AddPlacement(&m_zpCamera);
 	//m_zpCamera.AddCamera(&m_zc);
@@ -54,9 +95,9 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zf.AddDeviceGameController(&m_Controller);
 
 	// Healthbar
-	Health = new HealthBar(&m_MRed, &m_zv, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
+	Health = new HealthBar(&m_Orange, &m_zv, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
 	// Speedometer
-	Speedometer = new ProgressBar(&m_MRed, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
+	Speedometer = new ProgressBar(&m_Green, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
 
 	// ItemManager
 	Items = new ItemManager(25, &m_zpSphere);
