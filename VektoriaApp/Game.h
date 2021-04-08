@@ -104,6 +104,9 @@ private:
 	CGeoQuad m_gOrange;
 	CGeoQuad m_gPurple;
 	CGeoQuad m_gRed;
+
+	// Variable für Funktionen die nach dem ersten Tick der Engine aufgerufen werden sollen (z.B.Hüllkörper)
+	bool m_callOnceAfterTick = true;
 };
 
 

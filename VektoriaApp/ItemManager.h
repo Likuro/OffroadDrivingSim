@@ -11,15 +11,30 @@ class ItemManager
 {
 public:
 	ItemManager(int count, CPlacement* player);
+
 	CPlacement* getItem(itemType type);
 	void update(float fTime, float fTimeDelta);
+	// muss gecallt werden, damit Kollisionen mit Strahlenbüschel gecheckt wird
+	void InitRays(CAABB* boundingBox);
 
 private:
-	int itemCount;
-	CPlacement* Player;
-	BoostItem* BoostArray;
-	char* boostModelPath = "models\\items\\BoostItem.obj";
-	HealthItem* HealthArray;
-	char* healthModelPath = "models\\items\\HealthItem.obj";
+	// Player für Kollisionsabfragen
+	CPlacement* m_Player;
+	// maximaler Abstand der Rays zueinander (sollte kleiner sein als das kleinste Kollisionsobjekt)
+	float m_RayMaxDist = 0.15f;
+	// Länge des Rays
+	float m_RayLength;
+	// Container für Pfadbüschel
+	std::vector<CHVector*> m_pathRays;
+
+	// ItemArrays
+	int m_itemCount;
+	BoostItem** m_BoostArray;
+	char* m_boostModelPath = "models\\items\\BoostItem.obj";
+	HealthItem** m_HealthArray;
+	char* m_healthModelPath = "models\\items\\HealthItem.obj";
+
+	// Container für alle aktiven Geos, die mit dem Auto kollidieren können
+	CGeos m_Geos;
 };
 

@@ -79,17 +79,11 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zpSphere.SetTranslationSensitivity(15.f);
 	m_zpSphere.SetRotationSensitivity(2.f);
 	m_zpSphere.AddGeo(&m_zgSphere);
+	m_zpSphere.EnableAABBs();
 
 	// Camera
 	TPCamera.Init(50.f, 10.f, eAlignObjDir, &m_zpSphere, &m_zc);
 	m_zs.AddPlacement(&TPCamera);
-	//m_zs.AddPlacement(&m_zpCamera);
-	//m_zpCamera.AddCamera(&m_zc);
-	
-	//m_zpCamera.SetPointing(&m_zpSphere);
-	//m_zpCamera.RotateYDelta(PI);
-	//m_zpCamera.RotateXDelta(PI);
-	//m_zpCamera.PlaceSphericalGlobal(200.f, PI, -QUARTERPI, m_zpSphere);
 
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);
@@ -112,7 +106,15 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 void CGame::Tick(float fTime, float fTimeDelta)
 {
 	m_zr.Tick(fTimeDelta);
+	if (m_callOnceAfterTick)
+	{
+		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
+		Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
+		m_callOnceAfterTick = false;
+	}
+
 	timetick++;
+
 	// Tastatur Steuerung
 	// Links/Rechts Verschiebung
 	//if (m_Keyboard.KeyPressed(DIK_A))

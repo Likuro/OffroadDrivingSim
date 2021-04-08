@@ -7,10 +7,11 @@ class Item
 {
 public:
 	// lädt die Geometrie
-	void loadGeo(CGeo* g)
+	void loadGeo(char* path)
 	{
-		Geo = *g;
-		Transform.AddGeo(g);
+		CFileWavefront file;
+		Geo = file.LoadGeo(path);
+		Transform.AddGeo(Geo);
 	}
 
 	// hängt das Item von dem darüberliegendem Placement ab und schaltet sich aus; gibt true aus wenn erfolgreich
@@ -21,7 +22,7 @@ public:
 			this->lifeTime = 0;
 			this->Transform.Rotate(0.f, 0.f, 0.f, 0.f);
 			this->Transform.Translate(0.f, 0.f, 0.f);
-			this->Transform.GetParent()->m_nodesChildren.Sub(&Transform);
+			static_cast<CPlacement*>(this->Transform.GetParent())->SubPlacement(&this->Transform);
 			this->Transform.SwitchOff();
 			return true;
 		}
@@ -43,7 +44,7 @@ public:
 
 	CMaterial Material;
 	CFileWavefront IconObject;
-	CGeo Geo;
+	CGeo* Geo;
 	CPlacement Transform;
 	float lifeTime = 0.f;
 	float maxLifeTime = 10.f;
