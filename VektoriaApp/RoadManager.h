@@ -6,16 +6,16 @@
 #include "ItemManager.h"
 
 //Settings fpr die PrefabRoads
-#define  anzahlPrefabRoads 5
+#define  anzahlPrefabRoads 2
 #define anzahlSpecialPrefabRoads 2
 
 //Settings für die RoadTiles
-#define anzahlRoadTiles 10
-#define roadTilelength 5
-#define roadTilewidth 8
+#define anzahlRoadTiles 5
+#define roadTilelength 144
+#define roadTilewidth 100
 
 //Settings für den Spawn
-#define specialSpawnChance 5
+#define specialSpawnChance 2
 #define itemSpawnChance 5
 
 using namespace Vektoria;
