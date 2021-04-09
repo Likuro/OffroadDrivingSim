@@ -87,6 +87,8 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);
+	//Kugel Speed
+	m_zpSphere.SetTranslationSensitivity(100.0f);
 
 	// Healthbar
 	Health = new HealthBar(&m_Orange, &m_zv, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
@@ -228,7 +230,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	}
 
 	// nur alle 5k Ticks -- RoadMaster
-	if (timetick == 20000) {
+	if (timetick == 5000) {
 
 		this->RoadMaster->updateRoad();
 

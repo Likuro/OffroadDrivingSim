@@ -7,13 +7,13 @@
 
 //Settings fpr die PrefabRoads
 #define  anzahlPrefabRoads 2
-#define anzahlSpecialPrefabRoads 2
+#define anzahlSpecialPrefabRoads 4
 
 //Settings für die RoadTiles
 #define anzahlRoadTiles 5
 #define roadTilelength 144
 #define roadTilewidth 100
-#define roadTileheight 10
+#define roadTileheight 30
 
 //Settings für den Spawn
 #define specialSpawnChance 2
