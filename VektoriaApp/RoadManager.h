@@ -6,16 +6,17 @@
 #include "ItemManager.h"
 
 //Settings fpr die PrefabRoads
-#define  anzahlPrefabRoads 5
+#define  anzahlPrefabRoads 2
 #define anzahlSpecialPrefabRoads 2
 
 //Settings für die RoadTiles
-#define anzahlRoadTiles 10
-#define roadTilelength 5
-#define roadTilewidth 8
+#define anzahlRoadTiles 5
+#define roadTilelength 144
+#define roadTilewidth 100
+#define roadTileheight 10
 
 //Settings für den Spawn
-#define specialSpawnChance 5
+#define specialSpawnChance 2
 #define itemSpawnChance 5
 
 using namespace Vektoria;
@@ -45,6 +46,10 @@ private:
 	//gibt an in welcher lane sich die Road befindet, 0 ist der start, 1 entschpricht einer verschiebung
 	//um die breite der Road nach links, negative Werte verschieben nach rechts
 	int lane;
+
+	//gibt an, in welcher Höhe sich die Road befindet, 0 ist die start Ebene, 1 entspricht einer verschiebung
+	//um die höhe der Road nach oben, negative Werte verschieben nach unten
+	int lanehight;
 
 	//für ein besseres Spawnen
 	int lastTile;

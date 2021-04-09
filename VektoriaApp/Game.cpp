@@ -228,7 +228,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	}
 
 	// nur alle 5k Ticks -- RoadMaster
-	if (timetick == 2200) {
+	if (timetick == 20000) {
 
 		this->RoadMaster->updateRoad();
 
