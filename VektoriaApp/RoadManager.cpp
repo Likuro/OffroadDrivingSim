@@ -10,6 +10,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	lastTile = 0;
 	nextTile = 0;
 	lane = 0;
+	lanehight = 0;
 	sinceLastSpecial = 0;
 
 	//PrefabRoads laden
@@ -28,12 +29,12 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabModelLoadPath, "models/specialroad/RoadTile_Curve_L.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/specialroad/hitbox/ground/RoadTile_Curve_L_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_L_Frontal.obj");
-	SpecialPrefabRoads[0] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1);
+	SpecialPrefabRoads[0] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1, 0);
 	
 	strcpy(prefabModelLoadPath, "models/specialroad/RoadTile_Curve_R.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/specialroad/hitbox/ground/RoadTile_Curve_R_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_R_Frontal.obj");
-	SpecialPrefabRoads[1] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1);
+	SpecialPrefabRoads[1] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1, 0);
 
 
 	for (int i = 0; i < anzahlRoadTiles; i++) {
@@ -60,7 +61,9 @@ void RoadManager::updateRoad()
 	//letztes Placement an den Anfang verschieben
 	activeSpawnVector = placementRoad[activeSpawn].GetPos();
 	activeSpawnVector.SetX(0);
+	activeSpawnVector.SetY(0);
 	placementRoad[activeSpawn].TranslateX(lane * roadTilewidth);
+	placementRoad[activeSpawn].TranslateYDelta(lanehight * roadTileheight);
 	placementRoad[activeSpawn].TranslateDelta(activeSpawnVector);
 	placementRoad[activeSpawn].TranslateZDelta(-(roadTilelength*anzahlRoadTiles));
 
@@ -70,6 +73,7 @@ void RoadManager::updateRoad()
 		specialTile = std::rand() % anzahlSpecialPrefabRoads;
 		RoadSector[activeSpawn]->addToScene(SpecialPrefabRoads[specialTile]);
 		lane += SpecialPrefabRoads[specialTile]->getLaneShift();
+		lanehight += SpecialPrefabRoads[specialTile]->getLaneSlope();
 	}else{
 
 		sinceLastSpecial++;

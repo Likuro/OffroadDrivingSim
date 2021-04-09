@@ -13,6 +13,7 @@
 #define anzahlRoadTiles 5
 #define roadTilelength 144
 #define roadTilewidth 100
+#define roadTileheight 10
 
 //Settings für den Spawn
 #define specialSpawnChance 2
@@ -45,6 +46,10 @@ private:
 	//gibt an in welcher lane sich die Road befindet, 0 ist der start, 1 entschpricht einer verschiebung
 	//um die breite der Road nach links, negative Werte verschieben nach rechts
 	int lane;
+
+	//gibt an, in welcher Höhe sich die Road befindet, 0 ist die start Ebene, 1 entspricht einer verschiebung
+	//um die höhe der Road nach oben, negative Werte verschieben nach unten
+	int lanehight;
 
 	//für ein besseres Spawnen
 	int lastTile;
