@@ -47,7 +47,7 @@ public:
 	CGeo* Geo;
 	CPlacement Transform;
 	float lifeTime = 0.f;
-	float maxLifeTime = 10.f;
+	float maxLifeTime = 120.f;
 	float amplitude = 0.25;
 	float periode = 2;
 };

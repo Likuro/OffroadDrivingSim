@@ -26,7 +26,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zr.AddFrame(&m_zf);
 	m_zf.AddViewport(&m_zv);
 	m_zr.AddScene(&m_zs);
-	//m_zs.AddLightParallel(&m_zl);
+	m_zs.AddLightParallel(&m_zl);
 
 	// Neues cooles Licht
 	m_zs.AddPlacement(&m_RadialLightPlace);
@@ -76,7 +76,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Dummy Kugel
 	m_zs.AddPlacement(&m_zpSphere);
 	m_zgSphere.Init(1.f, &m_Red, 50, 50);
-	m_zpSphere.SetTranslationSensitivity(15.f);
+	m_zpSphere.SetTranslationSensitivity(50.f);
 	m_zpSphere.SetRotationSensitivity(2.f);
 	m_zpSphere.AddGeo(&m_zgSphere);
 	m_zpSphere.EnableAABBs();
@@ -97,10 +97,16 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	Items = new ItemManager(25, &m_zpSphere);
 
 	//RoadMaster erstellen
-	//Placement für den RoadManager
 	m_zs.AddPlacement(&drivingScenePlacement);
 	this->RoadMaster = new RoadManager;
 	RoadMaster->init(&drivingScenePlacement, Items);
+
+	// Score
+	m_scoreFont.LoadPreset("LucidaConsoleRed");
+	m_scoreFont.SetChromaKeyingOn();
+	m_scoreWriting.Init(CFloatRect(0.825f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_scoreWriting);
+	m_scoreWriting.PrintInt(m_score);
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
@@ -115,6 +121,9 @@ void CGame::Tick(float fTime, float fTimeDelta)
 
 	timetick++;
 
+	// Score
+	m_score = m_zpSphere.GetPos().Dist(CHVector(0.f, 0.f, 0.f, 0.f));
+	m_scoreWriting.PrintInt(m_score);
 	// Tastatur Steuerung
 	// Links/Rechts Verschiebung
 	//if (m_Keyboard.KeyPressed(DIK_A))

@@ -20,6 +20,7 @@ public:
 private:
 	// Player für Kollisionsabfragen
 	CPlacement* m_Player;
+	CHVector m_oldPlayerPos;
 	// maximaler Abstand der Rays zueinander (sollte kleiner sein als das kleinste Kollisionsobjekt)
 	float m_RayMaxDist = 0.15f;
 	// Länge des Rays
