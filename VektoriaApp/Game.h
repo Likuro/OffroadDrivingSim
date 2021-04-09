@@ -105,6 +105,11 @@ private:
 	CGeoQuad m_gPurple;
 	CGeoQuad m_gRed;
 
+	// Scorebar
+	CWriting m_scoreWriting;
+	CWritingFont m_scoreFont;
+	unsigned int m_score = 0;
+
 	// Variable für Funktionen die nach dem ersten Tick der Engine aufgerufen werden sollen (z.B.Hüllkörper)
 	bool m_callOnceAfterTick = true;
 };

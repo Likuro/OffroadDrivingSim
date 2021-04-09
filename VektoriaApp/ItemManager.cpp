@@ -5,6 +5,7 @@ ItemManager::ItemManager(int count, CPlacement* player)
 	srand(time(NULL));
 	m_Player = player;
 	m_itemCount = count;
+	m_oldPlayerPos.Null();
 	
 	// Items werden gepoolt
 	m_BoostArray = new BoostItem*[m_itemCount];
@@ -69,7 +70,9 @@ void ItemManager::update(float fTime, float fTimeDelta)
 	// rufe update für alle items auf und checkt Kollision mit dem Auto
 	Item* it;
 	CHVector playerPos = m_Player->GetPos();
-	CHVector playerDir = m_Player->GetDirection();
+	CHVector playerDir = m_Player->GetPos() - m_oldPlayerPos;
+	m_oldPlayerPos = m_Player->GetPos();
+	playerDir.Norm();
 	CRay ray(playerPos, playerDir, 0.f, 1.f);
 	CHMat playerMat = m_Player->GetMat();
 	CHitPoint hitpoint;
