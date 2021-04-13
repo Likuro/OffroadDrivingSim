@@ -27,6 +27,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zf.AddViewport(&m_zv);
 	m_zr.AddScene(&m_zs);
 	m_zs.AddLightParallel(&m_zl);
+	m_zs.SetSkyOn(&m_zpCamera, true);
 
 	// Neues cooles Licht
 	m_zs.AddPlacement(&m_RadialLightPlace);
@@ -175,22 +176,19 @@ void CGame::Tick(float fTime, float fTimeDelta)
 		fLR = 1.f;
 	else
 		fLR = 0.f;
-	// Hoch/Runter Drehung 
-	//!Vorsicht funktioniert bei Third - Person - Camera nicht so gut... (überhaupt nicht!)!//
-	//if (m_Keyboard.KeyPressed(DIK_UP))
-	//{
-	//	if (m_Keyboard.KeyPressed(DIK_DOWN))
-	//		fUD = 0.f;
-	//	else
-	//		fUD = -1.f;
-	//}
-	//else if (m_Keyboard.KeyPressed(DIK_DOWN))
-	//	fUD = 1.f;
-	//else
-	//	fUD = 0.f;
+	// Zoom
+	if (m_Keyboard.KeyPressed(DIK_UP))
+	{
+		if (m_Keyboard.KeyPressed(DIK_DOWN))
+			TPCamera.zoom(0.4f * fTimeDelta);
+		else
+			TPCamera.zoom(-0.4f * fTimeDelta);
+	}
+	else if (m_Keyboard.KeyPressed(DIK_DOWN))
+		TPCamera.zoom(0.4f * fTimeDelta);
 
 	m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
-	TPCamera.update();
+	TPCamera.update(fTimeDelta);
 
 	//m_zpCamera.RotateY(PI);
 	//m_zpCamera.RotateXDelta(atanf(20.f/100.f));
@@ -262,4 +260,3 @@ void CGame::WindowReSize(int iNewWidth, int iNewHeight)
 	// Hier kannst Du dann die Auflösung des Viewports neu einstellen:
 	m_zf.ReSize(iNewWidth, iNewHeight);
 }
-
