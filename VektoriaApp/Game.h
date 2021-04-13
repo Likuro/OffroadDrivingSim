@@ -26,6 +26,8 @@
 #include "ItemManager.h"
 #include "RoadManager.h"
 #include "ThirdPersonCamera.h"
+#include "Vehicle.h"
+#include "DriveController.h"
 
 using namespace Vektoria;
 
@@ -112,6 +114,11 @@ private:
 
 	// Variable für Funktionen die nach dem ersten Tick der Engine aufgerufen werden sollen (z.B.Hüllkörper)
 	bool m_callOnceAfterTick = true;
+
+	//Driving stuff
+	Vehicle m_Car;
+	DriveController m_dController;
+	CGeoTerrains m_zgsColTerrain;
 };
 
 
