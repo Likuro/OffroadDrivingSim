@@ -7,7 +7,7 @@
 
 //Settings fpr die PrefabRoads
 #define  anzahlPrefabRoads 2
-#define anzahlSpecialPrefabRoads 4
+#define anzahlSpecialPrefabRoads 8
 
 //Settings für die RoadTiles
 #define anzahlRoadTiles 5
