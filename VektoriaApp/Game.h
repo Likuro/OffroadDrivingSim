@@ -26,6 +26,7 @@
 #include "ItemManager.h"
 #include "RoadManager.h"
 #include "ThirdPersonCamera.h"
+#include "PauseMenu.h"
 
 using namespace Vektoria;
 
@@ -41,6 +42,7 @@ public:
 	void Fini();																				// Wird am Ende einmal aufgerufen
 
 	void WindowReSize(int iNewWidth, int iNewHeight);											// Wird immer dann aufgerufen, wenn der Benutzer die Fenstergröße verändert hat
+	void initPrototypCube();
 
 private:
     // Hier ist Platz für Deine Vektoriaobjekte:
@@ -58,8 +60,9 @@ private:
 	CPlacement m_RadialLightPlace;
 	CLightRadial m_RadialLight;
 
+	// Eingabegeräte
 	CDeviceKeyboard m_Keyboard;
-
+	CDeviceCursor m_Cursor;
 	CDeviceGameController m_Controller;
 	float controllerSpeed = 0.025f;
 
@@ -112,6 +115,9 @@ private:
 
 	// Variable für Funktionen die nach dem ersten Tick der Engine aufgerufen werden sollen (z.B.Hüllkörper)
 	bool m_callOnceAfterTick = true;
+
+	// GUI
+	PauseMenu m_PauseMenu;
 };
 
 

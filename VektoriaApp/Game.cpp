@@ -35,49 +35,13 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_RadialLightPlace.AddLightRadial(&m_RadialLight);
 	m_RadialLightPlace.TranslateY(100.f);
 
-	// Prototype Textures für Camera Debugging
-	m_Dark.MakeTextureDiffuse("textures\\PrototypeTextures\\Dark\\texture_06.png");
-	m_Green.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
-	m_Orange.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
-	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
-	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
-	// Dark für den Boden
-	m_zs.AddPlacement(&m_pDark);
-	m_gDark.SetAxis(eAxisY);
-	m_gDark.Init(100.f, &m_Dark);
-	m_pDark.AddGeo(&m_gDark);
-	m_pDark.TranslateY(-100.f);
-	// Green für Wand in positive Z-Richtung
-	m_zs.AddPlacement(&m_pGreen);
-	m_gGreen.SetAxis(eAxisZ);
-	m_gGreen.Init(100.f, &m_Green);
-	m_pGreen.AddGeo(&m_gGreen);
-	m_pGreen.RotateY(PI);
-	m_pGreen.TranslateZDelta(100.f);
-	// Orange für Wand in negativer Z-Richtung
-	m_zs.AddPlacement(&m_pOrange);
-	m_gOrange.SetAxis(eAxisZ);
-	m_gOrange.Init(100.f, &m_Orange);
-	m_pOrange.AddGeo(&m_gOrange);
-	m_pOrange.TranslateZDelta(-100.f);
-	// Purple für Wand in positiver X-Richtung
-	m_zs.AddPlacement(&m_pPurple);
-	m_gPurple.SetAxis(eAxisX);
-	m_gPurple.Init(100.f, &m_Purple);
-	m_pPurple.AddGeo(&m_gPurple);
-	m_pPurple.RotateY(PI);
-	m_pPurple.TranslateXDelta(100.f);
-	// Red für Wand in negativer X-Richtung
-	m_zs.AddPlacement(&m_pRed);
-	m_gRed.SetAxis(eAxisX);
-	m_gRed.Init(100.f, &m_Red);
-	m_pRed.AddGeo(&m_gRed);
-	m_pRed.TranslateXDelta(-100.f);
+	// Prototyp Cube Init
+	initPrototypCube();
 
 	// Dummy Kugel
 	m_zs.AddPlacement(&m_zpSphere);
 	m_zgSphere.Init(1.f, &m_Red, 50, 50);
-	m_zpSphere.SetTranslationSensitivity(50.f);
+	m_zpSphere.SetTranslationSensitivity(50.f);				// Geschwindigkeit der Kugel
 	m_zpSphere.SetRotationSensitivity(2.f);
 	m_zpSphere.AddGeo(&m_zgSphere);
 	m_zpSphere.EnableAABBs();
@@ -86,20 +50,21 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	TPCamera.Init(50.f, 10.f, eAlignObjDir, &m_zpSphere, &m_zc);
 	m_zs.AddPlacement(&TPCamera);
 
+	// Eingabegeräte (Keyboard/Controller)
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);
-	//Kugel Speed
-	m_zpSphere.SetTranslationSensitivity(100.0f);
+	m_zf.AddDeviceCursor(&m_Cursor);
 
 	// Healthbar
 	Health = new HealthBar(&m_Orange, &m_zv, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
 	// Speedometer
 	Speedometer = new ProgressBar(&m_Green, &m_zv, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
-
+	// PauseMenu
+	m_PauseMenu.Init(&m_zv, &m_Cursor);
 	// ItemManager
 	Items = new ItemManager(25, &m_zpSphere);
 
-	//RoadMaster erstellen
+	// RoadMaster erstellen
 	m_zs.AddPlacement(&drivingScenePlacement);
 	this->RoadMaster = new RoadManager;
 	RoadMaster->init(&drivingScenePlacement, Items);
@@ -259,4 +224,46 @@ void CGame::WindowReSize(int iNewWidth, int iNewHeight)
 	// Windows ReSize wird immer automatisch aufgerufen, wenn die Fenstergröße verändert wurde.
 	// Hier kannst Du dann die Auflösung des Viewports neu einstellen:
 	m_zf.ReSize(iNewWidth, iNewHeight);
+}
+
+void CGame::initPrototypCube()
+{
+	// Prototype Textures für Camera Debugging
+	m_Dark.MakeTextureDiffuse("textures\\PrototypeTextures\\Dark\\texture_06.png");
+	m_Green.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
+	m_Orange.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
+	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
+	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
+	// Dark für den Boden
+	m_zs.AddPlacement(&m_pDark);
+	m_gDark.SetAxis(eAxisY);
+	m_gDark.Init(100.f, &m_Dark);
+	m_pDark.AddGeo(&m_gDark);
+	m_pDark.TranslateY(-100.f);
+	// Green für Wand in positive Z-Richtung
+	m_zs.AddPlacement(&m_pGreen);
+	m_gGreen.SetAxis(eAxisZ);
+	m_gGreen.Init(100.f, &m_Green);
+	m_pGreen.AddGeo(&m_gGreen);
+	m_pGreen.RotateY(PI);
+	m_pGreen.TranslateZDelta(100.f);
+	// Orange für Wand in negativer Z-Richtung
+	m_zs.AddPlacement(&m_pOrange);
+	m_gOrange.SetAxis(eAxisZ);
+	m_gOrange.Init(100.f, &m_Orange);
+	m_pOrange.AddGeo(&m_gOrange);
+	m_pOrange.TranslateZDelta(-100.f);
+	// Purple für Wand in positiver X-Richtung
+	m_zs.AddPlacement(&m_pPurple);
+	m_gPurple.SetAxis(eAxisX);
+	m_gPurple.Init(100.f, &m_Purple);
+	m_pPurple.AddGeo(&m_gPurple);
+	m_pPurple.RotateY(PI);
+	m_pPurple.TranslateXDelta(100.f);
+	// Red für Wand in negativer X-Richtung
+	m_zs.AddPlacement(&m_pRed);
+	m_gRed.SetAxis(eAxisX);
+	m_gRed.Init(100.f, &m_Red);
+	m_pRed.AddGeo(&m_gRed);
+	m_pRed.TranslateXDelta(-100.f);
 }
