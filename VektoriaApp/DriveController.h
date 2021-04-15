@@ -14,7 +14,10 @@ public:
 	void RotateRight(float deltaTime);
 	void RotateLeft(float deltaTime);
 	void ChangeClutch(int clutch);
-
+	void ResetRotation(float deltaTime);
+	float GetGas();
+	float GetSpeed();
+	void CalculateSpeed(float deltaTime);
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
 
 private:
@@ -27,4 +30,8 @@ private:
 	Vehicle* myCar;
 
 	CGeoTerrains m_zgsColTerrain;
+
+	CHVector oldPos;
+	float time;
+	float speed;
 };

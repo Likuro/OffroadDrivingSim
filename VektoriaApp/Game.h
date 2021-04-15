@@ -119,6 +119,8 @@ private:
 	Vehicle m_Car;
 	DriveController m_dController;
 	CGeoTerrains m_zgsColTerrain;
+
+	CWriting m_GasValue;
 };
 
 

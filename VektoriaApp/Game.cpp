@@ -82,7 +82,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zpSphere.EnableAABBs();
 
 	//Drive
-	m_Car.Init(&m_zs, &m_zpCamera, &m_Green, 3000, 1000, 200);
+	m_Car.Init(&m_zs, &m_zpCamera, &m_Green, 1, 1, 200);
 	m_dController.Init(&m_zs, &m_zv, &m_Car);
 
 	// Camera
@@ -113,6 +113,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_scoreWriting.Init(CFloatRect(0.825f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
 	m_zv.AddWriting(&m_scoreWriting);
 	m_scoreWriting.PrintInt(m_score);
+
+	m_GasValue.Init(CFloatRect(0.525f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_GasValue);
+	m_GasValue.PrintFloat(m_dController.GetGas());
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
@@ -130,6 +134,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	// Score
 	m_score = m_zpSphere.GetPos().Dist(CHVector(0.f, 0.f, 0.f, 0.f));
 	m_scoreWriting.PrintInt(m_score);
+	
 	// Tastatur Steuerung
 	// Links/Rechts Verschiebung
 	//if (m_Keyboard.KeyPressed(DIK_A))
@@ -200,28 +205,39 @@ void CGame::Tick(float fTime, float fTimeDelta)
 		m_dController.ChangeClutch(2);
 	if (m_Keyboard.KeyDown(DIK_3))
 		m_dController.ChangeClutch(3);
+	if (m_Keyboard.KeyDown(DIK_4))
+		m_dController.ChangeClutch(4);
+	if (m_Keyboard.KeyDown(DIK_5))
+		m_dController.ChangeClutch(5);
+	if (m_Keyboard.KeyDown(DIK_R))
+		m_dController.ChangeClutch(-1);
 
 
-	if (m_Keyboard.KeyDown(DIK_W))
+	if (m_Keyboard.KeyPressed(DIK_W))
 		m_dController.Accelerate(fTimeDelta);
 
-	if (m_Keyboard.KeyDown(DIK_S))
+	if (m_Keyboard.KeyPressed(DIK_S))
 		m_dController.Deaccelerate(fTimeDelta);
-	if (m_Keyboard.KeyDown(DIK_D))
+	//Rotations
+	if (m_Keyboard.KeyPressed(DIK_D))
 		m_dController.RotateRight(fTimeDelta);
 
-	if (m_Keyboard.KeyDown(DIK_A))
+	else if (m_Keyboard.KeyPressed(DIK_A))
 		m_dController.RotateLeft(fTimeDelta);
-
-	if (m_Keyboard.KeyDown(DIK_SPACE))
+	else
+		m_dController.ResetRotation(fTimeDelta);
+	//End Rotations
+	if (m_Keyboard.KeyPressed(DIK_SPACE))
 		m_dController.Brake();
 
 	if (m_Keyboard.KeyUp(DIK_SPACE))
 		m_dController.ReleaseBrakes();
+m_dController.ResetRotation(fTimeDelta);
 
 	m_dController.Update(fTimeDelta, m_zgsColTerrain, RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 	TPCamera.update();
 
+	m_GasValue.PrintFloat(m_dController.GetSpeed());
 	//m_zpCamera.RotateY(PI);
 	//m_zpCamera.RotateXDelta(atanf(20.f/100.f));
 	//m_zpCamera.TranslateZDelta(m_zpSphere.GetPos().GetZ() - 100.f);
