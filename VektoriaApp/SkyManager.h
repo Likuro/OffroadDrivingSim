@@ -1,7 +1,7 @@
 #pragma once
 #include "Vektoria\Root.h"
 
-#define switchTime 3000
+#define switchTime 10000
 
 
 using namespace Vektoria;
@@ -16,6 +16,5 @@ private:
 	float scoreTime;
 
 	CScene* mySkyScene;
-	CPlacement* myCamera;
 };
 

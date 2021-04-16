@@ -10,7 +10,7 @@
 #define anzahlSpecialPrefabRoads 8
 
 //Settings für die RoadTiles
-#define anzahlRoadTiles 5
+#define anzahlRoadTiles 10
 #define roadTilelength 144
 #define roadTilewidth 100
 #define roadTileheight 30

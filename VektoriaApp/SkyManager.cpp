@@ -2,9 +2,8 @@
 
 void SkyManager::init(CScene* tmp_scene, CPlacement* tmp_camera)
 {
-	myCamera = tmp_camera;
 	mySkyScene = tmp_scene;
-	mySkyScene->SetSkyOn(myCamera, true);
+	mySkyScene->SetSkyOn(tmp_camera, true);
 }
 
 void SkyManager::update(int tmp_score)

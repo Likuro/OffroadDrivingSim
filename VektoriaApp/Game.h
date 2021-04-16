@@ -27,6 +27,7 @@
 #include "RoadManager.h"
 #include "ThirdPersonCamera.h"
 #include "SkyManager.h"
+#include "ScoreManager.h"
 
 using namespace Vektoria;
 
@@ -79,6 +80,9 @@ private:
 	//für den SkyManager
 	SkyManager* SkyMaster;
 
+	//für den ScoreManager
+	ScoreManager* ScoreMaster;
+
 	// rudimentäre Steuerung
 	float fAD = 0;
 	float fSW = 0;
@@ -100,7 +104,6 @@ private:
 	// Scorebar
 	CWriting m_scoreWriting;
 	CWritingFont m_scoreFont;
-	unsigned int m_score = 0;
 
 	// Variable für Funktionen die nach dem ersten Tick der Engine aufgerufen werden sollen (z.B.Hüllkörper)
 	bool m_callOnceAfterTick = true;

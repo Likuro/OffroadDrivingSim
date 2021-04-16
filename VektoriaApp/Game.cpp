@@ -75,12 +75,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	this->SkyMaster = new SkyManager;
 	SkyMaster->init(&m_zs, &m_zpSphere);
 
-	// Score
-	m_scoreFont.LoadPreset("LucidaConsoleRed");
-	m_scoreFont.SetChromaKeyingOn();
-	m_scoreWriting.Init(CFloatRect(0.825f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
-	m_zv.AddWriting(&m_scoreWriting);
-	m_scoreWriting.PrintInt(m_score);
+	//ScoreManager erstellen
+	this->ScoreMaster = new ScoreManager;
+	ScoreMaster->init(&m_zv);
+
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
@@ -95,9 +93,6 @@ void CGame::Tick(float fTime, float fTimeDelta)
 
 	timetick++;
 
-	// Score
-	m_score = m_zpSphere.GetPos().Dist(CHVector(0.f, 0.f, 0.f, 0.f));
-	m_scoreWriting.PrintInt(m_score);
 	// Tastatur Steuerung
 	// Links/Rechts Verschiebung
 	//if (m_Keyboard.KeyPressed(DIK_A))
@@ -221,8 +216,11 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	// ItemManager
 	Items->update(fTime, fTimeDelta);
 
+	//ScoreMaster
+	ScoreMaster->update(m_zpSphere.GetPos());
+
 	//SkyMaster
-	SkyMaster->update(m_score);
+	SkyMaster->update(ScoreMaster->getScore());
 
 }
 

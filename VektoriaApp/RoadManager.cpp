@@ -82,7 +82,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 		//Placements in die Szene hängen
 		myPlacement->AddPlacement(&placementRoad[i]);
 		//Placements hintereinander in einer Reihe anordnen
-		placementRoad[i].TranslateZ(-(i * roadTilelength));
+		placementRoad[i].TranslateZ((roadTilelength*2)-(i *roadTilelength));
 		//RoadTile and die Scene hängen
 		RoadSector[i]->addToScene(PrefabRoads[0]);
 		
