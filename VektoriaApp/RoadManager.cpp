@@ -50,6 +50,8 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	SpecialPrefabRoads[3] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, 1);
 
 	// Combi L / R & Down / Up
+
+	
 	strcpy(prefabModelLoadPath, "models/specialroad/RoadTile_Curve_L_Down.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/specialroad/hitbox/ground/RoadTile_Curve_L_Down_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_L_Down_Frontal.obj");
@@ -59,16 +61,17 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabHitboxGroundLoadPath, "models/specialroad/hitbox/ground/RoadTile_Curve_L_Up_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_L_Up_Frontal.obj");
 	SpecialPrefabRoads[5] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, 1);
-
+	
 	strcpy(prefabModelLoadPath, "models/specialroad/RoadTile_Curve_R_Down.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/specialroad/hitbox/ground/RoadTile_Curve_R_Down_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_R_Down_Frontal.obj");
 	SpecialPrefabRoads[6] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, -1);
-
+	
 	strcpy(prefabModelLoadPath, "models/specialroad/RoadTile_Curve_R_Up.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/specialroad/hitbox/ground/RoadTile_Curve_R_Up_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_R_Up_Frontal.obj");
 	SpecialPrefabRoads[7] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
+	
 
 	for (int i = 0; i < anzahlRoadTiles; i++) {
 		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);
