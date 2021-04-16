@@ -12,6 +12,18 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	lane = 0;
 	lanehight = 0;
 	sinceLastSpecial = 0;
+	roadtime = 0;
+	lastSpawn = 0;
+	walltime = 0;
+	lastspecialTile = 0;
+	nextspecialTile = 0;
+	specialSpawnChance = specialSpawnChanceSetting;
+
+	//Sandsturm laden & anhängen
+	wallofMODEL = wallofIMPORT.LoadGeo("models/wallofdeath/wallofdeath.obj", true);
+	wallofDEATH.AddGeo(wallofMODEL);
+	myPlacement->AddPlacement(&wallofDEATH);
+	wallofDEATH.TranslateZ(400.0f);
 
 	//PrefabRoads laden
 	strcpy(prefabModelLoadPath, "models/road/RoadTile_Basic.obj");
@@ -104,12 +116,15 @@ void RoadManager::updateRoad()
 	placementRoad[activeSpawn].TranslateZDelta(-(roadTilelength*anzahlRoadTiles));
 
 	//festlegen, ob eine SpecialRoad oder eine "normale" Road gespawnt werden soll
-	if (sinceLastSpecial>specialSpawnChance) {
+	if (sinceLastSpecial>=specialSpawnForce || 1 == std::rand()%specialSpawnChance) {
 		sinceLastSpecial = 0;
-		specialTile = std::rand() % anzahlSpecialPrefabRoads;
-		RoadSector[activeSpawn]->addToScene(SpecialPrefabRoads[specialTile]);
-		lane += SpecialPrefabRoads[specialTile]->getLaneShift();
-		lanehight += SpecialPrefabRoads[specialTile]->getLaneSlope();
+		while ((nextspecialTile == lastspecialTile) || (lane >= 6 && SpecialPrefabRoads[nextspecialTile]->getLaneShift() >=1) || (lane <= -6 && SpecialPrefabRoads[nextspecialTile]->getLaneShift() <= -1) || (lanehight >= 6 && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() >= 1) || (lanehight <= -6 && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() <= -1)) {
+			nextspecialTile = std::rand() % anzahlSpecialPrefabRoads;
+		}
+		RoadSector[activeSpawn]->addToScene(SpecialPrefabRoads[nextspecialTile]);
+		lastspecialTile = nextspecialTile;
+		lane += SpecialPrefabRoads[nextspecialTile]->getLaneShift();
+		lanehight += SpecialPrefabRoads[nextspecialTile]->getLaneSlope();
 	}else{
 
 		sinceLastSpecial++;
@@ -131,6 +146,7 @@ void RoadManager::updateRoad()
 	}
 
 	//durch die 10 Raodtiles iterieren, start beim ersten
+	lastSpawn = activeSpawn;
 	if (activeSpawn == (anzahlRoadTiles-1)) {
 		activeSpawn = 0;
 	}
@@ -139,6 +155,20 @@ void RoadManager::updateRoad()
 	}
 	timesSpawned++;
 	
+}
+
+void RoadManager::tryupdate(float tmp_ftime, CHVector tmp_carPos)
+{
+	roadtime += tmp_ftime;
+	walltime += tmp_ftime;
+	if (walltime >= wallofDEATHupdate) {
+		wallofDEATH.TranslateZDelta(-wallofDEATHspeed);
+	}
+
+	if (roadtime >= spawnTime || placementRoad[lastSpawn].GetPos().GetZ()+(tilesremaining*roadTilelength)> tmp_carPos.GetZ()) {
+		updateRoad();
+		roadtime = 0;
+	}
 }
 
 CGeos& RoadManager::getGeosGround()

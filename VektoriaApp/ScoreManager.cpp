@@ -3,6 +3,7 @@
 void ScoreManager::init(CViewport *tmp_viewport)
 {
 	score = 0;
+	time = 0;
 	lastPos = CHVector(0.0f, 0.0f, 0.0f);
 	
 	scoreFont.LoadPreset("LucidaConsoleRed");
@@ -13,14 +14,15 @@ void ScoreManager::init(CViewport *tmp_viewport)
 	scoreOutput.PrintInt(score);
 }
 
-void ScoreManager::update(CHVector tmp_pos)
+void ScoreManager::update(CHVector tmp_pos, float tmp_ftime)
 {
-	//score += tmp_pos.Dist(lastPos);
-	if (score < (tmp_pos.Dist(CHVector(0.0f, 0.0f, 0.0f)))) {
-		score = tmp_pos.Dist(CHVector(0.0f, 0.0f, 0.0f));
+	time += tmp_ftime;
+	if (time >= refreshrate) {
+		score += tmp_pos.Dist(lastPos);
+		scoreOutput.PrintInt(score);
+		lastPos = tmp_pos;
+		time = 0;
 	}
-	scoreOutput.PrintInt(score);
-	lastPos = tmp_pos;
 }
 
 int ScoreManager::getScore()

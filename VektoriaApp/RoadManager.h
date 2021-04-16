@@ -16,8 +16,16 @@
 #define roadTileheight 30
 
 //Settings für den Spawn
-#define specialSpawnChance 2
+#define spawnTime 10
+//gibt an, wie viele RoadTiles zwischen dem Auto und dem "Ende" der Road sein sollen, wird dies unterschritten, wird ein Spawn erzwungen
+#define tilesremaining 5
+#define specialSpawnChanceSetting 4
+#define specialSpawnForce 5
 #define itemSpawnChance 5
+
+//Settings für den Sandsturm aka Suzanne
+#define wallofDEATHupdate 0.1
+#define wallofDEATHspeed 0.05
 
 using namespace Vektoria;
 
@@ -27,6 +35,7 @@ public:
 
 	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager);
 	void updateRoad();
+	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
 
 	//damit die Hitboxen witergegeben werden können
 	CGeos& getGeosGround();
@@ -35,9 +44,15 @@ public:
 
 private:
 
+	//Zeit seit dem letzten update der Road
+	float roadtime;
+	float walltime;
+
 	//das aktuell letzte RoadTile, das als nächstes verschoben werden muss
 	int activeSpawn;
+	int lastSpawn;
 	CHVector activeSpawnVector;
+	int specialSpawnChance;
 
 	//.
 	int timesSpawned;
@@ -54,7 +69,8 @@ private:
 	//für ein besseres Spawnen
 	int lastTile;
 	int nextTile;
-	int specialTile;
+	int nextspecialTile;
+	int lastspecialTile;
 
 	//zum Speichern der Pfade für den import
 	char prefabModelLoadPath[_MAX_PATH];
@@ -66,6 +82,11 @@ private:
 
 	//Placement an den ein RoadTile angehängt wird
 	CPlacement placementRoad[anzahlRoadTiles];
+
+	//Placement für die Plane des Sandsturms
+	CPlacement wallofDEATH;
+	CGeo *wallofMODEL;
+	CFileWavefront wallofIMPORT;
 
 	//Für die RoadTiles
 	RoadTile* RoadSector[anzahlRoadTiles];

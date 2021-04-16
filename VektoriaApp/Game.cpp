@@ -44,7 +44,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Dummy Kugel
 	m_zs.AddPlacement(&m_zpSphere);
 	m_zgSphere.Init(1.f, &m_Red, 50, 50);
-	m_zpSphere.SetTranslationSensitivity(50.f);
+	m_zpSphere.SetTranslationSensitivity(400.f);
 	m_zpSphere.SetRotationSensitivity(2.f);
 	m_zpSphere.AddGeo(&m_zgSphere);
 	m_zpSphere.EnableAABBs();
@@ -205,21 +205,16 @@ void CGame::Tick(float fTime, float fTimeDelta)
 		Speedometer->update();
 	}
 
-	// nur alle 5k Ticks -- RoadMaster
-	if (timetick == 5000) {
-
-		this->RoadMaster->updateRoad();
-
-		timetick = 0;
-	}
+	//RoadManager
+	RoadMaster->tryupdate(fTimeDelta, m_zpSphere.GetPos());
 
 	// ItemManager
 	Items->update(fTime, fTimeDelta);
 
-	//ScoreMaster
-	ScoreMaster->update(m_zpSphere.GetPos());
+	//ScoreManager
+	ScoreMaster->update(m_zpSphere.GetPos(), fTimeDelta);
 
-	//SkyMaster
+	//SkyManager
 	SkyMaster->update(ScoreMaster->getScore());
 
 }
