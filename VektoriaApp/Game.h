@@ -26,6 +26,7 @@
 #include "ItemManager.h"
 #include "RoadManager.h"
 #include "ThirdPersonCamera.h"
+#include "SkyManager.h"
 
 using namespace Vektoria;
 
@@ -75,6 +76,9 @@ private:
 	CPlacement drivingScenePlacement;
 	float timetick;
 
+	//für den SkyManager
+	SkyManager* SkyMaster;
+
 	// rudimentäre Steuerung
 	float fAD = 0;
 	float fSW = 0;
@@ -92,18 +96,6 @@ private:
 	CMaterial m_Orange;
 	CMaterial m_Purple;
 	CMaterial m_Red;
-
-	// Prototyp Placements + Geos
-	CPlacement m_pDark;
-	CPlacement m_pGreen;
-	CPlacement m_pOrange;
-	CPlacement m_pPurple;
-	CPlacement m_pRed;
-	CGeoQuad m_gDark;
-	CGeoQuad m_gGreen;
-	CGeoQuad m_gOrange;
-	CGeoQuad m_gPurple;
-	CGeoQuad m_gRed;
 
 	// Scorebar
 	CWriting m_scoreWriting;

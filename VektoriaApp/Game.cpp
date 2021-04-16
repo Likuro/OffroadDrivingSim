@@ -40,38 +40,6 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_Orange.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
 	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
 	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
-	// Dark für den Boden
-	m_zs.AddPlacement(&m_pDark);
-	m_gDark.SetAxis(eAxisY);
-	m_gDark.Init(100.f, &m_Dark);
-	m_pDark.AddGeo(&m_gDark);
-	m_pDark.TranslateY(-100.f);
-	// Green für Wand in positive Z-Richtung
-	m_zs.AddPlacement(&m_pGreen);
-	m_gGreen.SetAxis(eAxisZ);
-	m_gGreen.Init(100.f, &m_Green);
-	m_pGreen.AddGeo(&m_gGreen);
-	m_pGreen.RotateY(PI);
-	m_pGreen.TranslateZDelta(100.f);
-	// Orange für Wand in negativer Z-Richtung
-	m_zs.AddPlacement(&m_pOrange);
-	m_gOrange.SetAxis(eAxisZ);
-	m_gOrange.Init(100.f, &m_Orange);
-	m_pOrange.AddGeo(&m_gOrange);
-	m_pOrange.TranslateZDelta(-100.f);
-	// Purple für Wand in positiver X-Richtung
-	m_zs.AddPlacement(&m_pPurple);
-	m_gPurple.SetAxis(eAxisX);
-	m_gPurple.Init(100.f, &m_Purple);
-	m_pPurple.AddGeo(&m_gPurple);
-	m_pPurple.RotateY(PI);
-	m_pPurple.TranslateXDelta(100.f);
-	// Red für Wand in negativer X-Richtung
-	m_zs.AddPlacement(&m_pRed);
-	m_gRed.SetAxis(eAxisX);
-	m_gRed.Init(100.f, &m_Red);
-	m_pRed.AddGeo(&m_gRed);
-	m_pRed.TranslateXDelta(-100.f);
 
 	// Dummy Kugel
 	m_zs.AddPlacement(&m_zpSphere);
@@ -102,6 +70,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zs.AddPlacement(&drivingScenePlacement);
 	this->RoadMaster = new RoadManager;
 	RoadMaster->init(&drivingScenePlacement, Items);
+
+	//SkyMaster erstellen
+	this->SkyMaster = new SkyManager;
+	SkyMaster->init(&m_zs, &m_zpSphere);
 
 	// Score
 	m_scoreFont.LoadPreset("LucidaConsoleRed");
@@ -248,6 +220,9 @@ void CGame::Tick(float fTime, float fTimeDelta)
 
 	// ItemManager
 	Items->update(fTime, fTimeDelta);
+
+	//SkyMaster
+	SkyMaster->update(m_score);
 
 }
 
