@@ -10,6 +10,12 @@ class PauseMenu
 public:
 	
 	void Init(CViewport * viewport, CDeviceCursor *cursor);
+	bool IsOn();
+	void SwitchOn();
+	void SwitchOff();
+	bool ContinuePressed();
+	bool OptionsPressed();
+	bool ExitPressed();
 private:
 	// Übergebene Objekte
 	CViewport* m_Viewport;
@@ -27,6 +33,7 @@ private:
 
 	// Overlays (Menüs)
 	COverlay m_OvPauseMenu;
+	COverlay m_OvCover;
 
 	// Buttons
 	CGuiButton m_BContinue;

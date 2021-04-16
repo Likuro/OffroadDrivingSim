@@ -87,6 +87,27 @@ void CGame::Tick(float fTime, float fTimeDelta)
 		m_callOnceAfterTick = false;
 	}
 
+	if (m_PauseMenu.IsOn() && m_PauseMenu.ContinuePressed())
+	{
+		m_PauseMenu.SwitchOff();
+	}
+	if (m_Keyboard.KeyDown(DIK_P))
+	{
+		if (m_PauseMenu.IsOn())
+		{
+			m_PauseMenu.SwitchOff();
+		}
+		else
+		{
+			m_PauseMenu.SwitchOn();
+		}
+	}
+
+	if (m_PauseMenu.IsOn())
+	{
+		return;
+	}
+
 	timetick++;
 
 	// Score
