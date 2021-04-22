@@ -120,7 +120,9 @@ private:
 	DriveController m_dController;
 	CGeoTerrains m_zgsColTerrain;
 
+	CWriting m_SpeedValue;
 	CWriting m_GasValue;
+	CWriting m_ClutchValue;
 };
 
 

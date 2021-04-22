@@ -82,7 +82,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zpSphere.EnableAABBs();
 
 	//Drive
-	m_Car.Init(&m_zs, &m_zpCamera, &m_Green, 1, 1, 200);
+	m_Car.Init(&m_zs, &m_zpCamera, &m_Green, 0.8, 0.2, 100);
 	m_dController.Init(&m_zs, &m_zv, &m_Car);
 
 	// Camera
@@ -113,10 +113,15 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_scoreWriting.Init(CFloatRect(0.825f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
 	m_zv.AddWriting(&m_scoreWriting);
 	m_scoreWriting.PrintInt(m_score);
-
-	m_GasValue.Init(CFloatRect(0.525f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
+	//Stats
+	m_SpeedValue.Init(CFloatRect(0.5f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_SpeedValue);
+	m_GasValue.Init(CFloatRect(0.8f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
 	m_zv.AddWriting(&m_GasValue);
-	m_GasValue.PrintFloat(m_dController.GetGas());
+	m_ClutchValue.Init(CFloatRect(0.1f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_ClutchValue);
+
+	//m_SpeedValue.PrintFloat(m_dController.GetGas());
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
@@ -216,7 +221,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	if (m_Keyboard.KeyPressed(DIK_W))
 		m_dController.Accelerate(fTimeDelta);
 
-	if (m_Keyboard.KeyPressed(DIK_S))
+	else
 		m_dController.Deaccelerate(fTimeDelta);
 	//Rotations
 	if (m_Keyboard.KeyPressed(DIK_D))
@@ -237,7 +242,9 @@ m_dController.ResetRotation(fTimeDelta);
 	m_dController.Update(fTimeDelta, m_zgsColTerrain, RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 	TPCamera.update();
 
-	m_GasValue.PrintFloat(m_dController.GetSpeed());
+	m_SpeedValue.PrintFloat(m_dController.GetSpeed());
+	m_GasValue.PrintFloat(m_dController.GetGas());
+	m_ClutchValue.PrintInt(m_dController.GetGear());
 	//m_zpCamera.RotateY(PI);
 	//m_zpCamera.RotateXDelta(atanf(20.f/100.f));
 	//m_zpCamera.TranslateZDelta(m_zpSphere.GetPos().GetZ() - 100.f);

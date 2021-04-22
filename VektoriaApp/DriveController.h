@@ -17,7 +17,9 @@ public:
 	void ResetRotation(float deltaTime);
 	float GetGas();
 	float GetSpeed();
+	int GetGear();
 	void CalculateSpeed(float deltaTime);
+
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
 
 private:
