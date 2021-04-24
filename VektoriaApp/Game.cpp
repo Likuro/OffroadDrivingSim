@@ -49,8 +49,12 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zpSphere.AddGeo(&m_zgSphere);
 	m_zpSphere.EnableAABBs();
 
+	//Drive
+	m_Car.Init(&m_zs, &m_zpCamera, &m_Green, 0.8, 0.2, 200);
+	m_dController.Init(&m_zs, &m_zv, &m_Car);
+
 	// Camera
-	TPCamera.Init(50.f, 10.f, eAlignObjDir, &m_zpSphere, &m_zc);
+	TPCamera.Init(50.f, 10.f, eAlignObjDir, m_Car.GetMainPos(), &m_zc); // Changed
 	m_zs.AddPlacement(&TPCamera);
 
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
@@ -78,6 +82,16 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	//ScoreManager erstellen
 	this->ScoreMaster = new ScoreManager;
 	ScoreMaster->init(&m_zv);
+
+	//Stats
+	m_scoreFont.LoadPreset("LucidaConsoleRed");
+	m_scoreFont.SetChromaKeyingOn();
+	m_SpeedValue.Init(CFloatRect(0.5f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_SpeedValue);
+	m_GasValue.Init(CFloatRect(0.8f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_GasValue);
+	m_ClutchValue.Init(CFloatRect(0.1f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_zv.AddWriting(&m_ClutchValue);
 
 }
 
@@ -156,8 +170,48 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	//else
 	//	fUD = 0.f;
 
-	m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
+	//m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
+	
+	if (m_Keyboard.KeyDown(DIK_1))
+		m_dController.ChangeClutch(1);
+	if (m_Keyboard.KeyDown(DIK_2))
+		m_dController.ChangeClutch(2);
+	if (m_Keyboard.KeyDown(DIK_3))
+		m_dController.ChangeClutch(3);
+	if (m_Keyboard.KeyDown(DIK_4))
+		m_dController.ChangeClutch(4);
+	if (m_Keyboard.KeyDown(DIK_5))
+		m_dController.ChangeClutch(5);
+	if (m_Keyboard.KeyDown(DIK_R))
+		m_dController.ChangeClutch(-1);
+
+
+	if (m_Keyboard.KeyPressed(DIK_W))
+		m_dController.Accelerate(fTimeDelta);
+	else
+		m_dController.Deaccelerate(fTimeDelta);
+	//Rotations
+	if (m_Keyboard.KeyPressed(DIK_D))
+		m_dController.RotateRight(fTimeDelta);
+
+	else if (m_Keyboard.KeyPressed(DIK_A))
+		m_dController.RotateLeft(fTimeDelta);
+	else
+		m_dController.ResetRotation(fTimeDelta);
+	//End Rotations
+	if (m_Keyboard.KeyPressed(DIK_SPACE))
+		m_dController.Brake();
+
+	if (m_Keyboard.KeyUp(DIK_SPACE))
+		m_dController.ReleaseBrakes();
+m_dController.ResetRotation(fTimeDelta);
+
+	m_dController.Update(fTimeDelta, m_zgsColTerrain, RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 	TPCamera.update();
+
+	m_SpeedValue.PrintFloat(m_dController.GetSpeed());
+	m_GasValue.PrintFloat(m_dController.GetGas());
+	m_ClutchValue.PrintInt(m_dController.GetGear());
 
 	//m_zpCamera.RotateY(PI);
 	//m_zpCamera.RotateXDelta(atanf(20.f/100.f));
@@ -206,13 +260,13 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	}
 
 	//RoadManager
-	RoadMaster->tryupdate(fTimeDelta, m_zpSphere.GetPos());
+	RoadMaster->tryupdate(fTimeDelta, m_Car.GetMainPos()->GetPos());
 
 	// ItemManager
 	Items->update(fTime, fTimeDelta);
 
 	//ScoreManager
-	ScoreMaster->update(m_zpSphere.GetPos(), fTimeDelta);
+	ScoreMaster->update(m_Car.GetMainPos()->GetPos(), fTimeDelta);
 
 	//SkyManager
 	SkyMaster->update(ScoreMaster->getScore());
