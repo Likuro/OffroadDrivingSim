@@ -58,18 +58,6 @@ private:
 	CMaterial m_Purple;
 	CMaterial m_Red;
 
-	// Prototyp Placements + Geos
-	CPlacement m_pDark;
-	CPlacement m_pGreen;
-	CPlacement m_pOrange;
-	CPlacement m_pPurple;
-	CPlacement m_pRed;
-	CGeoQuad m_gDark;
-	CGeoQuad m_gGreen;
-	CGeoQuad m_gOrange;
-	CGeoQuad m_gPurple;
-	CGeoQuad m_gRed;
-
 	// Scorebar
 	CWriting m_scoreWriting;
 	CWritingFont m_scoreFont;

@@ -41,7 +41,7 @@ public:
 
 	void changeScene(eSceneType scene);
 private:
-    // Hier ist Platz für Deine Vektoriaobjekte:
+	// Grundlegende Vektoria-Objekte
 	CRoot m_Root;
 	CFrame m_Frame;
 

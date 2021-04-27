@@ -30,7 +30,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_SMain.Init(&m_Cursor, &m_Keyboard);
 
 	// Setzen der Current Scene
-	m_currentScene = &m_SMain;
+	m_currentScene = &m_SGame;
 	m_Root.AddScene(m_currentScene);
 	m_Frame.AddViewport(m_currentScene->getViewport());
 }

@@ -26,7 +26,7 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
 	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
 
-	// Dummy Kugel+
+	// Dummy Kugel
 	this->AddPlacement(&m_zpSphere);
 	m_zgSphere.Init(1.f, &m_Red, 50, 50);
 	m_zpSphere.SetTranslationSensitivity(50.f);				// Geschwindigkeit der Kugel
@@ -62,11 +62,11 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 
 void GameScene::update(float fTime, float fTimeDelta)
 {
-	if (m_callOnceAfterTick)
+	if (m_callOnceAfterTick && m_zpSphere.GetAABB() != nullptr)
 	{
 		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
 		m_callOnceAfterTick = false;
-		//Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
+		Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
 	}
 
 	if (m_PauseMenu.IsOn())
