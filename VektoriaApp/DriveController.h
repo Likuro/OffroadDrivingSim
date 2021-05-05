@@ -3,8 +3,12 @@
 #include "Vehicle.h"
 
 using namespace Vektoria;
-class DriveController
+enum  State
 {
+	forward, backward, stop
+};
+class DriveController
+{	
 public:
 	void Init(CScene* scene, CViewport* viewport, Vehicle* car);
 	void Brake();
@@ -13,16 +17,21 @@ public:
 	void Deaccelerate(float deltaTime);
 	void RotateRight(float deltaTime);
 	void RotateLeft(float deltaTime);
-	void ChangeClutch(int clutch);
+	void GearUp();
+	void GearDown();
 	void ResetRotation(float deltaTime);
 	float GetGas();
 	float GetSpeed();
 	int GetGear();
 	void CalculateSpeed(float deltaTime);
+	void DrivingState();
+	State GetDrivingState();
 
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
 
 private:
+	
+	State myCarState;
 	bool bBrake;
 	float fBrake;
 	float fGas;

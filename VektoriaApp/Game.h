@@ -113,6 +113,9 @@ private:
 	//Driving stuff
 	Vehicle m_Car;
 	DriveController m_dController;
+	CMaterial m_zmTerrain;
+	CPlacement m_zpTerrain;
+	CGeoTerrain m_terrain;
 	CGeoTerrains m_zgsColTerrain;
 
 	CWriting m_SpeedValue;

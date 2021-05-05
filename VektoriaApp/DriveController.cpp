@@ -3,7 +3,7 @@
 void DriveController::Init(CScene* scene, CViewport* viewport, Vehicle* car)
 {
 	myCar = car;
-	knackDrive.Init("Drive", "car_test.ini", scene, viewport);
+	knackDrive.Init("Drive", "car_flunder.ini", scene, viewport);
 	knackDrive.Ignite(myCar->GetMat());
 	bBrake = false;
 	fBrake = 0.0f;
@@ -51,11 +51,18 @@ void DriveController::RotateLeft(float deltaTime)
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
 
-void DriveController::ChangeClutch(int clutch)
+void DriveController::GearUp()
 {
-	iClutch = clutch;
+	iClutch += 1;
 	UM_SETINRANGE(iClutch, -1, 5);
-	myCar->SetCurrentMaxSpeed(clutch);
+	myCar->SetCurrentMaxSpeed(iClutch);
+}
+
+void DriveController::GearDown()
+{
+	iClutch -= 1;
+	UM_SETINRANGE(iClutch, -1, 5);
+	myCar->SetCurrentMaxSpeed(iClutch);
 }
 
 void DriveController::ResetRotation(float deltaTime)
@@ -95,10 +102,34 @@ void DriveController::CalculateSpeed(float deltaTime)
 	time += deltaTime;
 }
 
+void DriveController::DrivingState()
+{
+	CHVector difference = myCar->GetMainPos()->GetPos() - oldPos;
+	if (myCar->GetMainPos()->GetPos().z < oldPos.z)
+		myCarState = forward;
+	else if (myCar->GetMainPos()->GetPos().z > oldPos.z)
+		myCarState = backward;
+	else 
+		myCarState = stop;
+}
+
+State DriveController::GetDrivingState()
+{
+	return myCarState;
+}
+
 void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems)
 {
 	if (myCar->GetCurrentMaxSpeed() <= speed)
 		fGas = 0;
+	if (iClutch == -1 && myCarState == forward) {
+		if (speed >= 10) {
+			Brake();
+			fGas = 0;
+		}
+		else
+			ReleaseBrakes();
+	}	
 
 	knackDrive.Input(fGas, fBrake, fSteering, iClutch, 0);
 	knackDrive.Tick(deltaTime, terrain, groundItems, collisionItems);
@@ -107,4 +138,5 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 
 	myCar->UpdateFrontWheels(fSteering, iClutch, speed);
 	CalculateSpeed(deltaTime);
+	DrivingState();
 }

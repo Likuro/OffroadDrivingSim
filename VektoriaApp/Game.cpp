@@ -49,6 +49,13 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zpSphere.AddGeo(&m_zgSphere);
 	m_zpSphere.EnableAABBs();
 
+	//Terrain
+	m_zs.AddPlacement(&m_zpTerrain);
+	m_zpTerrain.AddGeo(&m_terrain);
+	m_terrain.InitQuick(100000, 100000, 10, false, &m_Green, 300, 300, 0, 0, 10, 10);
+	m_zgsColTerrain.Add(&m_terrain);
+	m_zpTerrain.TranslateY(-1000);
+
 	//Drive
 	m_Car.Init(&m_zs, &m_zpCamera, &m_Green, 0.8, 0.2, 200);
 	m_dController.Init(&m_zs, &m_zv, &m_Car);
@@ -173,17 +180,10 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	//m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
 	
 	if (m_Keyboard.KeyDown(DIK_1))
-		m_dController.ChangeClutch(1);
+		m_dController.GearUp();
 	if (m_Keyboard.KeyDown(DIK_2))
-		m_dController.ChangeClutch(2);
-	if (m_Keyboard.KeyDown(DIK_3))
-		m_dController.ChangeClutch(3);
-	if (m_Keyboard.KeyDown(DIK_4))
-		m_dController.ChangeClutch(4);
-	if (m_Keyboard.KeyDown(DIK_5))
-		m_dController.ChangeClutch(5);
-	if (m_Keyboard.KeyDown(DIK_R))
-		m_dController.ChangeClutch(-1);
+		m_dController.GearDown();
+
 
 
 	if (m_Keyboard.KeyPressed(DIK_W))
