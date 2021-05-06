@@ -27,12 +27,14 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 
 	// Scenes Init
 	m_SGame.Init(&m_Cursor, &m_Keyboard);
+	initScene(&m_SGame);
 	m_SMain.Init(&m_Cursor, &m_Keyboard);
+	initScene(&m_SMain);
 
 	// Setzen der Current Scene
-	m_currentScene = &m_SGame;
-	m_Root.AddScene(m_currentScene);
-	m_Frame.AddViewport(m_currentScene->getViewport());
+	m_currentScene = &m_SMain;
+	m_currentScene->SwitchOn();
+	m_currentScene->getViewport()->SwitchOn();
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
@@ -57,24 +59,32 @@ void CGame::WindowReSize(int iNewWidth, int iNewHeight)
 	m_Frame.ReSize(iNewWidth, iNewHeight);
 }
 
+void CGame::initScene(TemplateScene* scene)
+{
+	m_Root.AddScene(scene);
+	scene->SwitchOff();
+	m_Frame.AddViewport(scene->getViewport());
+	scene->getViewport()->SwitchOff();
+}
+
 void CGame::changeScene(eSceneType scene)
 {
 	m_currentScene->reset();
 	switch (scene)
 	{
 	case main:
-		m_Root.SubScene(m_currentScene);
-		m_Frame.SubViewport(m_currentScene->getViewport());
+		m_currentScene->SwitchOff();
+		m_currentScene->getViewport()->SwitchOff();
 		m_currentScene = &m_SMain;
-		m_Root.AddScene(m_currentScene);
-		m_Frame.AddViewport(m_currentScene->getViewport());
+		m_currentScene->SwitchOn();
+		m_currentScene->getViewport()->SwitchOn();
 		break;
 	case game:
-		m_Root.SubScene(m_currentScene);
-		m_Frame.SubViewport(m_currentScene->getViewport());
+		m_currentScene->SwitchOff();
+		m_currentScene->getViewport()->SwitchOff();
 		m_currentScene = &m_SGame;
-		m_Root.AddScene(m_currentScene);
-		m_Frame.AddViewport(m_currentScene->getViewport());
+		m_currentScene->SwitchOn();
+		m_currentScene->getViewport()->SwitchOn();
 		break;
 	default:
 		break;

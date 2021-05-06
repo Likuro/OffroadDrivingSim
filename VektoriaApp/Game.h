@@ -39,6 +39,7 @@ public:
 
 	void WindowReSize(int iNewWidth, int iNewHeight);											// Wird immer dann aufgerufen, wenn der Benutzer die Fenstergröße verändert hat
 
+	void initScene(TemplateScene* scene);
 	void changeScene(eSceneType scene);
 private:
 	// Grundlegende Vektoria-Objekte
