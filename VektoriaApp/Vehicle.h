@@ -57,3 +57,4 @@ private:
 
 	float lastSpeed, currentSpeed;
 };
+
