@@ -14,6 +14,7 @@
 #define roadTilelength 144
 #define roadTilewidth 100
 #define roadTileheight 30
+#define RoadTileBoundingBox 6
 
 //Settings für den Spawn
 #define spawnTime 10
@@ -36,6 +37,7 @@ public:
 	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager);
 	void updateRoad();
 	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
+	void resetRoad();
 
 	//damit die Hitboxen witergegeben werden können
 	CGeos& getGeosGround();
@@ -86,7 +88,9 @@ private:
 	//Placement für die Plane des Sandsturms
 	CPlacement wallofDEATH;
 	CGeo *wallofMODEL;
-	CFileWavefront wallofIMPORT;
+	CGeoQuad wallofSTORM;
+	CMaterial wallofCOLOR;
+	CEmitter wallofEMITTER;
 
 	//Für die RoadTiles
 	RoadTile* RoadSector[anzahlRoadTiles];

@@ -17,7 +17,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 
 	// Hier die Initialisierung Deiner Vektoria-Objekte einfügen:
 	m_zr.Init(psplash);
-	m_zc.Init(QUARTERPI);
+	m_zc.Init(QUARTERPI, 0.5f);
 	// m_zf.SetApiRender(eApiRender_DirectX11_Shadermodel50_Monolight);
 	m_zf.Init(hwnd, procOS); 
 	m_zv.InitFull(&m_zc);
@@ -63,6 +63,9 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Camera
 	TPCamera.Init(50.f, 10.f, eAlignObjDir, m_Car.GetMainPos(), &m_zc); // Changed
 	m_zs.AddPlacement(&TPCamera);
+	m_zv.SetMistOn(true);
+	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
+	m_zv.SetMistStrength(1.0/((float)roadTilelength*(float)anzahlRoadTiles));
 
 	m_zf.AddDeviceKeyboard(&m_Keyboard);
 	m_zf.AddDeviceGameController(&m_Controller);

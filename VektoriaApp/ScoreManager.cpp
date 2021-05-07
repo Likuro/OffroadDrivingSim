@@ -29,3 +29,11 @@ int ScoreManager::getScore()
 {
 	return score;
 }
+
+void ScoreManager::resetScore()
+{
+	score = 0;
+	time = 0;
+	lastPos = CHVector(0.0f, 0.0f, 0.0f);
+
+}
