@@ -1,7 +1,7 @@
 #pragma once
 #include "Vektoria\Root.h"
 
-#define refreshrate 0.01
+#define refreshrate 0.1
 
 using namespace Vektoria;
 
@@ -12,6 +12,7 @@ public:
 	void init(CViewport *tmp_viewport);
 	void update(CHVector tmp_pos, float tmp_ftime);
 	int getScore();
+	void resetScore();
 
 private:
 
@@ -21,4 +22,3 @@ private:
 	CWritingFont scoreFont;
 	CHVector lastPos;
 };
-

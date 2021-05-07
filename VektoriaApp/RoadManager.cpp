@@ -4,26 +4,25 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 {
 
 	myPlacement = tmp_scene;
-	activeSpawn = 0;
-	timesSpawned = 1;
 	myItemManager = tmp_myItemManager;
-	lastTile = 0;
-	nextTile = 0;
-	lane = 0;
-	lanehight = 0;
-	sinceLastSpecial = 0;
-	roadtime = 0;
-	lastSpawn = 0;
-	walltime = 0;
-	lastspecialTile = 0;
-	nextspecialTile = 0;
 	specialSpawnChance = specialSpawnChanceSetting;
 
 	//Sandsturm laden & anhängen
-	wallofMODEL = wallofIMPORT.LoadGeo("models/wallofdeath/wallofdeath.obj", true);
-	wallofDEATH.AddGeo(wallofMODEL);
+	wallofCOLOR.MakeTextureDiffuse("textures\\Sandstorm_cube.png");
+	wallofCOLOR.SetTransparency(1.0f);
+	wallofEMITTER.LoadPreset("Sandstorm_ver2");
+	wallofSTORM.Init(roadTilewidth*RoadTileBoundingBox, roadTileheight*RoadTileBoundingBox, &wallofCOLOR);
+	wallofDEATH.AddGeo(&wallofSTORM);
+	wallofSTORM.AddEmitter(&wallofEMITTER);
 	myPlacement->AddPlacement(&wallofDEATH);
 	wallofDEATH.TranslateZ(400.0f);
+	
+	//Emitter Settings
+	wallofEMITTER.SetRate(3 * RoadTileBoundingBox * RoadTileBoundingBox);
+	wallofEMITTER.SetTimeToWait(0.0f);
+	wallofEMITTER.SetTimeToCome(2.0f);
+	wallofEMITTER.SetTimeToStay(20.0f);
+	wallofEMITTER.SetTimeToFade(0.5f);
 
 	//PrefabRoads laden
 	strcpy(prefabModelLoadPath, "models/road/RoadTile_Basic.obj");
@@ -31,6 +30,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/RoadTile_Basic_Frontal.obj");
 	PrefabRoads[0] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
 	
+
 	strcpy(prefabModelLoadPath, "models/road/RoadTile_Basic.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/RoadTile_Basic_Ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/road/hitbox/frontal/RoadTile_Basic_Frontal.obj");
@@ -84,21 +84,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabHitboxFrontalLoadPath, "models/specialroad/hitbox/frontal/RoadTile_Curve_R_Up_Frontal.obj");
 	SpecialPrefabRoads[7] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
 	
-
-	for (int i = 0; i < anzahlRoadTiles; i++) {
-		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);
-	}
-
-	for (int i = 0; i < anzahlRoadTiles; i++) {
-
-		//Placements in die Szene hängen
-		myPlacement->AddPlacement(&placementRoad[i]);
-		//Placements hintereinander in einer Reihe anordnen
-		placementRoad[i].TranslateZ((roadTilelength*2)-(i *roadTilelength));
-		//RoadTile and die Scene hängen
-		RoadSector[i]->addToScene(PrefabRoads[0]);
-		
-	}
+	resetRoad();
 }
 
 void RoadManager::updateRoad()
@@ -118,7 +104,7 @@ void RoadManager::updateRoad()
 	//festlegen, ob eine SpecialRoad oder eine "normale" Road gespawnt werden soll
 	if (sinceLastSpecial>=specialSpawnForce || 1 == std::rand()%specialSpawnChance) {
 		sinceLastSpecial = 0;
-		while ((nextspecialTile == lastspecialTile) || (lane >= 6 && SpecialPrefabRoads[nextspecialTile]->getLaneShift() >=1) || (lane <= -6 && SpecialPrefabRoads[nextspecialTile]->getLaneShift() <= -1) || (lanehight >= 6 && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() >= 1) || (lanehight <= -6 && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() <= -1)) {
+		while ((nextspecialTile == lastspecialTile) || (lane >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneShift() >=1) || (lane <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneShift() <= -1) || (lanehight >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() >= 1) || (lanehight <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() <= -1)) {
 			nextspecialTile = std::rand() % anzahlSpecialPrefabRoads;
 		}
 		RoadSector[activeSpawn]->addToScene(SpecialPrefabRoads[nextspecialTile]);
@@ -168,6 +154,37 @@ void RoadManager::tryupdate(float tmp_ftime, CHVector tmp_carPos)
 	if (roadtime >= spawnTime || placementRoad[lastSpawn].GetPos().GetZ()+(tilesremaining*roadTilelength)> tmp_carPos.GetZ()) {
 		updateRoad();
 		roadtime = 0;
+	}
+}
+
+void RoadManager::resetRoad()
+{
+	activeSpawn = 0;
+	timesSpawned = 1;
+	lastTile = 0;
+	nextTile = 0;
+	lane = 0;
+	lanehight = 0;
+	sinceLastSpecial = 0;
+	roadtime = 0;
+	lastSpawn = 0;
+	walltime = 0;
+	lastspecialTile = 0;
+	nextspecialTile = 0;
+
+	for (int i = 0; i < anzahlRoadTiles; i++) {
+		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);
+	}
+
+	for (int i = 0; i < anzahlRoadTiles; i++) {
+
+		//Placements in die Szene hängen
+		myPlacement->AddPlacement(&placementRoad[i]);
+		//Placements hintereinander in einer Reihe anordnen
+		placementRoad[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
+		//RoadTile and die Scene hängen
+		RoadSector[i]->addToScene(PrefabRoads[0]);
+
 	}
 }
 
