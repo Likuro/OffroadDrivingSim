@@ -43,6 +43,18 @@
     <ClCompile Include="ThirdPersonCamera.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="DriveController.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoostItem.h">
@@ -88,6 +100,18 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="ThirdPersonCamera.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DriveController.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

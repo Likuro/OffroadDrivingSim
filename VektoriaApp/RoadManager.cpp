@@ -11,19 +11,20 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	wallofCOLOR.MakeTextureDiffuse("textures\\Sandstorm_cube.png");
 	wallofCOLOR.SetTransparency(1.0f);
 	wallofEMITTER.LoadPreset("Sandstorm_ver2");
-	wallofSTORM.Init(roadTilewidth*RoadTileBoundingBox, roadTileheight*RoadTileBoundingBox, &wallofCOLOR);
+	wallofSTORM.Init(roadTilewidth, roadTileheight, &wallofCOLOR);
 	wallofDEATH.AddGeo(&wallofSTORM);
 	wallofSTORM.AddEmitter(&wallofEMITTER);
 	myPlacement->AddPlacement(&wallofDEATH);
 	wallofDEATH.TranslateZ(400.0f);
 	
 	//Emitter Settings
+	/*
 	wallofEMITTER.SetRate(3 * RoadTileBoundingBox * RoadTileBoundingBox);
 	wallofEMITTER.SetTimeToWait(0.0f);
 	wallofEMITTER.SetTimeToCome(2.0f);
 	wallofEMITTER.SetTimeToStay(20.0f);
 	wallofEMITTER.SetTimeToFade(0.5f);
-
+	*/
 	//PrefabRoads laden
 	strcpy(prefabModelLoadPath, "models/road/RoadTile_Basic.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/RoadTile_Basic_Ground.obj");

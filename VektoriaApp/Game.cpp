@@ -61,7 +61,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_dController.Init(&m_zs, &m_zv, &m_Car);
 
 	// Camera
-	TPCamera.Init(50.f, 10.f, eAlignObjDir, m_Car.GetMainPos(), &m_zc); // Changed
+	TPCamera.Init(25.f, 4.f, eAlignObjDir, m_Car.GetMainPos(), &m_zc); // Changed
 	m_zs.AddPlacement(&TPCamera);
 	m_zv.SetMistOn(true);
 	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
@@ -182,9 +182,9 @@ void CGame::Tick(float fTime, float fTimeDelta)
 
 	//m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
 	
-	if (m_Keyboard.KeyDown(DIK_1))
+	if (m_Keyboard.KeyDown(DIK_Q))
 		m_dController.GearUp();
-	if (m_Keyboard.KeyDown(DIK_2))
+	if (m_Keyboard.KeyDown(DIK_F))
 		m_dController.GearDown();
 
 
@@ -202,7 +202,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	else
 		m_dController.ResetRotation(fTimeDelta);
 	//End Rotations
-	if (m_Keyboard.KeyPressed(DIK_SPACE))
+	if (m_Keyboard.KeyPressed(DIK_SPACE)|| m_Keyboard.KeyPressed(DIK_S))
 		m_dController.Brake();
 
 	if (m_Keyboard.KeyUp(DIK_SPACE))

@@ -39,14 +39,14 @@ void DriveController::Deaccelerate(float deltaTime)
 
 void DriveController::RotateRight(float deltaTime)
 {
-	fSteering += deltaTime * 0.05f;
+	fSteering += deltaTime * 0.04f;
 	UM_SETINRANGE(fSteering, -0.15, 0.15);
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
 
 void DriveController::RotateLeft(float deltaTime)
 {
-	fSteering -= deltaTime * 0.05f;
+	fSteering -= deltaTime * 0.04f;
 	UM_SETINRANGE(fSteering, -0.15, 0.15);
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
@@ -60,7 +60,12 @@ void DriveController::GearUp()
 
 void DriveController::GearDown()
 {
-	iClutch -= 1;
+	float newClutch = iClutch - 1;
+	if (myCarState == forward && newClutch < 0 && speed > 5) {
+		return;
+	}
+	else
+		iClutch -= 1;
 	UM_SETINRANGE(iClutch, -1, 5);
 	myCar->SetCurrentMaxSpeed(iClutch);
 }
