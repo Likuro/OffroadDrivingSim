@@ -21,8 +21,9 @@ void ThirdPersonCamera::update()
 	float angle = asinf(m_height / m_distance);
 	m_CameraSwivel.RotateX(-angle);
 	float yaw = m_FollowObject->GetMat().GetYaw();
-	CHMat mat;
+	CHMat mat;	
 	mat.RotateY(yaw);
+	mat.RotateXDelta(-0.04f);//added by Mohamed
 	CHVector toCamera(0.f, m_height, (m_height / tan(angle)));
 	toCamera = mat * toCamera;
 
