@@ -197,3 +197,4 @@ CGeos& RoadManager::getGeosFrontal()
 {
 	return roadTilesHitboxFrontal;
 }
+

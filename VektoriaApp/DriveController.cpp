@@ -39,14 +39,14 @@ void DriveController::Deaccelerate(float deltaTime)
 
 void DriveController::RotateRight(float deltaTime)
 {
-	fSteering += deltaTime * 0.05f;
+	fSteering += deltaTime * 0.04f;
 	UM_SETINRANGE(fSteering, -0.15, 0.15);
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
 
 void DriveController::RotateLeft(float deltaTime)
 {
-	fSteering -= deltaTime * 0.05f;
+	fSteering -= deltaTime * 0.04f;
 	UM_SETINRANGE(fSteering, -0.15, 0.15);
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
@@ -60,7 +60,12 @@ void DriveController::GearUp()
 
 void DriveController::GearDown()
 {
-	iClutch -= 1;
+	float newClutch = iClutch - 1;
+	if (myCarState == forward && newClutch < 0 && speed > 5) {
+		return;
+	}
+	else 
+		iClutch -= 1;
 	UM_SETINRANGE(iClutch, -1, 5);
 	myCar->SetCurrentMaxSpeed(iClutch);
 }
@@ -122,14 +127,14 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 {
 	if (myCar->GetCurrentMaxSpeed() <= speed)
 		fGas = 0;
-	if (iClutch == -1 && myCarState == forward) {
+	/*if (iClutch == -1 && myCarState == forward) {
 		if (speed >= 10) {
 			Brake();
 			fGas = 0;
 		}
 		else
 			ReleaseBrakes();
-	}	
+	}	*/
 
 	knackDrive.Input(fGas, fBrake, fSteering, iClutch, 0);
 	knackDrive.Tick(deltaTime, terrain, groundItems, collisionItems);
