@@ -21,6 +21,8 @@
 
 
 #include "Vektoria\Root.h"
+#include "Scenes/GameScene.h"
+#include "Scenes/MainMenu.h"
 #include "HealthBar.h"
 #include "Kinematics.h"
 #include "ItemManager.h"
@@ -46,26 +48,17 @@ public:
 
 	void WindowReSize(int iNewWidth, int iNewHeight);											// Wird immer dann aufgerufen, wenn der Benutzer die Fenstergröße verändert hat
 
+	void initScene(TemplateScene* scene);
+	void changeScene(eSceneType scene);
 private:
-    // Hier ist Platz für Deine Vektoriaobjekte:
-	CRoot m_zr;
-	CScene m_zs;
-	CPlacement m_zpCamera;
-	CPlacement m_zpSphere;
-	CGeoSphere m_zgSphere;
-	CFrame m_zf;
-	CViewport m_zv;
-	CCamera m_zc;
-	CLightParallel m_zl;
+	// Grundlegende Vektoria-Objekte
+	CRoot m_Root;
+	CFrame m_Frame;
 
-	// Pointlight
-	CPlacement m_RadialLightPlace;
-	CLightRadial m_RadialLight;
-
+	// Eingabegeräte
 	CDeviceKeyboard m_Keyboard;
-
+	CDeviceCursor m_Cursor;
 	CDeviceGameController m_Controller;
-	float controllerSpeed = 0.025f;
 
 	HealthBar* Health;
 	ProgressBar* Speedometer;
@@ -121,6 +114,10 @@ private:
 	CWriting m_SpeedValue;
 	CWriting m_GasValue;
 	CWriting m_ClutchValue;
+	// Szenen
+	TemplateScene* m_currentScene;
+	GameScene m_SGame;
+	MainMenu m_SMain;
 };
 
 

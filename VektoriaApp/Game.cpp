@@ -16,6 +16,9 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	srand(time(NULL));
 
 	// Hier die Initialisierung Deiner Vektoria-Objekte einfügen:
+	m_Root.Init(psplash);
+	m_Root.AddFrame(&m_Frame);
+	m_Frame.Init(hwnd, procOS);
 	m_zr.Init(psplash);
 	m_zc.Init(QUARTERPI, 0.5f);
 	// m_zf.SetApiRender(eApiRender_DirectX11_Shadermodel50_Monolight);
@@ -23,16 +26,16 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_zv.InitFull(&m_zc);
 	m_zl.Init(CHVector(1.0f, 1.0f, 1.0f), CColor(1.0f, 1.0f, 1.0f));
 
-	m_zr.AddFrame(&m_zf);
-	m_zf.AddViewport(&m_zv);
-	m_zr.AddScene(&m_zs);
-	m_zs.AddLightParallel(&m_zl);
+	// Eingabegeräte (Keyboard/Controller/Maus)
+	m_Frame.AddDeviceKeyboard(&m_Keyboard);
+	m_Frame.AddDeviceGameController(&m_Controller);
+	m_Frame.AddDeviceCursor(&m_Cursor);
 
-	// Neues cooles Licht
-	m_zs.AddPlacement(&m_RadialLightPlace);
-	m_RadialLight.Init(CColor(1.f, 1.f, 1.f), 0.1f);
-	m_RadialLightPlace.AddLightRadial(&m_RadialLight);
-	m_RadialLightPlace.TranslateY(100.f);
+	// Scenes Init
+	m_SGame.Init(&m_Cursor, &m_Keyboard);
+	initScene(&m_SGame);
+	m_SMain.Init(&m_Cursor, &m_Keyboard);
+	initScene(&m_SMain);
 
 	// Prototype Textures für Camera Debugging
 	m_Dark.MakeTextureDiffuse("textures\\PrototypeTextures\\Dark\\texture_06.png");
@@ -103,17 +106,21 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_ClutchValue.Init(CFloatRect(0.1f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
 	m_zv.AddWriting(&m_ClutchValue);
 
+	// Setzen der Current Scene
+	m_currentScene = &m_SMain;
+	m_currentScene->SwitchOn();
+	m_currentScene->getViewport()->SwitchOn();
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
 {
-	m_zr.Tick(fTimeDelta);
-	if (m_callOnceAfterTick)
+	m_Root.Tick(fTimeDelta);
+	m_currentScene->update(fTime, fTimeDelta);
+	if (m_currentScene->getChange())
 	{
-		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
-		Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
-		m_callOnceAfterTick = false;
+		changeScene(m_currentScene->getNextScene());
 	}
+}
 
 	timetick++;
 
@@ -221,43 +228,48 @@ m_dController.ResetRotation(fTimeDelta);
 	//m_zpCamera.TranslateZDelta(m_zpSphere.GetPos().GetZ() - 100.f);
 	//m_zpCamera.TranslateYDelta(m_zpSphere.GetPos().GetY() + 20.f);
 	//m_zpCamera.TranslateXDelta(m_zpSphere.GetPos().GetX());
+void CGame::Fini()
+{
+	// Hier die Finalisierung Deiner Vektoria-Objekte einfügen:
+}
 
-	// Controller Steuerung
-	if (abs(m_Controller.GetRelativeX()) > 0.1)		// Deadzone
-	{
-		m_zpSphere.TranslateXDelta(-0.2f*(m_Controller.GetRelativeX()*controllerSpeed));
-	}
-	if (abs(m_Controller.GetRelativeY()) > 0.1)		// Deadzone
-	{
-		m_zpSphere.TranslateZDelta(0.2f*(-m_Controller.GetRelativeY()*controllerSpeed));
-	}
-	if (abs(m_Controller.GetRelativeRX()) > 0.1)
-	{
-		m_zpCamera.RotateYDelta(0.025f * (-m_Controller.GetRelativeRX() * controllerSpeed));
-	}
-	//if (abs(m_Controller.GetRelativeRY()) > 0.1)
-	//{
-	//	m_zpCamera.RotateXDelta(0.025f * (m_Controller.GetRelativeRY() * controllerSpeed));
-	//}
-	//if (abs(m_Controller.GetRelativeRZ()) > 0.1)
-	//{
-	//	m_zpSphere.TranslateYDelta(0.05f * (m_Controller.GetRelativeRZ() * controllerSpeed));
-	//}
+void CGame::WindowReSize(int iNewWidth, int iNewHeight)
+{
+	// Windows ReSize wird immer automatisch aufgerufen, wenn die Fenstergröße verändert wurde.
+	// Hier kannst Du dann die Auflösung des Viewports neu einstellen:
+	m_Frame.ReSize(iNewWidth, iNewHeight);
+}
 
-	// HealthBar Test
-	if (m_Keyboard.KeyDown(DIK_Q))
-	{
-		Health->changeHealth(-10.f);
-	}
+void CGame::initScene(TemplateScene* scene)
+{
+	m_Root.AddScene(scene);
+	scene->SwitchOff();
+	m_Frame.AddViewport(scene->getViewport());
+	scene->getViewport()->SwitchOff();
+}
 
-	// Speedometer Test
-	if (m_Keyboard.KeyPressed(DIK_E))
+void CGame::changeScene(eSceneType scene)
+{
+	m_currentScene->reset();
+	switch (scene)
 	{
-		Speedometer->progressValue += 0.05f;
-		Speedometer->update();
+	case main:
+		m_currentScene->SwitchOff();
+		m_currentScene->getViewport()->SwitchOff();
+		m_currentScene = &m_SMain;
+		m_currentScene->SwitchOn();
+		m_currentScene->getViewport()->SwitchOn();
+		break;
+	case game:
+		m_currentScene->SwitchOff();
+		m_currentScene->getViewport()->SwitchOff();
+		m_currentScene = &m_SGame;
+		m_currentScene->SwitchOn();
+		m_currentScene->getViewport()->SwitchOn();
+		break;
+	default:
+		break;
 	}
-	else
-	{
 		Speedometer->progressValue -= 0.005f;
 		Speedometer->update();
 	}

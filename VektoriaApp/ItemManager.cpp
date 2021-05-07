@@ -135,6 +135,7 @@ void ItemManager::update(float fTime, float fTimeDelta)
 
 void ItemManager::InitRays(CAABB* boundingBox)
 {
+	// Einfachere Berechnung boundingBox->IsInside(vec);
 	// Berechnen des Strahlenbüschels
 	CHVector minBox = boundingBox->GetMin();
 	CHVector maxBox = boundingBox->GetMax();
