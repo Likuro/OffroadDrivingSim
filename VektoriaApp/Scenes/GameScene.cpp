@@ -8,16 +8,9 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	// Camera Init
 	m_Camera.Init(QUARTERPI);
 	m_PCamera.AddCamera(&m_Camera);
-	this->SetSkyOn(&m_PCamera, true);
 
 	// Viewport Init
 	m_Viewport.InitFull(&m_Camera);
-
-	// Neues cooles Licht
-	this->AddPlacement(&m_RadialLightPlace);
-	m_RadialLight.Init(CColor(1.f, 1.f, 1.f), 0.1f);
-	m_RadialLightPlace.AddLightRadial(&m_RadialLight);
-	m_RadialLightPlace.TranslateY(100.f);
 
 	// Prototype Textures für Camera Debugging
 	m_Dark.MakeTextureDiffuse("textures\\PrototypeTextures\\Dark\\texture_06.png");
@@ -26,48 +19,68 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
 	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
 
-	// Dummy Kugel
-	this->AddPlacement(&m_zpSphere);
-	m_zgSphere.Init(1.f, &m_Red, 50, 50);
-	m_zpSphere.SetTranslationSensitivity(50.f);				// Geschwindigkeit der Kugel
-	m_zpSphere.SetRotationSensitivity(2.f);
-	m_zpSphere.AddGeo(&m_zgSphere);
-	m_zpSphere.EnableAABBs();
-
 	// Third-Person-Camera
-	m_TPCamera.Init(50.f, 10.f, eAlignObjDir, &m_zpSphere, &m_Camera);
+	m_TPCamera.Init(25.f, 4.f, eAlignObjDir, m_Car.GetMainPos(), &m_Camera);
 	this->AddPlacement(&m_TPCamera);
+
+	m_Viewport.SetMistOn(true);
+	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
+	m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
 
 	// Healthbar
 	Health = new HealthBar(&m_Orange, &m_Viewport, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
 	// Speedometer
 	Speedometer = new ProgressBar(&m_Green, &m_Viewport, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
+
 	// PauseMenu
 	m_PauseMenu.Init(&m_Viewport, m_Cursor);
+
 	// ItemManager
-	Items = new ItemManager(25, &m_zpSphere);
+	Items = new ItemManager(25, m_Car.GetMainPos());
 
 	// RoadMaster erstellen
 	this->AddPlacement(&drivingScenePlacement);
 	this->RoadMaster = new RoadManager;
 	RoadMaster->init(&drivingScenePlacement, Items);
 
-	// Score
+	//SkyMaster erstellen
+	this->SkyMaster = new SkyManager;
+	SkyMaster->init(this, &m_PCamera);
+
+	//ScoreManager erstellen
+	this->ScoreMaster = new ScoreManager;
+	ScoreMaster->init(&m_Viewport);
+
+	//Stats
 	m_scoreFont.LoadPreset("LucidaConsoleRed");
 	m_scoreFont.SetChromaKeyingOn();
-	m_scoreWriting.Init(CFloatRect(0.825f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
-	m_Viewport.AddWriting(&m_scoreWriting);
-	m_scoreWriting.PrintInt(m_score);
+	m_SpeedValue.Init(CFloatRect(0.5f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_Viewport.AddWriting(&m_SpeedValue);
+	m_GasValue.Init(CFloatRect(0.8f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_Viewport.AddWriting(&m_GasValue);
+	m_ClutchValue.Init(CFloatRect(0.1f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
+	m_Viewport.AddWriting(&m_ClutchValue);
+
+	//Terrain
+	this->AddPlacement(&m_zpTerrain);
+	m_zpTerrain.AddGeo(&m_terrain);
+	m_terrain.InitQuick(100000, 100000, 10, false, &m_Green, 300, 300, 0, 0, 10, 10);
+	m_zgsColTerrain.Add(&m_terrain);
+	m_zpTerrain.TranslateY(-1000);
+
+	//Drive
+	m_Car.Init(this, &m_PCamera, &m_Green, 0.8, 0.2, 200);
+	m_dController.Init(this, &m_Viewport, &m_Car);
 }
 
 void GameScene::update(float fTime, float fTimeDelta)
 {
-	if (m_callOnceAfterTick && m_zpSphere.GetAABB() != nullptr)
-	{
-		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
-		m_callOnceAfterTick = false;
-		Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
-	}
+	//if (m_callOnceAfterTick && m_zpSphere.GetAABB() != nullptr)
+	//{
+	//	// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
+	//	m_callOnceAfterTick = false;
+	//	Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
+	//}
 
 	if (m_PauseMenu.IsOn())
 	{
@@ -79,7 +92,7 @@ void GameScene::update(float fTime, float fTimeDelta)
 		{
 			m_nextScene = main;
 			m_changeScene = true;
-			m_PauseMenu.SwitchOff();
+			// m_PauseMenu.SwitchOff();
 		}
 	}
 	if (m_Keyboard->KeyDown(DIK_P))
@@ -102,45 +115,9 @@ void GameScene::update(float fTime, float fTimeDelta)
 	timetick++;
 
 	// Score
-	m_score = m_zpSphere.GetPos().Dist(CHVector(0.f, 0.f, 0.f, 0.f));
+	m_score = m_Car.GetMainPos()->GetPos().Dist(CHVector(0.f, 0.f, 0.f, 0.f));
 	m_scoreWriting.PrintInt(m_score);
 
-	// Tastatur Steuerung
-	if (m_Keyboard->KeyPressed(DIK_W))
-	{
-		if (m_Keyboard->KeyPressed(DIK_S))
-			fSW = 0.f;
-		else
-			fSW = -1.f;
-	}
-	else if (m_Keyboard->KeyPressed(DIK_S))
-		fSW = 1.f;
-	else
-		fSW = 0.f;
-	// Hoch/Runter Verschiebung
-	if (m_Keyboard->KeyPressed(DIK_LSHIFT))
-	{
-		if (m_Keyboard->KeyPressed(DIK_SPACE))
-			fFR = 0.f;
-		else
-			fFR = -1.f;
-	}
-	else if (m_Keyboard->KeyPressed(DIK_SPACE))
-		fFR = 1.f;
-	else
-		fFR = 0.f;
-	// Links/Rechts Drehung
-	if (m_Keyboard->KeyPressed(DIK_A))
-	{
-		if (m_Keyboard->KeyPressed(DIK_D))
-			fLR = 0.f;
-		else
-			fLR = -1.f;
-	}
-	else if (m_Keyboard->KeyPressed(DIK_D))
-		fLR = 1.f;
-	else
-		fLR = 0.f;
 	// Zoom
 	if (m_Keyboard->KeyPressed(DIK_UP))
 	{
@@ -152,8 +129,40 @@ void GameScene::update(float fTime, float fTimeDelta)
 	else if (m_Keyboard->KeyPressed(DIK_DOWN))
 		m_TPCamera.zoom(0.4f * fTimeDelta);
 
-	m_zpSphere.MoveTerrain(fTimeDelta, fAD, fSW, fFR, fLR, fUD, RoadMaster->getGeosFrontal(), RoadMaster->getGeosGround(), fHeightEye, fHeightRay, hitpointCollision, hitpointGround, true, eMoveFlightKind_Ballistic);
+
+	if (m_Keyboard->KeyDown(DIK_Q))
+		m_dController.GearUp();
+	if (m_Keyboard->KeyDown(DIK_F))
+		m_dController.GearDown();
+
+
+
+	if (m_Keyboard->KeyPressed(DIK_W))
+		m_dController.Accelerate(fTimeDelta);
+	else
+		m_dController.Deaccelerate(fTimeDelta);
+	//Rotations
+	if (m_Keyboard->KeyPressed(DIK_D))
+		m_dController.RotateRight(fTimeDelta);
+
+	else if (m_Keyboard->KeyPressed(DIK_A))
+		m_dController.RotateLeft(fTimeDelta);
+	else
+		m_dController.ResetRotation(fTimeDelta);
+	//End Rotations
+	if (m_Keyboard->KeyPressed(DIK_SPACE) || m_Keyboard->KeyPressed(DIK_S))
+		m_dController.Brake();
+
+	if (m_Keyboard->KeyUp(DIK_SPACE))
+		m_dController.ReleaseBrakes();
+	m_dController.ResetRotation(fTimeDelta);
+
+	m_dController.Update(fTimeDelta, m_zgsColTerrain, RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 	m_TPCamera.update(fTimeDelta);
+
+	m_SpeedValue.PrintFloat(m_dController.GetSpeed());
+	m_GasValue.PrintFloat(m_dController.GetGas());
+	m_ClutchValue.PrintInt(m_dController.GetGear());
 
 	// HealthBar Test
 	if (m_Keyboard->KeyDown(DIK_Q))
@@ -181,6 +190,21 @@ void GameScene::update(float fTime, float fTimeDelta)
 		timetick = 0;
 	}
 
+	//RoadManager
+	RoadMaster->tryupdate(fTimeDelta, m_Car.GetMainPos()->GetPos());
+
 	// ItemManager
 	Items->update(fTime, fTimeDelta);
+
+	//ScoreManager
+	ScoreMaster->update(m_Car.GetMainPos()->GetPos(), fTimeDelta);
+
+	//SkyManager
+	SkyMaster->update(ScoreMaster->getScore());
+}
+
+void GameScene::reset()
+{
+	RoadMaster->resetRoad();
+	m_changeScene = false;
 }

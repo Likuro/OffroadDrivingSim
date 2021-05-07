@@ -37,7 +37,7 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	float angle = asinf(m_height / m_distance);
 	m_CameraSwivel.RotateX(-angle);
 	CHMat mat;
-	mat.RotateY(yaw);
+	mat.RotateY(m_yaw);
 	mat.RotateXDelta(-0.04f);//added by Mohamed
 	CHVector toCamera(0.f, m_height, (m_height / tan(angle)));
 	// Vektor zur Camera wird um den Zoomfaktor skaliert

@@ -23,15 +23,6 @@
 #include "Vektoria\Root.h"
 #include "Scenes/GameScene.h"
 #include "Scenes/MainMenu.h"
-#include "HealthBar.h"
-#include "Kinematics.h"
-#include "ItemManager.h"
-#include "RoadManager.h"
-#include "ThirdPersonCamera.h"
-#include "SkyManager.h"
-#include "ScoreManager.h"
-#include "Vehicle.h"
-#include "DriveController.h"
 
 using namespace Vektoria;
 
@@ -60,60 +51,6 @@ private:
 	CDeviceCursor m_Cursor;
 	CDeviceGameController m_Controller;
 
-	HealthBar* Health;
-	ProgressBar* Speedometer;
-	ThirdPersonCamera TPCamera;
-
-	// ItemManager
-	ItemManager* Items;
-
-	//für den RoadManager
-	RoadManager* RoadMaster;
-	CPlacement drivingScenePlacement;
-	float timetick;
-
-	//für den SkyManager
-	SkyManager* SkyMaster;
-
-	//für den ScoreManager
-	ScoreManager* ScoreMaster;
-
-	// rudimentäre Steuerung
-	float fAD = 0;
-	float fSW = 0;
-	float fFR = 0;
-	float fLR = 0;
-	float fUD = 0;
-	float fHeightEye = 1;
-	float fHeightRay = 1;
-	CHitPoint hitpointCollision;
-	CHitPoint hitpointGround;
-
-	// Prototyp Textures
-	CMaterial m_Dark;
-	CMaterial m_Green;
-	CMaterial m_Orange;
-	CMaterial m_Purple;
-	CMaterial m_Red;
-
-	// Scorebar
-	CWriting m_scoreWriting;
-	CWritingFont m_scoreFont;
-
-	// Variable für Funktionen die nach dem ersten Tick der Engine aufgerufen werden sollen (z.B.Hüllkörper)
-	bool m_callOnceAfterTick = true;
-
-	//Driving stuff
-	Vehicle m_Car;
-	DriveController m_dController;
-	CMaterial m_zmTerrain;
-	CPlacement m_zpTerrain;
-	CGeoTerrain m_terrain;
-	CGeoTerrains m_zgsColTerrain;
-
-	CWriting m_SpeedValue;
-	CWriting m_GasValue;
-	CWriting m_ClutchValue;
 	// Szenen
 	TemplateScene* m_currentScene;
 	GameScene m_SGame;

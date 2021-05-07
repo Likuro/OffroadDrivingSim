@@ -138,7 +138,6 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 
 	knackDrive.Input(fGas, fBrake, fSteering, iClutch, 0);
 	knackDrive.Tick(deltaTime, terrain, groundItems, collisionItems);
-#define CARITEM_DRIVER 12
 	myCar->SetMat(knackDrive.GetPropMat(CARITEM_DRIVER, 0u()));
 
 	myCar->UpdateFrontWheels(fSteering, iClutch, speed);

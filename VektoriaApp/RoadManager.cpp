@@ -152,7 +152,7 @@ void RoadManager::tryupdate(float tmp_ftime, CHVector tmp_carPos)
 		wallofDEATH.TranslateZDelta(-wallofDEATHspeed);
 	}
 
-	if (roadtime >= spawnTime || placementRoad[lastSpawn].GetPos().GetZ()+(tilesremaining*roadTilelength)> tmp_carPos.GetZ()) {
+	if (roadtime >= (float)spawnTime || placementRoad[lastSpawn].GetPos().GetZ()+(tilesremaining*roadTilelength)> tmp_carPos.GetZ()) {
 		updateRoad();
 		roadtime = 0;
 	}

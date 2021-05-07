@@ -6,6 +6,10 @@
 #include "../RoadManager.h"
 #include "../ThirdPersonCamera.h"
 #include "../gui/PauseMenu.h"
+#include "../SkyManager.h"
+#include "../ScoreManager.h"
+#include "../Vehicle.h"
+#include "../DriveController.h"
 
 using namespace Vektoria;
 
@@ -14,15 +18,9 @@ class GameScene : public TemplateScene
 public:
 	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
 	void update(float fTime, float fTimeDelta);
+	void reset();
 
 private:
-	CPlacement m_RadialLightPlace;
-	CLightRadial m_RadialLight;
-	CPlacement m_zpSphere;
-	CGeoSphere m_zgSphere;
-	HealthBar* Health;
-	ProgressBar* Speedometer;
-
 	// Input
 	CDeviceCursor* m_Cursor;
 	CDeviceKeyboard* m_Keyboard;
@@ -39,17 +37,6 @@ private:
 	RoadManager* RoadMaster;
 	CPlacement drivingScenePlacement;
 	float timetick;
-
-	// rudimentäre Steuerung
-	float fAD = 0;
-	float fSW = 0;
-	float fFR = 0;
-	float fLR = 0;
-	float fUD = 0;
-	float fHeightEye = 1;
-	float fHeightRay = 1;
-	CHitPoint hitpointCollision;
-	CHitPoint hitpointGround;
 
 	// Prototyp Textures
 	CMaterial m_Dark;
@@ -68,5 +55,26 @@ private:
 
 	// Einmal nach dem ersten Tick aufzurufen
 	bool m_callOnceAfterTick = true;
+
+	HealthBar* Health;
+	ProgressBar* Speedometer;
+
+	//für den SkyManager
+	SkyManager* SkyMaster;
+
+	//für den ScoreManager
+	ScoreManager* ScoreMaster;
+
+	//Driving stuff
+	Vehicle m_Car;
+	DriveController m_dController;
+	CMaterial m_zmTerrain;
+	CPlacement m_zpTerrain;
+	CGeoTerrain m_terrain;
+	CGeoTerrains m_zgsColTerrain;
+
+	CWriting m_SpeedValue;
+	CWriting m_GasValue;
+	CWriting m_ClutchValue;
 };
 
