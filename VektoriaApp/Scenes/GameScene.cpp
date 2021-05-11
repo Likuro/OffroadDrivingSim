@@ -21,7 +21,7 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 
 	// Third-Person-Camera
 	m_TPCamera.Init(25.f, 4.f, eAlignObjDir, m_Car.GetMainPos(), &m_Camera);
-	m_TPCamera.SetTranslationSensitivity(10.f);
+	m_TPCamera.SetTranslationSensitivity(50.f);
 	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
 
@@ -166,7 +166,7 @@ void GameScene::update(float fTime, float fTimeDelta)
 	if (!m_switchDebugCam)
 		m_TPCamera.update(fTimeDelta);
 	else
-		m_Keyboard->PlaceWASD(m_TPCamera, fTimeDelta);
+		m_Keyboard->PlaceWASD(m_TPCamera, fTimeDelta, true);
 
 	m_SpeedValue.PrintFloat(m_dController.GetSpeed());
 	m_GasValue.PrintFloat(m_dController.GetGas());
