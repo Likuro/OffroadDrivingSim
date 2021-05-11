@@ -76,5 +76,8 @@ private:
 	CWriting m_SpeedValue;
 	CWriting m_GasValue;
 	CWriting m_ClutchValue;
+
+	//Debug-Kamera Steuerung
+	bool m_switchDebugCam = false;
 };
 

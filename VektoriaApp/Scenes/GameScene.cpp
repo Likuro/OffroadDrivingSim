@@ -21,6 +21,8 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 
 	// Third-Person-Camera
 	m_TPCamera.Init(25.f, 4.f, eAlignObjDir, m_Car.GetMainPos(), &m_Camera);
+	m_TPCamera.SetTranslationSensitivity(10.f);
+	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
 
 	m_Viewport.SetMistOn(true);
@@ -75,12 +77,12 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 
 void GameScene::update(float fTime, float fTimeDelta)
 {
-	//if (m_callOnceAfterTick && m_zpSphere.GetAABB() != nullptr)
-	//{
-	//	// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
-	//	m_callOnceAfterTick = false;
-	//	Items->InitRays(m_zpSphere.GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
-	//}
+	if (m_callOnceAfterTick &&m_Car.GetMainPos()->GetAABB())
+	{
+		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
+		m_callOnceAfterTick = false;
+		Items->InitRays(m_Car.GetMainPos()->GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
+	}
 
 	if (m_PauseMenu.IsOn())
 	{
@@ -158,7 +160,13 @@ void GameScene::update(float fTime, float fTimeDelta)
 	m_dController.ResetRotation(fTimeDelta);
 
 	m_dController.Update(fTimeDelta, m_zgsColTerrain, RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
-	m_TPCamera.update(fTimeDelta);
+
+	if (m_Keyboard->KeyDown(DIK_0))
+		m_switchDebugCam = !m_switchDebugCam;
+	if (!m_switchDebugCam)
+		m_TPCamera.update(fTimeDelta);
+	else
+		m_Keyboard->PlaceWASD(m_TPCamera, fTimeDelta);
 
 	m_SpeedValue.PrintFloat(m_dController.GetSpeed());
 	m_GasValue.PrintFloat(m_dController.GetGas());
