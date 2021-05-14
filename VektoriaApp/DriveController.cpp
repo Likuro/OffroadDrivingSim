@@ -3,7 +3,7 @@
 void DriveController::Init(CScene* scene, CViewport* viewport, Vehicle* car)
 {
 	myCar = car;
-	knackDrive.Init("Drive", "car_flunder.ini", scene, viewport);
+	knackDrive.Init("Drive", "car_test.ini", scene, viewport);
 	knackDrive.Ignite(myCar->GetMat());
 	bBrake = false;
 	fBrake = 0.0f;
@@ -54,7 +54,7 @@ void DriveController::RotateLeft(float deltaTime)
 void DriveController::GearUp()
 {
 	iClutch += 1;
-	UM_SETINRANGE(iClutch, -1, 5);
+	UM_SETINRANGE(iClutch, -1, 6);
 	myCar->SetCurrentMaxSpeed(iClutch);
 }
 
@@ -76,9 +76,9 @@ void DriveController::ResetRotation(float deltaTime)
 		return;
 	else {
 		if (fSteering > 0)
-			fSteering -= deltaTime * 0.008f;
+			fSteering -= deltaTime * 0.012f;
 		else if (fSteering < 0)
-			fSteering += deltaTime * 0.008f;
+			fSteering += deltaTime * 0.012f;
 	}
 }
 
@@ -138,8 +138,14 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 
 	knackDrive.Input(fGas, fBrake, fSteering, iClutch, 0);
 	knackDrive.Tick(deltaTime, terrain, groundItems, collisionItems);
+
 #define CARITEM_DRIVER 12
-	myCar->SetMat(knackDrive.GetPropMat(CARITEM_DRIVER, 0u()));
+	mDriver = knackDrive.GetPropMat(CARITEM_DRIVER, 0u());
+
+#define CARITEM_CHASSIS 0
+	mChassis = knackDrive.GetPropMat(CARITEM_CHASSIS, 0u());
+	mChassis.CopyRotation(mDriver);
+	myCar->SetMat(mChassis);
 
 	myCar->UpdateFrontWheels(fSteering, iClutch, speed);
 	CalculateSpeed(deltaTime);

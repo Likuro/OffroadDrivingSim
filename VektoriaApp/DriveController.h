@@ -8,7 +8,7 @@ enum  State
 	forward, backward, stop
 };
 class DriveController
-{	
+{
 public:
 	void Init(CScene* scene, CViewport* viewport, Vehicle* car);
 	void Brake();
@@ -30,7 +30,7 @@ public:
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
 
 private:
-	
+
 	State myCarState;
 	bool bBrake;
 	float fBrake;
@@ -45,4 +45,7 @@ private:
 	CHVector oldPos;
 	float time;
 	float speed;
+
+	CHMat mDriver;
+	CHMat mChassis;
 };

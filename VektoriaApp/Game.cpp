@@ -61,7 +61,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_dController.Init(&m_zs, &m_zv, &m_Car);
 
 	// Camera
-	TPCamera.Init(25.f, 4.f, eAlignObjDir, m_Car.GetMainPos(), &m_zc); // Changed
+	TPCamera.Init(27.f, 2.2f, eAlignObjDir, m_Car.GetMainPos(), &m_zc); // Changed
 	m_zs.AddPlacement(&TPCamera);
 
 	m_zf.AddDeviceKeyboard(&m_Keyboard);

@@ -23,7 +23,7 @@ void ThirdPersonCamera::update()
 	float yaw = m_FollowObject->GetMat().GetYaw();
 	CHMat mat;	
 	mat.RotateY(yaw);
-	mat.RotateXDelta(-0.04f);//added by Mohamed
+	mat.RotateXDelta(-0.03f);//added by Mohamed
 	CHVector toCamera(0.f, m_height, (m_height / tan(angle)));
 	toCamera = mat * toCamera;
 
