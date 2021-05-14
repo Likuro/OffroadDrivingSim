@@ -55,11 +55,11 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_pPurple.RotateY(PI);
 	m_pPurple.TranslateXDelta(100.f);
 	// Red für Wand in negativer X-Richtung
-	this->AddPlacement(&m_pRed);
-	m_gRed.SetAxis(eAxisX);
-	m_gRed.Init(100.f, &m_MatRed);
-	m_pRed.AddGeo(&m_gRed);
-	m_pRed.TranslateXDelta(-100.f);
+	//this->AddPlacement(&m_pRed);
+	//m_gRed.SetAxis(eAxisX);
+	//m_gRed.Init(100.f, &m_MatRed);
+	//m_pRed.AddGeo(&m_gRed);
+	//m_pRed.TranslateXDelta(-100.f);
 
 	// Menu Aufbau
 	m_Viewport.AddOverlay(&m_OvCover);
@@ -140,27 +140,42 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_BRight.SetMaterialClick(m_MatRightArrow);
 	m_BRight.SetInnerOn();
 
-	// Car-Wheel Init
+	// Cube-Wheel Init
+	this->AddPlacement(&m_PSelectionAnchor);
+	m_PSelectionAnchor.AddPlacement(&m_PSelectionWheel);
+	m_PSelectionAnchor.Translate(-60.f, -10.f, 0.f);
 	m_Cube1.Init(1.f, &m_MatDark);
 	m_PCube1.AddGeo(&m_Cube1);
-	m_PCube1.SwitchOff();
-	this->AddPlacement(&m_PCube1);
-	m_Cube2.Init(1.f, &m_MatDark);
+	m_PSelectionWheel.AddPlacement(&m_PCube1);
+	m_Cube2.Init(1.f, &m_MatGreen);
 	m_PCube2.AddGeo(&m_Cube2);
-	m_PCube2.SwitchOff();
-	this->AddPlacement(&m_PCube2);
-	m_Cube3.Init(1.f, &m_MatDark);
+	m_PSelectionWheel.AddPlacement(&m_PCube2);
+	m_Cube3.Init(1.f, &m_MatPurple);
 	m_PCube3.AddGeo(&m_Cube3);
-	m_PCube3.SwitchOff();
-	this->AddPlacement(&m_PCube3);
-	m_Cube4.Init(1.f, &m_MatDark);
+	m_PSelectionWheel.AddPlacement(&m_PCube3);
+	m_Cube4.Init(1.f, &m_MatRed);
 	m_PCube4.AddGeo(&m_Cube4);
-	m_PCube4.SwitchOff();
-	this->AddPlacement(&m_PCube4);
+	m_PSelectionWheel.AddPlacement(&m_PCube4);
 	m_cubes.push_back(&m_PCube1);
 	m_cubes.push_back(&m_PCube2);
 	m_cubes.push_back(&m_PCube3);
 	m_cubes.push_back(&m_PCube4);
+
+	// Verteilen der Cubes auf dem Kreis
+	CHVector vectorToCar(eAxisX);
+	vectorToCar *= m_wheelradius;
+	float angleDivided = TWOPI / m_cubes.size();
+	CHMat matRotate;
+
+	for (float i = 0; i < m_cubes.size(); i++)
+	{
+		matRotate.Rotate(eAxisY, angleDivided * i);
+		vectorToCar = matRotate * vectorToCar;
+		m_cubes.at(i)->Translate(vectorToCar);
+	}
+
+	// Setzen des DownAngles der Camera auf das Objekt im Fokus
+	m_selectionDownAngle = tanh(abs(m_PSelectionAnchor.GetPos().y) / (abs(m_PSelectionAnchor.GetPos().x) - m_wheelradius));
 }
 
 void MainMenu::update(float fTime, float fTimeDelta)
@@ -176,7 +191,8 @@ void MainMenu::update(float fTime, float fTimeDelta)
 		m_OvMenu.SwitchOff();
 		m_selectTransition = true;
 	}
-	if (m_OvSelectMenu.IsOn())
+
+	if (m_OvSelectMenu.IsOn() && !m_rotateleft && !m_rotateright)
 	{
 		if (m_BConfirm.IsClicked())
 		{
@@ -185,11 +201,46 @@ void MainMenu::update(float fTime, float fTimeDelta)
 		}
 		if (m_BRight.IsClicked())
 		{
-
+			m_rotateright = true;
+			m_carindex++;
+			if (m_carindex == m_cubes.size())
+			{
+				m_carindex = 0;
+			}
 		}
 		else if (m_BLeft.IsClicked())
 		{
+			m_rotateleft = true;
+			m_carindex--;
+			if (m_carindex < 0)
+			{
+				m_carindex += m_cubes.size();
+			}
+		}
+	}
 
+	if (m_rotateleft)
+	{
+		m_rotationstart += fTimeDelta;
+		float transitionamount = fTimeDelta / m_rotationduration;
+		m_PSelectionWheel.RotateYDelta(transitionamount * -(TWOPI / m_cubes.size()));
+		if (m_rotationstart >= m_rotationduration)
+		{
+			m_rotateleft = false;
+			m_PSelectionWheel.RotateY((float)m_carindex * (TWOPI / m_cubes.size()));
+			m_rotationstart = 0.f;
+		}
+	}
+	else if (m_rotateright)
+	{
+		m_rotationstart += fTimeDelta;
+		float transitionamount = fTimeDelta / m_rotationduration;
+		m_PSelectionWheel.RotateYDelta(transitionamount * (TWOPI / m_cubes.size()));
+		if (m_rotationstart >= m_rotationduration)
+		{
+			m_rotateright = false;
+			m_PSelectionWheel.RotateY((float)m_carindex * (TWOPI / m_cubes.size()));
+			m_rotationstart = 0.f;
 		}
 	}
 
@@ -198,10 +249,12 @@ void MainMenu::update(float fTime, float fTimeDelta)
 		m_transTimer += fTimeDelta;
 		float transitionamount = m_transTimer / m_transitionTime;
 		m_PCamera.RotateY(transitionamount * HALFPI);
+		m_PCamera.RotateZDelta(transitionamount * m_selectionDownAngle);
 		if (transitionamount >= 1.f)
 		{
 			m_selectTransition = false;
 			m_PCamera.RotateY(HALFPI);
+			m_PCamera.RotateZDelta(m_selectionDownAngle);
 			m_OvSelectMenu.SwitchOn();
 			m_transTimer = 0.f;
 		}
@@ -211,6 +264,7 @@ void MainMenu::update(float fTime, float fTimeDelta)
 		m_transTimer += fTimeDelta;
 		float transitionamount = 1.f - (m_transTimer / m_transitionTime);
 		m_PCamera.RotateY(transitionamount * HALFPI);
+		m_PCamera.RotateZDelta(transitionamount * m_selectionDownAngle);
 		if (transitionamount <= 0.f)
 		{
 			m_mainTransition = false;

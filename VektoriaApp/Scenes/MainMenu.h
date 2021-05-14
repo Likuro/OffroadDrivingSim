@@ -60,7 +60,8 @@ private:
 	CGuiButton m_BLeft;
 	CGuiButton m_BRight;
 
-	// Transition
+	// Transition Main-Selection
+	float m_selectionDownAngle;
 	float m_transitionTime = 0.8f;
 	float m_transTimer = 0.f;
 	bool m_selectTransition = false;
@@ -88,5 +89,15 @@ private:
 	CGeoCube m_Cube4;
 	CPlacement m_PCube4;
 	std::vector<CPlacement*> m_cubes;
+		
+	// Car-Wheel Variables
+	CPlacement m_PSelectionAnchor;
+	CPlacement m_PSelectionWheel;
+	float m_wheelradius = 20.f;
+	float m_rotationduration = 0.5f;
+	float m_rotationstart = 0.f;
+	int m_carindex = 0;
+	bool m_rotateright = false;
+	bool m_rotateleft = false;
 };
 
