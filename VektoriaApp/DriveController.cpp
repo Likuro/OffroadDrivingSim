@@ -64,7 +64,7 @@ void DriveController::GearDown()
 	if (myCarState == forward && newClutch < 0 && speed > 5) {
 		return;
 	}
-	else 
+	else
 		iClutch -= 1;
 	UM_SETINRANGE(iClutch, -1, 5);
 	myCar->SetCurrentMaxSpeed(iClutch);
@@ -127,14 +127,14 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 {
 	if (myCar->GetCurrentMaxSpeed() <= speed)
 		fGas = 0;
-	/*if (iClutch == -1 && myCarState == forward) {
+	if (iClutch == -1 && myCarState == forward) {
 		if (speed >= 10) {
 			Brake();
 			fGas = 0;
 		}
 		else
 			ReleaseBrakes();
-	}	*/
+	}	
 
 	knackDrive.Input(fGas, fBrake, fSteering, iClutch, 0);
 	knackDrive.Tick(deltaTime, terrain, groundItems, collisionItems);

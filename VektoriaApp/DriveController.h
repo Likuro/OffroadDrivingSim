@@ -2,6 +2,8 @@
 #include "Vektoria\Root.h"
 #include "Vehicle.h"
 
+#define CARITEM_DRIVER 12
+
 using namespace Vektoria;
 enum  State
 {
