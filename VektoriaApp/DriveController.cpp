@@ -3,7 +3,7 @@
 void DriveController::Init(CScene* scene, CViewport* viewport, Vehicle* car)
 {
 	myCar = car;
-	knackDrive.Init("Drive", "car_test.ini", scene, viewport);
+	knackDrive.Init("Drive", "car_flunder.ini", scene, viewport);
 	knackDrive.Ignite(myCar->GetMat());
 	bBrake = false;
 	fBrake = 0.0f;
