@@ -190,14 +190,6 @@ void GameScene::update(float fTime, float fTimeDelta)
 		Speedometer->update();
 	}
 
-	// nur alle 5k Ticks -- RoadMaster
-	if (timetick == 5000) {
-
-		this->RoadMaster->updateRoad();
-
-		timetick = 0;
-	}
-
 	//RoadManager
 	RoadMaster->tryupdate(fTimeDelta, m_Car.GetMainPos()->GetPos());
 

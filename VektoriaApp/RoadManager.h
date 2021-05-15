@@ -11,13 +11,13 @@
 
 //Settings für die RoadTiles
 #define anzahlRoadTiles 10
-#define roadTilelength 144
+#define roadTilelength 300
 #define roadTilewidth 100
 #define roadTileheight 30
 #define RoadTileBoundingBox 6
 
 //Settings für den Spawn
-#define spawnTime 10
+#define spawnTime 90
 //gibt an, wie viele RoadTiles zwischen dem Auto und dem "Ende" der Road sein sollen, wird dies unterschritten, wird ein Spawn erzwungen
 #define tilesremaining 5
 #define specialSpawnChanceSetting 4
