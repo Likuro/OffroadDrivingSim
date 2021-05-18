@@ -54,7 +54,6 @@ private:
 	//das aktuell letzte RoadTile, das als nächstes verschoben werden muss
 	int activeSpawn;
 	int lastSpawn;
-	CHVector activeSpawnVector;
 	int specialSpawnChance;
 
 	//.
@@ -84,7 +83,13 @@ private:
 	CPlacement *myPlacement;
 
 	//Placement an den ein RoadTile angehängt wird
-	CPlacement placementRoad[anzahlRoadTiles];
+	CPlacement placementGroundPlane[anzahlRoadTiles];
+	CPlacement placementRoadBase[anzahlRoadTiles];
+	CPlacement placementRoadTile[anzahlRoadTiles];
+
+	//Groundplane unter der Road
+	CGeoQuad groundplane;
+	CMaterial groundplaneColor;
 
 	//Placement für die Plane des Sandsturms
 	CPlacement wallofDEATH;

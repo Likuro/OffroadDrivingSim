@@ -9,13 +9,14 @@ RoadTile::RoadTile(PrefabRoad* tmp_myPrefabRoad, CPlacement* tmp_roadPlacement, 
 	this->myRoadPlacement->AddPlacement(&myItemSpawn);
 	this->myRoadPlacement->AddPlacement(&myHitboxGroundPlacement);
 	this->myRoadPlacement->AddPlacement(&myHitboxFrontalPlacement);
+
 	this->myRoadPlacement->AddPlacement(&myGravityPlacement);
 	myGravityPlacement.TranslateY(-100);
 	GravityMaterial.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
 	myGravityPlacement.AddGeo(&GravityPlane);
 	GravityPlane.InitQuick(tmp_roadTilelength, tmp_roadTilewidth*3, 10, false, &GravityMaterial, 4, 4, 0, 0, 10, 10);
-
 	tmp_roadTilesGravityPlanes->Add(&GravityPlane);
+
 	this->myHitboxGroundPlacement.SetDrawingOff();
 	this->myHitboxFrontalPlacement.SetDrawingOff();
 }

@@ -99,16 +99,26 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
 	SpecialPrefabRoads[7] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
 	
+	//Groundplane erstellen
+	groundplaneColor.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
+	groundplane.Init(roadTilewidth* RoadTileBoundingBox, roadTilelength, &groundplaneColor);
+
 	for (int i = 0; i < anzahlRoadTiles; i++) {
-		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i], roadTilewidth, roadTilelength, &roadTilesGravityPlanes);
+		placementGroundPlane[i].AddGeo(&groundplane);
+		placementRoadBase[i].AddPlacement(&placementGroundPlane[i]);
+		placementGroundPlane[i].TranslateZ(-((float)roadTileheight+((float)roadTileheight*((float)RoadTileBoundingBox/2))));
+		//placementGroundPlane[i].TranslateZDelta(200.0f);
+		placementGroundPlane[i].RotateXDelta(-HALFPI);
+		placementRoadBase[i].AddPlacement(&placementRoadTile[i]);
+		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoadTile[i], roadTilewidth, roadTilelength, &roadTilesGravityPlanes);
 	}
 
 	for (int i = 0; i < anzahlRoadTiles; i++) {
 
 		//Placements in die Szene hängen
-		myPlacement->AddPlacement(&placementRoad[i]);
+		myPlacement->AddPlacement(&placementRoadBase[i]);
 		//Placements hintereinander in einer Reihe anordnen
-		placementRoad[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
+		placementRoadBase[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
 		//RoadTile and die Scene hängen
 		RoadSector[i]->addToScene(PrefabRoads[0]);
 
@@ -122,14 +132,12 @@ void RoadManager::updateRoad()
 	
 	//Letztes RoadTile von der Scene abhängen
 	RoadSector[activeSpawn]->removefromScene();
+
 	//letztes Placement an den Anfang verschieben
-	activeSpawnVector = placementRoad[activeSpawn].GetPos();
-	activeSpawnVector.SetX(0);
-	activeSpawnVector.SetY(0);
-	placementRoad[activeSpawn].TranslateX(lane * roadTilewidth);
-	placementRoad[activeSpawn].TranslateYDelta(lanehight * roadTileheight);
-	placementRoad[activeSpawn].TranslateDelta(activeSpawnVector);
-	placementRoad[activeSpawn].TranslateZDelta(-(roadTilelength*anzahlRoadTiles));
+	placementRoadBase[activeSpawn].TranslateZDelta(-(roadTilelength * anzahlRoadTiles));
+	placementRoadTile[activeSpawn].TranslateX(lane * roadTilewidth);
+	placementRoadTile[activeSpawn].TranslateYDelta((lanehight * roadTileheight));
+
 
 	//festlegen, ob eine SpecialRoad oder eine "normale" Road gespawnt werden soll
 	if (sinceLastSpecial>=specialSpawnForce || 0 == std::rand()% specialSpawnChance) {
@@ -182,7 +190,7 @@ void RoadManager::tryupdate(float tmp_ftime, CHVector tmp_carPos)
 	}
 
 	
-	if (placementRoad[lastSpawn].GetPos().GetZ()+(tilesremaining*roadTilelength)> tmp_carPos.GetZ()) {
+	if (placementRoadBase[lastSpawn].GetPos().GetZ()+(tilesremaining*roadTilelength)> tmp_carPos.GetZ()) {
 		updateRoad();
 		roadtime = 0;
 	}
@@ -208,7 +216,7 @@ void RoadManager::resetRoad()
 		//RoadTiles von der Scene abhängen
 		RoadSector[i]->removefromScene();
 		//Placements hintereinander in einer Reihe anordnen
-		placementRoad[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
+		placementRoadBase[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
 		//RoadTiles an die Scene anhängen
 		RoadSector[i]->addToScene(PrefabRoads[0]);
 	}
