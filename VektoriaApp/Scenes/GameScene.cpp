@@ -63,13 +63,6 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_ClutchValue.Init(CFloatRect(0.1f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
 	m_Viewport.AddWriting(&m_ClutchValue);
 
-	//Terrain
-	this->AddPlacement(&m_zpTerrain);
-	m_zpTerrain.AddGeo(&m_terrain);
-	m_terrain.InitQuick(100000, 100000, 10, false, &m_Green, 300, 300, 0, 0, 10, 10);
-	m_zgsColTerrain.Add(&m_terrain);
-	m_zpTerrain.TranslateY(-1000);
-
 	//Drive
 	m_Car.Init(this, &m_PCamera, &m_Green, 0.8, 0.2, 200);
 	m_dController.Init(this, &m_Viewport, &m_Car);
@@ -159,7 +152,7 @@ void GameScene::update(float fTime, float fTimeDelta)
 		m_dController.ReleaseBrakes();
 	m_dController.ResetRotation(fTimeDelta);
 
-	m_dController.Update(fTimeDelta, m_zgsColTerrain, RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
+	m_dController.Update(fTimeDelta, RoadMaster->getGravity(), RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 
 	if (m_Keyboard->KeyDown(DIK_0))
 		m_switchDebugCam = !m_switchDebugCam;

@@ -7,24 +7,38 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	myItemManager = tmp_myItemManager;
 	specialSpawnChance = specialSpawnChanceSetting;
 
+	activeSpawn = 0;
+	timesSpawned = 1;
+	lastTile = 0;
+	nextTile = 0;
+	lane = 0;
+	lanehight = 0;
+	sinceLastSpecial = 0;
+	roadtime = 0;
+	lastSpawn = anzahlRoadTiles;
+	walltime = 0;
+	lastspecialTile = 0;
+	nextspecialTile = 0;
+
 	//Sandsturm laden & anhängen
 	wallofCOLOR.MakeTextureDiffuse("textures\\Sandstorm_cube.png");
 	wallofCOLOR.SetTransparency(1.0f);
 	wallofEMITTER.LoadPreset("Sandstorm_ver2");
-	wallofSTORM.Init(roadTilewidth, roadTileheight, &wallofCOLOR);
+	wallofSTORM.Init(roadTilewidth* RoadTileBoundingBox, roadTileheight* RoadTileBoundingBox, &wallofCOLOR);
 	wallofDEATH.AddGeo(&wallofSTORM);
 	wallofSTORM.AddEmitter(&wallofEMITTER);
 	myPlacement->AddPlacement(&wallofDEATH);
 	wallofDEATH.TranslateZ(400.0f);
 	
 	//Emitter Settings
-	/*
-	wallofEMITTER.SetRate(3 * RoadTileBoundingBox * RoadTileBoundingBox);
-	wallofEMITTER.SetTimeToWait(0.0f);
+	
+	//wallofEMITTER.SetRate(3 * RoadTileBoundingBox * RoadTileBoundingBox);
+	wallofEMITTER.SetTimeToWait(0.1f);
 	wallofEMITTER.SetTimeToCome(2.0f);
 	wallofEMITTER.SetTimeToStay(20.0f);
 	wallofEMITTER.SetTimeToFade(0.5f);
-	*/
+	
+
 	//PrefabRoads laden
 	strcpy(prefabModelLoadPath, "models/road/RoadTile_Basic_dummy.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/road/hitbox/ground/RoadTile_Basic_Ground_dummy.obj");
@@ -85,6 +99,21 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
 	SpecialPrefabRoads[7] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
 	
+	for (int i = 0; i < anzahlRoadTiles; i++) {
+		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i], roadTilewidth, roadTilelength, &roadTilesGravityPlanes);
+	}
+
+	for (int i = 0; i < anzahlRoadTiles; i++) {
+
+		//Placements in die Szene hängen
+		myPlacement->AddPlacement(&placementRoad[i]);
+		//Placements hintereinander in einer Reihe anordnen
+		placementRoad[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
+		//RoadTile and die Scene hängen
+		RoadSector[i]->addToScene(PrefabRoads[0]);
+
+	}
+
 	resetRoad();
 }
 
@@ -103,7 +132,7 @@ void RoadManager::updateRoad()
 	placementRoad[activeSpawn].TranslateZDelta(-(roadTilelength*anzahlRoadTiles));
 
 	//festlegen, ob eine SpecialRoad oder eine "normale" Road gespawnt werden soll
-	if (sinceLastSpecial>=specialSpawnForce || 1 == std::rand()%specialSpawnChance) {
+	if (sinceLastSpecial>=specialSpawnForce || 0 == std::rand()% specialSpawnChance) {
 		sinceLastSpecial = 0;
 		while ((nextspecialTile == lastspecialTile) || (lane >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneShift() >=1) || (lane <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneShift() <= -1) || (lanehight >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() >= 1) || (lanehight <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() <= -1)) {
 			nextspecialTile = std::rand() % anzahlSpecialPrefabRoads;
@@ -176,19 +205,15 @@ void RoadManager::resetRoad()
 	nextspecialTile = 0;
 
 	for (int i = 0; i < anzahlRoadTiles; i++) {
-		RoadSector[i] = new RoadTile(PrefabRoads[0], &placementRoad[i]);
-	}
-
-	for (int i = 0; i < anzahlRoadTiles; i++) {
-
-		//Placements in die Szene hängen
-		myPlacement->AddPlacement(&placementRoad[i]);
+		//RoadTiles von der Scene abhängen
+		RoadSector[i]->removefromScene();
 		//Placements hintereinander in einer Reihe anordnen
 		placementRoad[i].TranslateZ((roadTilelength * 2) - (i * roadTilelength));
-		//RoadTile and die Scene hängen
+		//RoadTiles an die Scene anhängen
 		RoadSector[i]->addToScene(PrefabRoads[0]);
-
 	}
+
+
 }
 
 CGeos& RoadManager::getGeosGround()
@@ -199,4 +224,9 @@ CGeos& RoadManager::getGeosGround()
 CGeos& RoadManager::getGeosFrontal()
 {
 	return roadTilesHitboxFrontal;
+}
+
+CGeoTerrains& RoadManager::getGravity()
+{
+	return roadTilesGravityPlanes;
 }

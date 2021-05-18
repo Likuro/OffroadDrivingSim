@@ -9,7 +9,7 @@ class RoadTile
 {
 public:
 
-	RoadTile(PrefabRoad* tmp_myPrefabRoad, CPlacement* tmp_roadPlacement);
+	RoadTile(PrefabRoad* tmp_myPrefabRoad, CPlacement* tmp_roadPlacement, int tmp_roadTilewidth, int tmp_roadTilelength, CGeoTerrains* tmp_roadTilesGravityPlanes);
 	~RoadTile(void);
 
 	void addToScene(PrefabRoad *tmp_myPrefabRoad);
@@ -19,12 +19,17 @@ public:
 
 private:
 
-
 	CGeo* RoadModel;
 	PrefabRoad* myPrefabRoad;
 	CPlacement* myRoadPlacement;
 	CPlacement myHitboxGroundPlacement;
 	CPlacement myHitboxFrontalPlacement;
+
+	//Terrain für Gravity
+	CPlacement myGravityPlacement;
+	CGeoTerrain GravityPlane;
+	CMaterial GravityMaterial;
+
 	CPlacement myItemSpawn;
 	CPlacement *myItem;
 	CHVector myItemSpawnVector;

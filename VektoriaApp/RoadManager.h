@@ -20,7 +20,7 @@
 #define spawnTime 90
 //gibt an, wie viele RoadTiles zwischen dem Auto und dem "Ende" der Road sein sollen, wird dies unterschritten, wird ein Spawn erzwungen
 #define tilesremaining 5
-#define specialSpawnChanceSetting 4
+#define specialSpawnChanceSetting 1
 #define specialSpawnForce 5
 #define itemSpawnChance 5
 
@@ -42,6 +42,7 @@ public:
 	//damit die Hitboxen witergegeben werden können
 	CGeos& getGeosGround();
 	CGeos& getGeosFrontal();
+	CGeoTerrains& getGravity();
 
 
 private:
@@ -102,6 +103,7 @@ private:
 	// Kollisionsobjektmenge der RoadTiles
 	CGeos roadTilesHitboxGround;
 	CGeos roadTilesHitboxFrontal;
+	CGeoTerrains roadTilesGravityPlanes;
 
 	//ItemManager
 	ItemManager* myItemManager;
