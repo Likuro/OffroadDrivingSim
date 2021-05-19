@@ -22,18 +22,6 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	CHVector followPos = m_FollowObject->GetPos();
 	CHVector followDir = m_FollowObject->GetDirection();
 
-	//CHVector vecProduct = m_dirCamera ^ followDir;
-	//m_dirCamera *= m_stiffness / fTimeDelta;
-	//m_dirCamera = (m_dirCamera + followDir) / (1.f + (m_stiffness / fTimeDelta));
-	//m_yaw = m_dirCamera.Angle(CHVector(0.f, 0.f, -1.f));
-	//m_yaw = std::copysignf(m_yaw, vecProduct.z);
-
-	float difference;
-	difference = m_FollowObject->GetMat().GetYaw() - m_oldYaw;
-	m_yaw += difference * m_stiffness * fTimeDelta;
-
-	//ULDebug("%1.10f", vecProduct.z);
-
 	float angle = asinf(m_height / m_distance);
 	m_CameraSwivel.RotateX(-angle);
 	float yaw = m_FollowObject->GetMat().GetYaw();
@@ -41,6 +29,7 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	mat.RotateY(yaw);
 	mat.RotateXDelta(-0.03f);//added by Mohamed
 	CHVector toCamera(0.f, m_height, (m_height / tan(angle)));
+
 	// Vektor zur Camera wird um den Zoomfaktor skaliert
 	toCamera *= m_zoom;
 	toCamera = mat * toCamera;
@@ -49,15 +38,14 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	{
 	case eAlignObjDir:
 		this->Translate(followPos + toCamera);
-		m_CameraSwivel.RotateYDelta(m_yaw);
+		m_CameraSwivel.RotateYDelta(yaw);
 		break;
 	case eAlignXAxisPositive:
 		this->Translate(followPos.x - (m_height / tan(angle)), followPos.y + m_height, followPos.z);
 		m_CameraSwivel.RotateYDelta(HALFPI + PI);
 		break;
-	case eAlignZAxisPositive:
-		this->Translate(followPos.x, followPos.y + m_height, followPos.z - (m_height / tan(angle)));
-		m_CameraSwivel.RotateYDelta(PI);
+	case eAlignZAxisNegative:
+		this->Translate(followPos.x, followPos.y + m_height, followPos.z + (m_height / tan(angle)));
 		break;
 	default:
 		break;

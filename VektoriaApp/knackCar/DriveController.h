@@ -1,8 +1,14 @@
 #pragma once
 #include "Vektoria\Root.h"
 #include "Vehicle.h"
+#include "Boost.h"
+#include "Health.h"
 
 #define CARITEM_DRIVER 12
+#define MAX_HEALTH 100
+#define MAX_BOOST 100
+// Usage per second
+#define BOOST_USAGE 10
 
 using namespace Vektoria;
 enum  State
@@ -29,6 +35,12 @@ public:
 	void DrivingState();
 	State GetDrivingState();
 
+	void useBoost(float fTimeDelta);
+	void setUseBoost(bool use);
+
+	Health* getHealth();
+	Boost* getBoost();
+
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
 
 private:
@@ -50,4 +62,9 @@ private:
 
 	CHMat mDriver;
 	CHMat mChassis;
+
+	// Health and Boost
+	Boost* mBoost;
+	bool mUseBoost = false;
+	Health* mHealth;
 };

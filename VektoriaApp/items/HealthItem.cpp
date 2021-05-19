@@ -5,8 +5,9 @@ HealthItem::HealthItem()
 {
 }
 
-void HealthItem::trigger()
+void HealthItem::trigger(DriveController* car)
 {
+	car->getHealth()->heal(HEALING);
 }
 
 void HealthItem::update(float fTime, float fTimeDelta)

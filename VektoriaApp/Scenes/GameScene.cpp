@@ -20,25 +20,20 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
 
 	// Third-Person-Camera
-	m_TPCamera.Init(25.f, 4.f, eAlignObjDir, m_Car.GetMainPos(), &m_Camera);
-	m_TPCamera.SetTranslationSensitivity(50.f);
+	m_TPCamera.Init(25.f, 4.f, eAlignZAxisNegative, m_Car.GetMainPos(), &m_Camera);
+	m_TPCamera.SetTranslationSensitivity(200.f);
 	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
 
-	m_Viewport.SetMistOn(true);
+	//m_Viewport.SetMistOn(true);
 	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
-	m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
-
-	// Healthbar
-	Health = new HealthBar(&m_Orange, &m_Viewport, 100, 100, 0.7f, 0.9f, 0.25f, 0.05f);
-	// Speedometer
-	Speedometer = new ProgressBar(&m_Green, &m_Viewport, 100, 0, 0.05f, 0.9f, 0.25f, 0.05f);
+	//m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
 
 	// PauseMenu
 	m_PauseMenu.Init(&m_Viewport, m_Cursor);
 
 	// ItemManager
-	Items = new ItemManager(25, m_Car.GetMainPos());
+	Items = new ItemManager(25, m_Car.GetMainPos(), &m_dController);
 
 	// RoadMaster erstellen
 	this->AddPlacement(&drivingScenePlacement);
@@ -64,8 +59,19 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_Viewport.AddWriting(&m_ClutchValue);
 
 	//Drive
-	m_Car.Init(this, &m_PCamera, &m_Green, 0.8, 0.2, 200);
+	m_Car.Init(this, &m_PCamera, &m_Green, 0.8, 0.2, 2000);
 	m_dController.Init(this, &m_Viewport, &m_Car);
+
+	// Healthbar
+	m_HealthBar = new ProgressBar(&m_Orange, &m_Viewport, m_dController.getHealth()->getMaxHealth(), m_dController.getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
+	// Boostbar
+	m_BoostBar = new ProgressBar(&m_Green, &m_Viewport, m_dController.getBoost()->getMaxBoost(), m_dController.getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
+
+	CPlacement* test;
+	test = new CPlacement;
+	test->Translate(0.f, 0.f, -50.f);
+	this->AddPlacement(test);
+	test->AddPlacement(Items->getItem(boost));
 }
 
 void GameScene::update(float fTime, float fTimeDelta)
@@ -152,6 +158,12 @@ void GameScene::update(float fTime, float fTimeDelta)
 		m_dController.ReleaseBrakes();
 	m_dController.ResetRotation(fTimeDelta);
 
+	// Boosting
+	if (m_Keyboard->KeyPressed(DIK_LSHIFT))
+		m_dController.useBoost(fTimeDelta);
+	else
+		m_dController.setUseBoost(false);
+
 	m_dController.Update(fTimeDelta, RoadMaster->getGravity(), RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 
 	if (m_Keyboard->KeyDown(DIK_0))
@@ -165,24 +177,6 @@ void GameScene::update(float fTime, float fTimeDelta)
 	m_GasValue.PrintFloat(m_dController.GetGas());
 	m_ClutchValue.PrintInt(m_dController.GetGear());
 
-	// HealthBar Test
-	if (m_Keyboard->KeyDown(DIK_Q))
-	{
-		Health->changeHealth(-10.f);
-	}
-
-	// Speedometer Test
-	if (m_Keyboard->KeyPressed(DIK_E))
-	{
-		Speedometer->progressValue += 0.05f;
-		Speedometer->update();
-	}
-	else
-	{
-		Speedometer->progressValue -= 0.005f;
-		Speedometer->update();
-	}
-
 	//RoadManager
 	RoadMaster->tryupdate(fTimeDelta, m_Car.GetMainPos()->GetPos());
 
@@ -194,6 +188,13 @@ void GameScene::update(float fTime, float fTimeDelta)
 
 	//SkyManager
 	SkyMaster->update(ScoreMaster->getScore());
+
+	//BoostBar
+	m_BoostBar->update(m_dController.getBoost()->getBoost());
+	ULDebug("%f", m_dController.getBoost()->getBoost());
+
+	//HealthBar
+	m_HealthBar->update(m_dController.getHealth()->getHealth());
 }
 
 void GameScene::reset()

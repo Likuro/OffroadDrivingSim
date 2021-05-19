@@ -10,7 +10,7 @@ enum itemType { random, boost, health };
 class ItemManager
 {
 public:
-	ItemManager(int count, CPlacement* player);
+	ItemManager(int count, CPlacement* player, DriveController* car);
 
 	CPlacement* getItem(itemType type);
 	void update(float fTime, float fTimeDelta);
@@ -20,6 +20,7 @@ public:
 private:
 	// Player für Kollisionsabfragen
 	CPlacement* m_Player;
+	DriveController* m_Car;
 	CHVector m_oldPlayerPos;
 	// maximaler Abstand der Rays zueinander (sollte kleiner sein als das kleinste Kollisionsobjekt)
 	float m_RayMaxDist = 0.15f;

@@ -61,8 +61,8 @@ void CGame::WindowReSize(int iNewWidth, int iNewHeight)
 void CGame::initScene(TemplateScene* scene)
 {
 	m_Root.AddScene(scene);
-	scene->SwitchOff();
 	m_Frame.AddViewport(scene->getViewport());
+	scene->SwitchOff();
 	scene->getViewport()->SwitchOff();
 }
 

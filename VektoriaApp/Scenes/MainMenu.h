@@ -1,5 +1,6 @@
 #pragma once
 #include "TemplateScene.h"
+#include "../SkyManager.h"
 #include "../gui/GuiButton.h"
 #include "../gui/GuiSelect.h"
 #include "../gui/GuiSlider.h"
@@ -25,6 +26,9 @@ private:
 	// Camera
 	CCamera m_Camera;
 	CPlacement m_PCamera;
+
+	// Sky
+	SkyManager m_SkyManager;
 
 	// Input
 	CDeviceCursor* m_Cursor;
@@ -93,6 +97,8 @@ private:
 	// Car-Wheel Variables
 	CPlacement m_PSelectionAnchor;
 	CPlacement m_PSelectionWheel;
+	CPlacement m_PRoad;
+	CGeo* m_GRoad;
 	float m_wheelradius = 20.f;
 	float m_rotationduration = 0.5f;
 	float m_rotationstart = 0.f;

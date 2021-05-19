@@ -153,8 +153,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoostItem.h" />
-    <ClInclude Include="DriveController.h" />
+    <ClInclude Include="knackCar\Boost.h" />
+    <ClInclude Include="knackCar\Health.h" />
+    <ClInclude Include="items\BoostItem.h" />
+    <ClInclude Include="knackCar\DriveController.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Scenes\GameScene.h" />
     <ClInclude Include="gui\GuiButton.h" />
@@ -163,29 +165,29 @@
     <ClInclude Include="gui\GuiSelect.h" />
     <ClInclude Include="gui\GuiSlider.h" />
     <ClInclude Include="gui\GuiUtils.h" />
-    <ClInclude Include="HealthBar.h" />
-    <ClInclude Include="HealthItem.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="Kinematics.h" />
+    <ClInclude Include="items\HealthItem.h" />
+    <ClInclude Include="items\Item.h" />
+    <ClInclude Include="items\ItemManager.h" />
     <ClInclude Include="Scenes\MainMenu.h" />
     <ClInclude Include="gui\PauseMenu.h" />
-    <ClInclude Include="PrefabRoad.h" />
-    <ClInclude Include="ProgressBar.h" />
+    <ClInclude Include="road\PrefabRoad.h" />
+    <ClInclude Include="gui\ProgressBar.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="RoadManager.h" />
-    <ClInclude Include="RoadTile.h" />
+    <ClInclude Include="road\RoadManager.h" />
+    <ClInclude Include="road\RoadTile.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="SkyManager.h" />
-    <ClInclude Include="SpecialPrefabRoad.h" />
+    <ClInclude Include="road\SpecialPrefabRoad.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Scenes\TemplateScene.h" />
     <ClInclude Include="ThirdPersonCamera.h" />
-    <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="knackCar\Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoostItem.cpp" />
-    <ClCompile Include="DriveController.cpp" />
+    <ClCompile Include="knackCar\Boost.cpp" />
+    <ClCompile Include="knackCar\Health.cpp" />
+    <ClCompile Include="items\BoostItem.cpp" />
+    <ClCompile Include="knackCar\DriveController.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Scenes\GameScene.cpp" />
     <ClCompile Include="gui\GuiButton.cpp" />
@@ -193,22 +195,20 @@
     <ClCompile Include="gui\GuiImageColorPicker.cpp" />
     <ClCompile Include="gui\GuiSelect.cpp" />
     <ClCompile Include="gui\GuiSlider.cpp" />
-    <ClCompile Include="HealthBar.cpp" />
-    <ClCompile Include="HealthItem.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="Kinematics.cpp" />
+    <ClCompile Include="items\HealthItem.cpp" />
+    <ClCompile Include="items\Item.cpp" />
+    <ClCompile Include="items\ItemManager.cpp" />
     <ClCompile Include="Scenes\MainMenu.cpp" />
     <ClCompile Include="gui\PauseMenu.cpp" />
-    <ClCompile Include="PrefabRoad.cpp" />
-    <ClCompile Include="ProgressBar.cpp" />
-    <ClCompile Include="RoadManager.cpp" />
-    <ClCompile Include="RoadTile.cpp" />
+    <ClCompile Include="road\PrefabRoad.cpp" />
+    <ClCompile Include="gui\ProgressBar.cpp" />
+    <ClCompile Include="road\RoadManager.cpp" />
+    <ClCompile Include="road\RoadTile.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="SkyManager.cpp" />
-    <ClCompile Include="SpecialPrefabRoad.cpp" />
+    <ClCompile Include="road\SpecialPrefabRoad.cpp" />
     <ClCompile Include="ThirdPersonCamera.cpp" />
-    <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="knackCar\Vehicle.cpp" />
     <ClCompile Include="VektoriaApp.cpp" />
   </ItemGroup>
   <ItemGroup>

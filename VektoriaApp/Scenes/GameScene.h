@@ -1,15 +1,14 @@
 #pragma once
 #include "TemplateScene.h"
-#include "../HealthBar.h"
-#include "../Kinematics.h"
-#include "../ItemManager.h"
-#include "../RoadManager.h"
+#include "../gui/ProgressBar.h"
+#include "../items/ItemManager.h"
+#include "../road/RoadManager.h"
 #include "../ThirdPersonCamera.h"
 #include "../gui/PauseMenu.h"
 #include "../SkyManager.h"
 #include "../ScoreManager.h"
-#include "../Vehicle.h"
-#include "../DriveController.h"
+#include "../knackCar/Vehicle.h"
+#include "../knackCar/DriveController.h"
 
 using namespace Vektoria;
 
@@ -56,8 +55,8 @@ private:
 	// Einmal nach dem ersten Tick aufzurufen
 	bool m_callOnceAfterTick = true;
 
-	HealthBar* Health;
-	ProgressBar* Speedometer;
+	ProgressBar* m_HealthBar;
+	ProgressBar* m_BoostBar;
 
 	//für den SkyManager
 	SkyManager* SkyMaster;

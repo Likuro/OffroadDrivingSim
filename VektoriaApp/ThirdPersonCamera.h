@@ -4,7 +4,7 @@
 using namespace Vektoria;
 
 // eAlignObjDir to align the camera with the direction of the obj, eAlignXAxisPositive and eAlignZAxisPositive are self-explanatory 
-enum eAlign {eAlignObjDir, eAlignXAxisPositive, eAlignZAxisPositive};
+enum eAlign {eAlignObjDir, eAlignXAxisPositive, eAlignZAxisNegative};
 
 class ThirdPersonCamera :   public CPlacement
 {

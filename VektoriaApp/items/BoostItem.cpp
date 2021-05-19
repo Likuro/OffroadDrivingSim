@@ -4,8 +4,9 @@ BoostItem::BoostItem()
 {
 }
 
-void BoostItem::trigger()
+void BoostItem::trigger(DriveController* car)
 {
+	car->getBoost()->addBoost(BOOSTRESTORE);
 }
 
 void BoostItem::update(float fTime, float fTimeDelta)

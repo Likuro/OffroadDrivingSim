@@ -1,5 +1,6 @@
 #pragma once
 #include "Vektoria\Root.h"
+#include "../knackCar/DriveController.h"
 
 using namespace Vektoria;
 
@@ -37,7 +38,7 @@ public:
 		return false;
 	}
 	// stellt die Funktion des Items dar
-	virtual void trigger() = 0;
+	virtual void trigger(DriveController* car) = 0;
 
 	// behandelt Animation oder ähnliches
 	virtual void update(float fTime, float ftimeDelta) = 0;

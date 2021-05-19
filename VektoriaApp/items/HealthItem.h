@@ -2,6 +2,8 @@
 #include "Vektoria\Root.h"
 #include "Item.h"
 
+const int HEALING = 20;
+
 using namespace Vektoria;
 
 class HealthItem :
@@ -9,7 +11,7 @@ class HealthItem :
 {
 public:
     HealthItem();
-    void trigger();
+    void trigger(DriveController* car);
     void update(float fTime, float fTimeDelta);
 };
 

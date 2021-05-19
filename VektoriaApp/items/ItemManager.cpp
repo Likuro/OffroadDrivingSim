@@ -1,10 +1,11 @@
 #include "ItemManager.h"
 
-ItemManager::ItemManager(int count, CPlacement* player)
+ItemManager::ItemManager(int count, CPlacement* player, DriveController* car)
 {
 	srand(time(NULL));
 	m_Player = player;
 	m_itemCount = count;
+	m_Car = car;
 	m_oldPlayerPos.Null();
 	
 	// Items werden gepoolt
@@ -102,7 +103,7 @@ void ItemManager::update(float fTime, float fTimeDelta)
 
 			if (hasHit && hitpoint.m_pzg == it->Geo)
 			{
-				it->trigger();
+				it->trigger(m_Car);
 				it->resetItem();
 				m_Geos.Sub(it->Geo);
 			}
@@ -120,7 +121,7 @@ void ItemManager::update(float fTime, float fTimeDelta)
 
 			if (hasHit && hitpoint.m_pzg == it->Geo)
 			{
-				it->trigger();
+				it->trigger(m_Car);
 				it->resetItem();
 				m_Geos.Sub(it->Geo);
 			}

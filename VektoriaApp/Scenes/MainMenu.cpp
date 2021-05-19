@@ -13,6 +13,9 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	// Viewport Init
 	m_Viewport.InitFull(&m_Camera);
 
+	// Skymanager Init
+	m_SkyManager.init(this, &m_PCamera);
+
 	// Laden der Schriftart
 	m_FontLucRed.LoadPreset("LucidaConsoleRed");
 	m_FontLucRed.SetChromaKeyingOn();
@@ -143,7 +146,15 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	// Cube-Wheel Init
 	this->AddPlacement(&m_PSelectionAnchor);
 	m_PSelectionAnchor.AddPlacement(&m_PSelectionWheel);
-	m_PSelectionAnchor.Translate(-60.f, -10.f, 0.f);
+	m_PSelectionAnchor.Translate(-100.f, -10.f, 0.f);
+
+	CFileWavefront loadGeo;
+	m_GRoad = loadGeo.LoadGeo("models\\road\\RoadTile_Basic.obj");
+	m_PSelectionAnchor.AddPlacement(&m_PRoad);
+	m_PRoad.AddGeo(m_GRoad);
+	m_PRoad.TranslateZ(-20.f);
+	m_PRoad.RotateY(HALFPI);
+
 	m_Cube1.Init(1.f, &m_MatDark);
 	m_PCube1.AddGeo(&m_Cube1);
 	m_PSelectionWheel.AddPlacement(&m_PCube1);
