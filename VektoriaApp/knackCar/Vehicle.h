@@ -5,7 +5,11 @@ using namespace Vektoria;
 class Vehicle
 {
 public:
-	void Init(CScene* scene, CPlacement* cam, CMaterial* mat, float accelerationValue,float deaccelerationValue, float maxSpeed);
+	void Init(CScene* scene, CPlacement* cam, CMaterial* mat, int carID);
+	void BuildSuperCar(CMaterial* mat, int ID);
+	void BuildMonsterTruck(CMaterial* mat, int ID);
+	void BuildBus(CMaterial* mat, int ID);
+	void BuildOldCar(CMaterial* mat, int ID);
 
 	CPlacement* GetMainPos();
 	CHMat GetMat();
@@ -18,6 +22,7 @@ public:
 	void SetCurrentMaxSpeed(int gear);
 
 	void UpdateFrontWheels(float rotation, float gas, float speed);
+	int GetCarID();
 
 private:
 
@@ -56,4 +61,5 @@ private:
 	float currentMaxSpeed;
 
 	float lastSpeed, currentSpeed;
+	int carID;
 };
