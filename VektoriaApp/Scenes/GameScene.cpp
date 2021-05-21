@@ -63,9 +63,9 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_dController.Init(this, &m_Viewport, &m_Car);
 
 	// Healthbar
-	//m_HealthBar = new ProgressBar(&m_Orange, &m_Viewport, m_dController.getHealth()->getMaxHealth(), m_dController.getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
-	//// Boostbar
-	//m_BoostBar = new ProgressBar(&m_Green, &m_Viewport, m_dController.getBoost()->getMaxBoost(), m_dController.getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
+	m_HealthBar = new ProgressBar(&m_Orange, &m_Viewport, m_dController.getHealth()->getMaxHealth(), m_dController.getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
+	// Boostbar
+	m_BoostBar = new ProgressBar(&m_Green, &m_Viewport, m_dController.getBoost()->getMaxBoost(), m_dController.getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
 
 	CPlacement* test;
 	test = new CPlacement;
@@ -159,10 +159,10 @@ void GameScene::update(float fTime, float fTimeDelta)
 	m_dController.ResetRotation(fTimeDelta);
 
 	// Boosting
-	//if (m_Keyboard->KeyPressed(DIK_LSHIFT))
-	//	m_dController.useBoost(fTimeDelta);
-	//else
-	//	m_dController.setUseBoost(false);
+	if (m_Keyboard->KeyPressed(DIK_LSHIFT))
+		m_dController.useBoost(fTimeDelta);
+	else
+		m_dController.setUseBoost(false);
 
 	m_dController.Update(fTimeDelta, RoadMaster->getGravity(), RoadMaster->getGeosGround(), RoadMaster->getGeosFrontal());
 
@@ -190,11 +190,11 @@ void GameScene::update(float fTime, float fTimeDelta)
 	SkyMaster->update(ScoreMaster->getScore());
 
 	//BoostBar
-	//m_BoostBar->update(m_dController.getBoost()->getBoost());
-	//ULDebug("%f", m_dController.getBoost()->getBoost());
+	m_BoostBar->update(m_dController.getBoost()->getBoost());
+	ULDebug("%f", m_dController.getBoost()->getBoost());
 
 	//HealthBar
-	//m_HealthBar->update(m_dController.getHealth()->getHealth());
+	m_HealthBar->update(m_dController.getHealth()->getHealth());
 }
 
 void GameScene::reset()

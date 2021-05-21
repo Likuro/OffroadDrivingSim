@@ -31,6 +31,8 @@ void DriveController::Init(CScene* scene, CViewport* viewport, Vehicle* car)
 
 	time = 0;
 	oldPos = myCar->GetMainPos()->GetPos();
+	mBoost = new Boost(MAX_BOOST, MAX_BOOST);
+	mHealth = new Health(MAX_HEALTH, MAX_HEALTH);
 }
 
 void DriveController::Brake()
@@ -141,6 +143,30 @@ State DriveController::GetDrivingState()
 	return myCarState;
 }
 
+void DriveController::useBoost(float fTimeDelta)
+{
+	if (!mBoost->isEmpty())
+	{
+		mBoost->substractBoost(float(BOOST_USAGE) * fTimeDelta);
+		mUseBoost = true;
+	}
+}
+
+void DriveController::setUseBoost(bool use)
+{
+	mUseBoost = use;
+}
+
+Health* DriveController::getHealth()
+{
+	return mHealth;
+}
+
+Boost* DriveController::getBoost()
+{
+	return mBoost;
+}
+
 void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems)
 {
 	if (myCar->GetCurrentMaxSpeed() <= speed)
@@ -154,7 +180,7 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 			ReleaseBrakes();
 	}	
 
-	knackDrive.Input(fGas, fBrake, fSteering, iClutch, 0);
+	knackDrive.Input(fGas, fBrake, fSteering, iClutch, mUseBoost);
 	knackDrive.Tick(deltaTime, terrain, groundItems, collisionItems);
 
 #define CARITEM_DRIVER 12
