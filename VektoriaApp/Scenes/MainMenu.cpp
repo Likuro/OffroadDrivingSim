@@ -1,9 +1,10 @@
 #include "MainMenu.h"
 
-void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
+void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene* gamescene)
 {
 	m_Cursor = cursor;
 	m_Keyboard = keyboard;
+	m_GameScene = gamescene;
 
 	// Camera Init
 	m_Camera.Init(QUARTERPI);
@@ -148,41 +149,48 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	m_PSelectionAnchor.AddPlacement(&m_PSelectionWheel);
 	m_PSelectionAnchor.Translate(-100.f, -10.f, 0.f);
 
-	CFileWavefront loadGeo;
-	m_GRoad = loadGeo.LoadGeo("models\\road\\RoadTile_Basic.obj");
+	CFileWavefront file;
+	m_GRoad = file.LoadGeo("models\\road\\RoadTile_Basic.obj");
 	m_PSelectionAnchor.AddPlacement(&m_PRoad);
 	m_PRoad.AddGeo(m_GRoad);
 	m_PRoad.TranslateZ(-20.f);
 	m_PRoad.RotateY(HALFPI);
 
-	m_Cube1.Init(1.f, &m_MatDark);
-	m_PCube1.AddGeo(&m_Cube1);
-	m_PSelectionWheel.AddPlacement(&m_PCube1);
-	m_Cube2.Init(1.f, &m_MatGreen);
-	m_PCube2.AddGeo(&m_Cube2);
-	m_PSelectionWheel.AddPlacement(&m_PCube2);
-	m_Cube3.Init(1.f, &m_MatPurple);
-	m_PCube3.AddGeo(&m_Cube3);
-	m_PSelectionWheel.AddPlacement(&m_PCube3);
-	m_Cube4.Init(1.f, &m_MatRed);
-	m_PCube4.AddGeo(&m_Cube4);
-	m_PSelectionWheel.AddPlacement(&m_PCube4);
-	m_cubes.push_back(&m_PCube1);
-	m_cubes.push_back(&m_PCube2);
-	m_cubes.push_back(&m_PCube3);
-	m_cubes.push_back(&m_PCube4);
+	// SuperCar (ID = 0)
+	m_GSuperCarFull = file.LoadGeo("models\\Vehicles\\CarsFull\\SuperCarFull.obj");
+	m_PSuperCarFull.AddGeo(m_GSuperCarFull);
+	m_PSelectionWheel.AddPlacement(&m_PSuperCarFull);
+	m_cars.push_back(&m_PSuperCarFull);
+
+	// MonsterTruck (ID = 1)
+	m_GTruckFull = file.LoadGeo("models\\Vehicles\\CarsFull\\TruckFull.obj");
+	m_PTruckFull.AddGeo(m_GTruckFull);
+	m_PSelectionWheel.AddPlacement(&m_PTruckFull);
+	m_cars.push_back(&m_PTruckFull);
+
+	// Bus (ID = 2)
+	m_GBusFull = file.LoadGeo("models\\Vehicles\\CarsFull\\BusFull.obj");
+	m_PBusFull.AddGeo(m_GBusFull);
+	m_PSelectionWheel.AddPlacement(&m_PBusFull);
+	m_cars.push_back(&m_PBusFull);
+
+	// OldCar (ID = 3)
+	m_GOldCarFull = file.LoadGeo("models\\Vehicles\\CarsFull\\OldCarFull.obj");
+	m_POldCarFull.AddGeo(m_GOldCarFull);
+	m_PSelectionWheel.AddPlacement(&m_POldCarFull);
+	m_cars.push_back(&m_POldCarFull);
 
 	// Verteilen der Cubes auf dem Kreis
 	CHVector vectorToCar(eAxisX);
 	vectorToCar *= m_wheelradius;
-	float angleDivided = TWOPI / m_cubes.size();
+	float angleDivided = TWOPI / m_cars.size();
 	CHMat matRotate;
 
-	for (float i = 0; i < m_cubes.size(); i++)
+	for (float i = 0; i < m_cars.size(); i++)
 	{
 		matRotate.Rotate(eAxisY, angleDivided * i);
 		vectorToCar = matRotate * vectorToCar;
-		m_cubes.at(i)->Translate(vectorToCar);
+		m_cars.at(i)->Translate(vectorToCar);
 	}
 
 	// Setzen des DownAngles der Camera auf das Objekt im Fokus
@@ -195,6 +203,8 @@ void MainMenu::update(float fTime, float fTimeDelta)
 	{
 		m_changeScene = true;
 		m_nextScene = game;
+		m_GameScene->setcarID(m_carindex);
+		m_GameScene->setSetup(true);
 	}
 
 	if (SelectPressed() && m_OvMenu.IsOn())
@@ -214,7 +224,7 @@ void MainMenu::update(float fTime, float fTimeDelta)
 		{
 			m_rotateright = true;
 			m_carindex++;
-			if (m_carindex == m_cubes.size())
+			if (m_carindex == m_cars.size())
 			{
 				m_carindex = 0;
 			}
@@ -225,7 +235,7 @@ void MainMenu::update(float fTime, float fTimeDelta)
 			m_carindex--;
 			if (m_carindex < 0)
 			{
-				m_carindex += m_cubes.size();
+				m_carindex += m_cars.size();
 			}
 		}
 	}
@@ -234,11 +244,11 @@ void MainMenu::update(float fTime, float fTimeDelta)
 	{
 		m_rotationstart += fTimeDelta;
 		float transitionamount = fTimeDelta / m_rotationduration;
-		m_PSelectionWheel.RotateYDelta(transitionamount * -(TWOPI / m_cubes.size()));
+		m_PSelectionWheel.RotateYDelta(transitionamount * -(TWOPI / m_cars.size()));
 		if (m_rotationstart >= m_rotationduration)
 		{
 			m_rotateleft = false;
-			m_PSelectionWheel.RotateY((float)m_carindex * (TWOPI / m_cubes.size()));
+			m_PSelectionWheel.RotateY((float)m_carindex * (TWOPI / m_cars.size()));
 			m_rotationstart = 0.f;
 		}
 	}
@@ -246,11 +256,11 @@ void MainMenu::update(float fTime, float fTimeDelta)
 	{
 		m_rotationstart += fTimeDelta;
 		float transitionamount = fTimeDelta / m_rotationduration;
-		m_PSelectionWheel.RotateYDelta(transitionamount * (TWOPI / m_cubes.size()));
+		m_PSelectionWheel.RotateYDelta(transitionamount * (TWOPI / m_cars.size()));
 		if (m_rotationstart >= m_rotationduration)
 		{
 			m_rotateright = false;
-			m_PSelectionWheel.RotateY((float)m_carindex * (TWOPI / m_cubes.size()));
+			m_PSelectionWheel.RotateY((float)m_carindex * (TWOPI / m_cars.size()));
 			m_rotationstart = 0.f;
 		}
 	}

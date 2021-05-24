@@ -53,6 +53,11 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	m_oldYaw = m_yaw;
 }
 
+void ThirdPersonCamera::updateFollowObject(CPlacement* follow)
+{
+	m_FollowObject = follow;
+}
+
 void ThirdPersonCamera::zoom(float value)
 {
 	m_zoom += value;

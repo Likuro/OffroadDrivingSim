@@ -28,7 +28,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Scenes Init
 	m_SGame.Init(&m_Cursor, &m_Keyboard);
 	initScene(&m_SGame);
-	m_SMain.Init(&m_Cursor, &m_Keyboard);
+	m_SMain.Init(&m_Cursor, &m_Keyboard, &m_SGame);
 	initScene(&m_SMain);
 
 	m_currentScene = &m_SMain;
@@ -87,5 +87,9 @@ void CGame::changeScene(eSceneType scene)
 		break;
 	default:
 		break;
+	}
+	if (m_currentScene->getSetup())
+	{
+		m_currentScene->setup();
 	}
 }

@@ -35,6 +35,14 @@ void DriveController::Init(CScene* scene, CViewport* viewport, Vehicle* car)
 	mHealth = new Health(MAX_HEALTH, MAX_HEALTH);
 }
 
+void DriveController::reignite()
+{
+	knackDrive.Reset();
+	knackDrive.Ignite(myCar->GetMat());
+	mBoost->setBoost(MAX_BOOST);
+	mHealth->setHealth(MAX_HEALTH);
+}
+
 void DriveController::Brake()
 {
 	fBrake = 1;

@@ -134,9 +134,15 @@ void ItemManager::update(float fTime, float fTimeDelta)
 	}
 }
 
+void ItemManager::updatePlayer(CPlacement* player, DriveController* car)
+{
+	m_Player = player;
+	m_Car = car;
+}
+
 void ItemManager::InitRays(CAABB* boundingBox)
 {
-	// Einfachere Berechnung boundingBox->IsInside(vec);
+	m_pathRays.clear();
 	// Berechnen des Strahlenbüschels
 	CHVector minBox = boundingBox->GetMin();
 	CHVector maxBox = boundingBox->GetMax();

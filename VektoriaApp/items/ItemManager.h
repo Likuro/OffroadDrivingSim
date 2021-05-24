@@ -14,6 +14,7 @@ public:
 
 	CPlacement* getItem(itemType type);
 	void update(float fTime, float fTimeDelta);
+	void updatePlayer(CPlacement* player, DriveController* car);
 	// muss gecallt werden, damit Kollisionen mit Strahlenbüschel gecheckt wird
 	void InitRays(CAABB* boundingBox);
 

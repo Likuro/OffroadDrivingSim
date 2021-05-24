@@ -1,5 +1,5 @@
 #pragma once
-#include "TemplateScene.h"
+#include "GameScene.h"
 #include "../SkyManager.h"
 #include "../gui/GuiButton.h"
 #include "../gui/GuiSelect.h"
@@ -11,7 +11,7 @@ class MainMenu : public TemplateScene
 {
 public:
 
-	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
+	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene* gamescene);
 	void update(float fTime, float fTimeDelta);
 
 	bool IsOn();
@@ -23,6 +23,8 @@ public:
 	bool ExitPressed();
 
 private:
+	// Game Scene
+	GameScene* m_GameScene;
 	// Camera
 	CCamera m_Camera;
 	CPlacement m_PCamera;
@@ -84,15 +86,15 @@ private:
 	CGeoQuad m_gRed;
 
 	// Car Placeholders
-	CGeoCube m_Cube1;
-	CPlacement m_PCube1;
-	CGeoCube m_Cube2;
-	CPlacement m_PCube2;
-	CGeoCube m_Cube3;
-	CPlacement m_PCube3;
-	CGeoCube m_Cube4;
-	CPlacement m_PCube4;
-	std::vector<CPlacement*> m_cubes;
+	CPlacement m_PSuperCarFull;
+	CGeo* m_GSuperCarFull;
+	CPlacement m_PBusFull;
+	CGeo* m_GBusFull;
+	CPlacement m_PTruckFull;
+	CGeo* m_GTruckFull;
+	CPlacement m_POldCarFull;
+	CGeo* m_GOldCarFull;
+	std::vector<CPlacement*> m_cars;
 		
 	// Car-Wheel Variables
 	CPlacement m_PSelectionAnchor;

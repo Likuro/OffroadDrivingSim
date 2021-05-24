@@ -16,8 +16,13 @@ class GameScene : public TemplateScene
 {
 public:
 	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
+	void selectCar(int carID);
 	void update(float fTime, float fTimeDelta);
 	void reset();
+	void setup();
+
+	void setcarID(int ID);
+	int getcarID();
 
 private:
 	// Input
@@ -65,12 +70,22 @@ private:
 	ScoreManager* ScoreMaster;
 
 	//Driving stuff
-	Vehicle m_Car;
-	DriveController m_dController;
+	Vehicle* m_currentCar;
+	Vehicle m_SportsCar;
+	Vehicle m_MonsterTruck;
+	Vehicle m_Bus;
+	Vehicle m_OldCar;
+
+	DriveController* m_dController;
+	DriveController m_SportsController;
+	DriveController m_MonsterController;
+	DriveController m_BusController;
+	DriveController m_OldController;
 
 	CWriting m_SpeedValue;
 	CWriting m_GasValue;
 	CWriting m_ClutchValue;
+	int m_carID = 0;
 
 	//Debug-Kamera Steuerung
 	bool m_switchDebugCam = false;
