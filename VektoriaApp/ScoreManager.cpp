@@ -2,7 +2,7 @@
 
 void ScoreManager::init(CViewport *tmp_viewport)
 {
-	score = 0;
+	score = 2000;
 	time = 0;
 	lastPos = CHVector(0.0f, 0.0f, 0.0f);
 	
