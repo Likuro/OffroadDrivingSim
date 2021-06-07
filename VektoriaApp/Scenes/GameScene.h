@@ -82,6 +82,8 @@ private:
 	DriveController m_BusController;
 	DriveController m_OldController;
 
+	CMaterial m_MSportsCar;
+
 	CWriting m_SpeedValue;
 	CWriting m_GasValue;
 	CWriting m_ClutchValue;

@@ -1,9 +1,13 @@
 #include "SkyManager.h"
 
-void SkyManager::init(CScene* tmp_scene, CPlacement* tmp_camera)
+void SkyManager::init(CScene* tmp_scene, CPlacement* tmp_Pcamera, CCamera* tmp_Ccamera)
 {
 	mySkyScene = tmp_scene;
-	mySkyScene->SetSkyOn(tmp_camera, true);
+	mySkyScene->SetSkyOn(tmp_Pcamera, true);
+	tmp_Ccamera->Init(QUARTERPI, 0.1f, 30000.f, true, mySkyScene->GetSkyLightPlacement());
+
+	mySkyScene->SetSkyShadowResolution(16000, 16000);
+	mySkyScene->SetSkyShadowDepth(1000);
 }
 
 void SkyManager::update(int tmp_score)

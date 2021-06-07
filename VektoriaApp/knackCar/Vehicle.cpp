@@ -40,7 +40,7 @@ void Vehicle::BuildSuperCar(CMaterial* mat, int ID)
 	//model
 	CFileWavefront file;
 	carFramePos.AddPlacement(&model_Pos);
-	modelGeo = file.LoadGeo(modelPath);
+	modelGeo = file.LoadGeo(modelPath, true);
 	modelGeo->Transform(m);
 	modelGeo->SetMaterial(mat);
 	model_Pos.AddGeo(modelGeo);

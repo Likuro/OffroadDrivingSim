@@ -9,7 +9,7 @@ using namespace Vektoria;
 class SkyManager
 {
 public:
-	void init(CScene* tmp_scene, CPlacement* tmp_camera);
+	void init(CScene* tmp_scene, CPlacement* tmp_camera, CCamera* tmp_Ccamera);
 	void update(int tmp_score);
 private:
 

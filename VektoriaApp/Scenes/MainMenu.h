@@ -10,6 +10,7 @@ using namespace Vektoria;
 class MainMenu : public TemplateScene
 {
 public:
+	void selectCar(int carID);
 
 	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene* gamescene);
 	void update(float fTime, float fTimeDelta);
@@ -107,5 +108,13 @@ private:
 	int m_carindex = 0;
 	bool m_rotateright = false;
 	bool m_rotateleft = false;
+
+	// Main-Car Display
+	CPlacement m_PMainCar;
+	CPlacement* m_PSelectedCar;
+	CPlacement m_PSelectSuperCar;
+	CPlacement m_PSelectTruck;
+	CPlacement m_PSelectBus;
+	CPlacement m_PSelectOldCar;
 };
 

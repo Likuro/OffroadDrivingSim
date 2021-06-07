@@ -158,6 +158,10 @@ void DriveController::useBoost(float fTimeDelta)
 		mBoost->substractBoost(float(BOOST_USAGE) * fTimeDelta);
 		mUseBoost = true;
 	}
+	else
+	{
+		mUseBoost = false;
+	}
 }
 
 void DriveController::setUseBoost(bool use)

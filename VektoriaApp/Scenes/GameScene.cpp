@@ -24,7 +24,8 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	//m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
 
 	//Drive
-	m_SportsCar.Init(this, &m_PCamera, &m_Green, 0);
+	m_MSportsCar.MakeTextureDiffuse("textures\\CarTex_Combined\\CarTexture_Base_Color.png");
+	m_SportsCar.Init(this, &m_PCamera, &m_MSportsCar, 0);
 	m_SportsCar.GetMainPos()->SwitchOff();
 	m_SportsController.Init(this, &m_Viewport, &m_SportsCar);
 
@@ -55,7 +56,7 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 
 	//SkyMaster erstellen
 	this->SkyMaster = new SkyManager;
-	SkyMaster->init(this, &m_PCamera);
+	SkyMaster->init(this, &m_TPCamera, &m_Camera);
 
 	//ScoreManager erstellen
 	this->ScoreMaster = new ScoreManager;
@@ -168,12 +169,12 @@ void GameScene::update(float fTime, float fTimeDelta)
 	if (m_Keyboard->KeyPressed(DIK_UP))
 	{
 		if (m_Keyboard->KeyPressed(DIK_DOWN))
-			m_TPCamera.zoom(0.4f * fTimeDelta);
+			m_TPCamera.zoom(fTimeDelta);
 		else
-			m_TPCamera.zoom(-0.4f * fTimeDelta);
+			m_TPCamera.zoom(-fTimeDelta);
 	}
 	else if (m_Keyboard->KeyPressed(DIK_DOWN))
-		m_TPCamera.zoom(0.4f * fTimeDelta);
+		m_TPCamera.zoom(fTimeDelta);
 
 
 	if (m_Keyboard->KeyDown(DIK_Q))

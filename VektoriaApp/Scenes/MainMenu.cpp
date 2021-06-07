@@ -1,5 +1,34 @@
 #include "MainMenu.h"
 
+void MainMenu::selectCar(int carID)
+{
+	m_PSelectSuperCar.SwitchOff();
+	m_PSelectTruck.SwitchOff();
+	m_PSelectBus.SwitchOff();
+	m_PSelectOldCar.SwitchOff();
+	switch (carID)
+	{
+	case 0:
+		m_PSelectSuperCar.SwitchOn();
+		m_PSelectedCar = &m_PSelectSuperCar;
+		break;
+	case 1:
+		m_PSelectTruck.SwitchOn();
+		m_PSelectedCar = &m_PSelectTruck;
+		break;
+	case 2:
+		m_PSelectBus.SwitchOn();
+		m_PSelectedCar = &m_PSelectBus;
+		break;
+	case 3:
+		m_PSelectOldCar.SwitchOn();
+		m_PSelectedCar = &m_PSelectOldCar;
+		break;
+	default:
+		break;
+	}
+}
+
 void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene* gamescene)
 {
 	m_Cursor = cursor;
@@ -15,7 +44,7 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_Viewport.InitFull(&m_Camera);
 
 	// Skymanager Init
-	m_SkyManager.init(this, &m_PCamera);
+	m_SkyManager.init(this, &m_PCamera, &m_Camera);
 
 	// Laden der Schriftart
 	m_FontLucRed.LoadPreset("LucidaConsoleRed");
@@ -46,11 +75,11 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_pGreen.RotateY(PI);
 	m_pGreen.TranslateZDelta(100.f);
 	// Orange für Wand in negativer Z-Richtung
-	this->AddPlacement(&m_pOrange);
-	m_gOrange.SetAxis(eAxisZ);
-	m_gOrange.Init(100.f, &m_MatOrange);
-	m_pOrange.AddGeo(&m_gOrange);
-	m_pOrange.TranslateZDelta(-100.f);
+	//this->AddPlacement(&m_pOrange);
+	//m_gOrange.SetAxis(eAxisZ);
+	//m_gOrange.Init(100.f, &m_MatOrange);
+	//m_pOrange.AddGeo(&m_gOrange);
+	//m_pOrange.TranslateZDelta(-100.f);
 	// Purple für Wand in positiver X-Richtung
 	this->AddPlacement(&m_pPurple);
 	m_gPurple.SetAxis(eAxisX);
@@ -71,7 +100,7 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_OvCover.SetLayer(1.f);
 
 	m_OvCover.AddOverlay(&m_OvMenu);
-	m_OvMenu.Init(&m_MatDark, CFloatRect(0.35f, 0.2f, 0.3f, 0.6f));
+	m_OvMenu.Init(&m_MatDark, CFloatRect(0.1f, 0.2f, 0.3f, 0.6f));
 	m_OvMenu.SetLayer(1.f);
 
 	m_OvCover.AddOverlay(&m_OvSelectMenu);
@@ -172,13 +201,13 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_GBusFull = file.LoadGeo("models\\Vehicles\\CarsFull\\BusFull.obj");
 	m_PBusFull.AddGeo(m_GBusFull);
 	m_PSelectionWheel.AddPlacement(&m_PBusFull);
-	m_cars.push_back(&m_PBusFull);
 
 	// OldCar (ID = 3)
 	m_GOldCarFull = file.LoadGeo("models\\Vehicles\\CarsFull\\OldCarFull.obj");
 	m_POldCarFull.AddGeo(m_GOldCarFull);
 	m_PSelectionWheel.AddPlacement(&m_POldCarFull);
 	m_cars.push_back(&m_POldCarFull);
+	m_cars.push_back(&m_PBusFull);
 
 	// Verteilen der Cubes auf dem Kreis
 	CHVector vectorToCar(eAxisX);
@@ -188,13 +217,26 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 
 	for (float i = 0; i < m_cars.size(); i++)
 	{
-		matRotate.Rotate(eAxisY, angleDivided * i);
+		matRotate.Rotate(eAxisY, -angleDivided * i);
 		vectorToCar = matRotate * vectorToCar;
 		m_cars.at(i)->Translate(vectorToCar);
 	}
 
 	// Setzen des DownAngles der Camera auf das Objekt im Fokus
 	m_selectionDownAngle = tanh(abs(m_PSelectionAnchor.GetPos().y) / (abs(m_PSelectionAnchor.GetPos().x) - m_wheelradius));
+
+	// Selected Car
+	this->AddPlacement(&m_PMainCar);
+	m_PMainCar.Translate(5.f, -1.5f, -30.f);
+	m_PSelectSuperCar.AddGeo(m_GSuperCarFull);
+	m_PSelectTruck.AddGeo(m_GTruckFull);
+	m_PSelectBus.AddGeo(m_GBusFull);
+	m_PSelectOldCar.AddGeo(m_GOldCarFull);
+	selectCar(m_carindex);
+	m_PMainCar.AddPlacement(&m_PSelectSuperCar);
+	m_PMainCar.AddPlacement(&m_PSelectTruck);
+	m_PMainCar.AddPlacement(&m_PSelectBus);
+	m_PMainCar.AddPlacement(&m_PSelectOldCar);
 }
 
 void MainMenu::update(float fTime, float fTimeDelta)
@@ -211,6 +253,11 @@ void MainMenu::update(float fTime, float fTimeDelta)
 	{
 		m_OvMenu.SwitchOff();
 		m_selectTransition = true;
+	}
+
+	if (m_OvMenu.IsOn())
+	{
+		m_PSelectedCar->RotateYDelta(0.25f * fTimeDelta);
 	}
 
 	if (m_OvSelectMenu.IsOn() && !m_rotateleft && !m_rotateright)
@@ -292,6 +339,7 @@ void MainMenu::update(float fTime, float fTimeDelta)
 			m_PCamera.RotateY(0.f);
 			m_OvMenu.SwitchOn();
 			m_transTimer = 0.f;
+			selectCar(m_carindex);
 		}
 	}
 }
