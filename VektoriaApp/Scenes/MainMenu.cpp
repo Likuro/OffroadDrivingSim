@@ -62,18 +62,18 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_MatLeftArrowHovered.MakeTextureSprite("textures\\Arrows\\Left_Arrow_Hovered.png");
 
 	// Dark für den Boden
-	this->AddPlacement(&m_pDark);
-	m_gDark.SetAxis(eAxisY);
-	m_gDark.Init(100.f, &m_MatDark);
-	m_pDark.AddGeo(&m_gDark);
-	m_pDark.TranslateY(-100.f);
+	//this->AddPlacement(&m_pDark);
+	//m_gDark.SetAxis(eAxisY);
+	//m_gDark.Init(100.f, &m_MatDark);
+	//m_pDark.AddGeo(&m_gDark);
+	//m_pDark.TranslateY(-100.f);
 	// Green für Wand in positive Z-Richtung
-	this->AddPlacement(&m_pGreen);
-	m_gGreen.SetAxis(eAxisZ);
-	m_gGreen.Init(100.f, &m_MatGreen);
-	m_pGreen.AddGeo(&m_gGreen);
-	m_pGreen.RotateY(PI);
-	m_pGreen.TranslateZDelta(100.f);
+	//this->AddPlacement(&m_pGreen);
+	//m_gGreen.SetAxis(eAxisZ);
+	//m_gGreen.Init(100.f, &m_MatGreen);
+	//m_pGreen.AddGeo(&m_gGreen);
+	//m_pGreen.RotateY(PI);
+	//m_pGreen.TranslateZDelta(100.f);
 	// Orange für Wand in negativer Z-Richtung
 	//this->AddPlacement(&m_pOrange);
 	//m_gOrange.SetAxis(eAxisZ);
@@ -81,12 +81,12 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	//m_pOrange.AddGeo(&m_gOrange);
 	//m_pOrange.TranslateZDelta(-100.f);
 	// Purple für Wand in positiver X-Richtung
-	this->AddPlacement(&m_pPurple);
-	m_gPurple.SetAxis(eAxisX);
-	m_gPurple.Init(100.f, &m_MatPurple);
-	m_pPurple.AddGeo(&m_gPurple);
-	m_pPurple.RotateY(PI);
-	m_pPurple.TranslateXDelta(100.f);
+	//this->AddPlacement(&m_pPurple);
+	//m_gPurple.SetAxis(eAxisX);
+	//m_gPurple.Init(100.f, &m_MatPurple);
+	//m_pPurple.AddGeo(&m_gPurple);
+	//m_pPurple.RotateY(PI);
+	//m_pPurple.TranslateXDelta(100.f);
 	// Red für Wand in negativer X-Richtung
 	//this->AddPlacement(&m_pRed);
 	//m_gRed.SetAxis(eAxisX);
@@ -226,8 +226,12 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_selectionDownAngle = tanh(abs(m_PSelectionAnchor.GetPos().y) / (abs(m_PSelectionAnchor.GetPos().x) - m_wheelradius));
 
 	// Selected Car
+	m_GDisplayQuad.Init(5.f, &m_MatDark);
+	m_PDisplayQuad.AddGeo(&m_GDisplayQuad);
+	m_PDisplayQuad.RotateX(-HALFPI);
+	m_PMainCar.AddPlacement(&m_PDisplayQuad);
 	this->AddPlacement(&m_PMainCar);
-	m_PMainCar.Translate(5.f, -1.5f, -30.f);
+	m_PMainCar.Translate(5.f, -2.5f, -30.f);
 	m_PSelectSuperCar.AddGeo(m_GSuperCarFull);
 	m_PSelectTruck.AddGeo(m_GTruckFull);
 	m_PSelectBus.AddGeo(m_GBusFull);

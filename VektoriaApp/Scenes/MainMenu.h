@@ -111,6 +111,8 @@ private:
 
 	// Main-Car Display
 	CPlacement m_PMainCar;
+	CPlacement m_PDisplayQuad;
+	CGeoQuad m_GDisplayQuad;
 	CPlacement* m_PSelectedCar;
 	CPlacement m_PSelectSuperCar;
 	CPlacement m_PSelectTruck;
