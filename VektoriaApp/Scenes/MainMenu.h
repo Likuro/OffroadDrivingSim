@@ -43,9 +43,9 @@ private:
 	// Materials
 	CMaterial m_MatDark;
 	CMaterial m_MatGreen;
-	CMaterial m_MatOrange;
-	CMaterial m_MatPurple;
-	CMaterial m_MatRed;
+	CMaterial m_MatButtonHovered;
+	CMaterial m_MatButton;
+	CMaterial m_MatGround;
 	CMaterial m_MatRightArrow;
 	CMaterial m_MatRightArrowHovered;
 	CMaterial m_MatLeftArrow;

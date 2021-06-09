@@ -27,8 +27,8 @@ private:
 	// Materials Protype
 	CMaterial m_MatDark;
 	CMaterial m_MatGreen;
-	CMaterial m_MatOrange;
-	CMaterial m_MatPurple;
+	CMaterial m_MatButtonHovered;
+	CMaterial m_MatButton;
 	CMaterial m_MatRed;
 
 	// Overlays (Menüs)

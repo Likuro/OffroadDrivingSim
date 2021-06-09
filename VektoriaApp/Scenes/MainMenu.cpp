@@ -53,13 +53,15 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	// Laden der Materiale
 	m_MatDark.MakeTextureSprite("textures\\PrototypeTextures\\Dark\\texture_06.png");
 	m_MatGreen.MakeTextureSprite("textures\\PrototypeTextures\\Green\\texture_06.png");
-	m_MatOrange.MakeTextureSprite("textures\\PrototypeTextures\\Orange\\texture_06.png");
-	m_MatPurple.MakeTextureSprite("textures\\PrototypeTextures\\Purple\\texture_06.png");
-	m_MatRed.MakeTextureSprite("textures\\PrototypeTextures\\Red\\texture_06.png");
+	m_MatButtonHovered.MakeTextureSprite("textures\\Buttons\\Button_Pressed.png");
+	m_MatButton.MakeTextureSprite("textures\\Buttons\\Button.png");
 	m_MatRightArrow.MakeTextureSprite("textures\\Arrows\\Right_Arrow.png");
 	m_MatRightArrowHovered.MakeTextureSprite("textures\\Arrows\\Right_Arrow_Hovered.png");
 	m_MatLeftArrow.MakeTextureSprite("textures\\Arrows\\Left_Arrow.png");
 	m_MatLeftArrowHovered.MakeTextureSprite("textures\\Arrows\\Left_Arrow_Hovered.png");
+	m_MatGround.MakeTextureDiffuse("textures\\Menu_Ground\\Ground_BaseColor.png");
+	m_MatGround.MakeTextureBump("textures\\Menu_Ground\\Ground_Normal.png");
+	m_MatGround.MakeTextureSpecular("textures\\Ground_Menu\\Ground_Specular.png");
 
 	// Dark für den Boden
 	//this->AddPlacement(&m_pDark);
@@ -116,45 +118,45 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_OvMenu.AddOverlay(&m_BPlay);
 	m_BPlay.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.f, 0.f, 1.f, sizeButtons));
 	m_BPlay.SetLabel("PLAY");
-	m_BPlay.SetMaterialNormal(m_MatPurple);
-	m_BPlay.SetMaterialHover(m_MatDark);
-	m_BPlay.SetMaterialClick(m_MatOrange);
+	m_BPlay.SetMaterialNormal(m_MatButton);
+	m_BPlay.SetMaterialHover(m_MatButtonHovered);
+	m_BPlay.SetMaterialClick(m_MatButton);
 	m_BPlay.SetInnerOn();
 
 	// Select Car-Button
 	m_OvMenu.AddOverlay(&m_BSelectCar);
 	m_BSelectCar.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.f, sizeButtons + distanceButtons, 1.f, sizeButtons));
 	m_BSelectCar.SetLabel("SELECT CAR");
-	m_BSelectCar.SetMaterialNormal(m_MatPurple);
-	m_BSelectCar.SetMaterialHover(m_MatDark);
-	m_BSelectCar.SetMaterialClick(m_MatOrange);
+	m_BSelectCar.SetMaterialNormal(m_MatButton);
+	m_BSelectCar.SetMaterialHover(m_MatButtonHovered);
+	m_BSelectCar.SetMaterialClick(m_MatButton);
 	m_BSelectCar.SetInnerOn();
 
 	// Options-Button
 	m_OvMenu.AddOverlay(&m_BOptions);
 	m_BOptions.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.f, (sizeButtons + distanceButtons) * 2.f, 1.f, sizeButtons));
 	m_BOptions.SetLabel("OPTIONS");
-	m_BOptions.SetMaterialNormal(m_MatPurple);
-	m_BOptions.SetMaterialHover(m_MatDark);
-	m_BOptions.SetMaterialClick(m_MatOrange);
+	m_BOptions.SetMaterialNormal(m_MatButton);
+	m_BOptions.SetMaterialHover(m_MatButtonHovered);
+	m_BOptions.SetMaterialClick(m_MatButton);
 	m_BOptions.SetInnerOn();
 
 	// Exit-Button
 	m_OvMenu.AddOverlay(&m_BExit);
 	m_BExit.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.f, (sizeButtons + distanceButtons) * 3.f, 1.f, sizeButtons));
 	m_BExit.SetLabel("EXIT");
-	m_BExit.SetMaterialNormal(m_MatPurple);
-	m_BExit.SetMaterialHover(m_MatDark);
-	m_BExit.SetMaterialClick(m_MatOrange);
+	m_BExit.SetMaterialNormal(m_MatButton);
+	m_BExit.SetMaterialHover(m_MatButtonHovered);
+	m_BExit.SetMaterialClick(m_MatButton);
 	m_BExit.SetInnerOn();
 
 	// Confirm-Button
 	m_OvSelectMenu.AddOverlay(&m_BConfirm);
 	m_BConfirm.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.3f, 0.7f, 0.4f, 0.2f));
 	m_BConfirm.SetLabel("CONFIRM");
-	m_BConfirm.SetMaterialNormal(m_MatPurple);
-	m_BConfirm.SetMaterialHover(m_MatDark);
-	m_BConfirm.SetMaterialClick(m_MatOrange);
+	m_BConfirm.SetMaterialNormal(m_MatButton);
+	m_BConfirm.SetMaterialHover(m_MatButtonHovered);
+	m_BConfirm.SetMaterialClick(m_MatButton);
 	m_BConfirm.SetInnerOn();
 
 	// Left-Button
@@ -226,7 +228,7 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_selectionDownAngle = tanh(abs(m_PSelectionAnchor.GetPos().y) / (abs(m_PSelectionAnchor.GetPos().x) - m_wheelradius));
 
 	// Selected Car
-	m_GDisplayQuad.Init(5.f, &m_MatDark);
+	m_GDisplayQuad.Init(25.f, &m_MatGround);
 	m_PDisplayQuad.AddGeo(&m_GDisplayQuad);
 	m_PDisplayQuad.RotateX(-HALFPI);
 	m_PMainCar.AddPlacement(&m_PDisplayQuad);
