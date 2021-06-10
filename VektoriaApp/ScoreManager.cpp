@@ -1,6 +1,6 @@
 #include "ScoreManager.h"
 
-void ScoreManager::init(CViewport *tmp_viewport)
+void ScoreManager::init(COverlay *tmp_viewport)
 {
 	score = 2000;
 	time = 0;

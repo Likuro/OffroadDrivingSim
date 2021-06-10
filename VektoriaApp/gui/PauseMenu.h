@@ -9,7 +9,7 @@ class PauseMenu
 {
 public:
 	
-	void Init(CViewport * viewport, CDeviceCursor *cursor);
+	void Init(COverlay* overlay, CDeviceCursor *cursor);
 	bool IsOn();
 	void SwitchOn();
 	void SwitchOff();
@@ -18,7 +18,6 @@ public:
 	bool ExitPressed();
 private:
 	// Übergebene Objekte
-	CViewport* m_Viewport;
 	CDeviceCursor* m_Cursor;
 
 	// Fonts

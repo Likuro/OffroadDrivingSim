@@ -15,7 +15,8 @@ using namespace Vektoria;
 class GameScene : public TemplateScene
 {
 public:
-	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
+	void Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
+
 	void selectCar(int carID);
 	void update(float fTime, float fTimeDelta);
 	void reset();
@@ -30,7 +31,6 @@ private:
 	CDeviceKeyboard* m_Keyboard;
 
 	// Camera
-	CCamera m_Camera;
 	CPlacement m_PCamera;
 	ThirdPersonCamera m_TPCamera;
 
@@ -82,8 +82,6 @@ private:
 	DriveController m_BusController;
 	DriveController m_OldController;
 
-	CMaterial m_MSportsCar;
-
 	CWriting m_SpeedValue;
 	CWriting m_GasValue;
 	CWriting m_ClutchValue;
@@ -91,5 +89,8 @@ private:
 
 	//Debug-Kamera Steuerung
 	bool m_switchDebugCam = false;
+
+	CPlacement test;
+	CGeoCube testcube;
 };
 

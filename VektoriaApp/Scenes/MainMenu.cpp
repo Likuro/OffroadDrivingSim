@@ -29,22 +29,26 @@ void MainMenu::selectCar(int carID)
 	}
 }
 
-void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene* gamescene)
+void MainMenu::setGameScene(GameScene* game)
+{
+	m_GameScene = game;
+}
+
+void MainMenu::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 {
 	m_Cursor = cursor;
 	m_Keyboard = keyboard;
-	m_GameScene = gamescene;
+	m_Scene = scene;
+	m_Viewport = viewport;
 
 	// Camera Init
 	m_Camera.Init(QUARTERPI);
 	m_PCamera.AddCamera(&m_Camera);
-	this->AddPlacement(&m_PCamera);
-
-	// Viewport Init
-	m_Viewport.InitFull(&m_Camera);
+	m_Scene->AddPlacement(&m_PCamera);
 
 	// Skymanager Init
-	m_SkyManager.init(this, &m_PCamera, &m_Camera);
+	//m_SkyManager.init(m_Scene, &m_PCamera, &m_Camera);
+	m_Scene->SetSkyTimeOfDay(0.1f);
 
 	// Laden der Schriftart
 	m_FontLucRed.LoadPreset("LucidaConsoleRed");
@@ -97,7 +101,11 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	//m_pRed.TranslateXDelta(-100.f);
 
 	// Menu Aufbau
-	m_Viewport.AddOverlay(&m_OvCover);
+	m_Viewport->AddOverlay(&m_OvRoot);
+	m_OvRoot.InitFull(&m_MatDark);
+	m_OvRoot.SetLayer(1.f);
+
+	m_OvRoot.AddOverlay(&m_OvCover);
 	m_OvCover.InitFull(&m_MatDark);
 	m_OvCover.SetLayer(1.f);
 
@@ -187,31 +195,47 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 	m_PRoad.TranslateZ(-20.f);
 	m_PRoad.RotateY(HALFPI);
 
+	// Cars Init
+	m_SportsCar.Init(&m_PSportsCar, &m_PCamera, 0);
+	m_MonsterTruck.Init(&m_PMonsterTruck, &m_PCamera, 1);
+	m_Bus.Init(&m_PBus, &m_PCamera, 2);
+	m_OldCar.Init(&m_POldCar, &m_PCamera, 3);
+
 	// SuperCar (ID = 0)
-	m_GSuperCarFull = file.LoadGeo("models\\Vehicles\\CarsFull\\SuperCarFull.obj");
-	m_PSuperCarFull.AddGeo(m_GSuperCarFull);
-	m_PSelectionWheel.AddPlacement(&m_PSuperCarFull);
-	m_cars.push_back(&m_PSuperCarFull);
+	m_PSelectionWheel.AddPlacement(&m_PSportsCar);
+	m_cars.push_back(&m_PSportsCar);
 
 	// MonsterTruck (ID = 1)
-	m_GTruckFull = file.LoadGeo("models\\Vehicles\\CarsFull\\TruckFull.obj");
-	m_PTruckFull.AddGeo(m_GTruckFull);
-	m_PSelectionWheel.AddPlacement(&m_PTruckFull);
-	m_cars.push_back(&m_PTruckFull);
+	m_PSelectionWheel.AddPlacement(&m_PMonsterTruck);
+	m_cars.push_back(&m_PMonsterTruck);
 
 	// Bus (ID = 2)
-	m_GBusFull = file.LoadGeo("models\\Vehicles\\CarsFull\\BusFull.obj");
-	m_PBusFull.AddGeo(m_GBusFull);
-	m_PSelectionWheel.AddPlacement(&m_PBusFull);
+	m_PSelectionWheel.AddPlacement(&m_PBus);
 
 	// OldCar (ID = 3)
-	m_GOldCarFull = file.LoadGeo("models\\Vehicles\\CarsFull\\OldCarFull.obj");
-	m_POldCarFull.AddGeo(m_GOldCarFull);
-	m_PSelectionWheel.AddPlacement(&m_POldCarFull);
-	m_cars.push_back(&m_POldCarFull);
-	m_cars.push_back(&m_PBusFull);
+	m_PSelectionWheel.AddPlacement(&m_POldCar);
+	m_cars.push_back(&m_POldCar);
+	m_cars.push_back(&m_PBus);
 
-	// Verteilen der Cubes auf dem Kreis
+	// Selected Car
+	m_GDisplayQuad.Init(25.f, &m_MatGround);
+	m_PDisplayQuad.AddGeo(&m_GDisplayQuad);
+	m_PDisplayQuad.RotateX(-HALFPI);
+	m_PDisplayQuad.TranslateYDelta(-1.6f);
+	m_PMainCar.AddPlacement(&m_PDisplayQuad);
+	this->AddPlacement(&m_PMainCar);
+	m_PMainCar.Translate(5.f, -1.f, -30.f);
+	m_PSelectSuperCar.Copy(m_PSportsCar);
+	m_PSelectTruck.Copy(m_PMonsterTruck);
+	m_PSelectBus.Copy(m_PBus);
+	m_PSelectOldCar.Copy(m_POldCar);
+	selectCar(m_carindex);
+	m_PMainCar.AddPlacement(&m_PSelectSuperCar);
+	m_PMainCar.AddPlacement(&m_PSelectTruck);
+	m_PMainCar.AddPlacement(&m_PSelectBus);
+	m_PMainCar.AddPlacement(&m_PSelectOldCar);
+
+	// Verteilen der Autos auf dem Auswahlkreis
 	CHVector vectorToCar(eAxisX);
 	vectorToCar *= m_wheelradius;
 	float angleDivided = TWOPI / m_cars.size();
@@ -222,27 +246,11 @@ void MainMenu::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene*
 		matRotate.Rotate(eAxisY, -angleDivided * i);
 		vectorToCar = matRotate * vectorToCar;
 		m_cars.at(i)->Translate(vectorToCar);
+		m_cars.at(i)->TranslateYDelta(1.6f);
 	}
 
 	// Setzen des DownAngles der Camera auf das Objekt im Fokus
 	m_selectionDownAngle = tanh(abs(m_PSelectionAnchor.GetPos().y) / (abs(m_PSelectionAnchor.GetPos().x) - m_wheelradius));
-
-	// Selected Car
-	m_GDisplayQuad.Init(25.f, &m_MatGround);
-	m_PDisplayQuad.AddGeo(&m_GDisplayQuad);
-	m_PDisplayQuad.RotateX(-HALFPI);
-	m_PMainCar.AddPlacement(&m_PDisplayQuad);
-	this->AddPlacement(&m_PMainCar);
-	m_PMainCar.Translate(5.f, -2.5f, -30.f);
-	m_PSelectSuperCar.AddGeo(m_GSuperCarFull);
-	m_PSelectTruck.AddGeo(m_GTruckFull);
-	m_PSelectBus.AddGeo(m_GBusFull);
-	m_PSelectOldCar.AddGeo(m_GOldCarFull);
-	selectCar(m_carindex);
-	m_PMainCar.AddPlacement(&m_PSelectSuperCar);
-	m_PMainCar.AddPlacement(&m_PSelectTruck);
-	m_PMainCar.AddPlacement(&m_PSelectBus);
-	m_PMainCar.AddPlacement(&m_PSelectOldCar);
 }
 
 void MainMenu::update(float fTime, float fTimeDelta)
@@ -250,9 +258,9 @@ void MainMenu::update(float fTime, float fTimeDelta)
 	if (PlayPressed())
 	{
 		m_changeScene = true;
+		m_doSetup = true;
 		m_nextScene = game;
 		m_GameScene->setcarID(m_carindex);
-		m_GameScene->setSetup(true);
 	}
 
 	if (SelectPressed() && m_OvMenu.IsOn())
@@ -348,6 +356,17 @@ void MainMenu::update(float fTime, float fTimeDelta)
 			selectCar(m_carindex);
 		}
 	}
+}
+
+void MainMenu::setup()
+{
+	m_Scene->SetSkyTimeOfDay(0.1f);
+	m_doSetup = false;
+}
+
+void MainMenu::reset()
+{
+	m_changeScene = false;
 }
 
 bool MainMenu::IsOn()

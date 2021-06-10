@@ -6,18 +6,19 @@ using namespace Vektoria;
 // hier Szenen eintragen für einfacheres Switchen
 enum eSceneType {main, game};
 
-class TemplateScene : public CScene
+class TemplateScene : public CPlacement
 {
 public:
-	virtual void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard) {};
+	virtual void Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, CDeviceKeyboard* keyboard) = 0;
 	virtual void update(float fTime, float fTimeDelta) = 0;
-	virtual void reset()
+	virtual void reset() = 0;
+	CCamera* getCamera()
 	{
-		m_changeScene = false;
+		return &m_Camera;
 	}
-	CViewport* getViewport()
+	COverlay* getOverlay()
 	{
-		return &m_Viewport;
+		return &m_OvRoot;
 	}
 	eSceneType getNextScene()
 	{
@@ -41,8 +42,10 @@ public:
 	}
 
 protected:
-	// Viewport
-	CViewport m_Viewport;
+	CScene* m_Scene;
+	CViewport* m_Viewport;
+	COverlay m_OvRoot;
+	CCamera m_Camera;
 	eSceneType m_nextScene = main;
 	bool m_changeScene = false;
 	bool m_doSetup = false;

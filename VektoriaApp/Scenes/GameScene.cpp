@@ -1,16 +1,16 @@
 #include "GameScene.h"
 
-void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
+void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 {
 	m_Cursor = cursor;
 	m_Keyboard = keyboard;
+	m_Scene = scene;
+	m_Viewport = viewport;
 
 	// Camera Init
 	m_Camera.Init(QUARTERPI);
 	m_PCamera.AddCamera(&m_Camera);
-
-	// Viewport Init
-	m_Viewport.InitFull(&m_Camera);
+	m_Scene->AddPlacement(&m_PCamera);
 
 	// Prototype Textures für Camera Debugging
 	m_Dark.MakeTextureDiffuse("textures\\PrototypeTextures\\Dark\\texture_06.png");
@@ -23,28 +23,32 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
 	//m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
 
-	//Drive
-	m_MSportsCar.MakeTextureDiffuse("textures\\CarTex_Combined\\CarTexture_Base_Color.png");
-	m_SportsCar.Init(this, &m_PCamera, &m_MSportsCar, 0);
+	// OvRoot Init
+	m_Viewport->AddOverlay(&m_OvRoot);
+	m_OvRoot.InitFull(&m_Dark);
+	m_OvRoot.SetLayer(1.f);
+
+	// Drive
+	m_SportsCar.Init(this, &m_PCamera, 0);
 	m_SportsCar.GetMainPos()->SwitchOff();
-	m_SportsController.Init(this, &m_Viewport, &m_SportsCar);
+	m_SportsController.Init(m_Scene, m_Viewport, &m_SportsCar);
 
-	m_MonsterTruck.Init(this, &m_PCamera, &m_Green, 1);
+	m_MonsterTruck.Init(this, &m_PCamera, 1);
 	m_MonsterTruck.GetMainPos()->SwitchOff();
-	m_MonsterController.Init(this, &m_Viewport, &m_MonsterTruck);
+	m_MonsterController.Init(m_Scene, m_Viewport, &m_MonsterTruck);
 
-	m_Bus.Init(this, &m_PCamera, &m_Green, 2);
+	m_Bus.Init(this, &m_PCamera, 2);
 	m_Bus.GetMainPos()->SwitchOff();
-	m_BusController.Init(this, &m_Viewport, &m_Bus);
+	m_BusController.Init(m_Scene, m_Viewport, &m_Bus);
 
-	m_OldCar.Init(this, &m_PCamera, &m_Green, 3);
+	m_OldCar.Init(this, &m_PCamera, 3);
 	m_OldCar.GetMainPos()->SwitchOff();
-	m_OldController.Init(this, &m_Viewport, &m_OldCar);
+	m_OldController.Init(m_Scene, m_Viewport, &m_OldCar);
 
 	selectCar(0);
 
 	// PauseMenu
-	m_PauseMenu.Init(&m_Viewport, m_Cursor);
+	m_PauseMenu.Init(&m_OvRoot, m_Cursor);
 
 	// ItemManager
 	Items = new ItemManager(25, m_currentCar->GetMainPos(), m_dController);
@@ -56,38 +60,38 @@ void GameScene::Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard)
 
 	//SkyMaster erstellen
 	this->SkyMaster = new SkyManager;
-	SkyMaster->init(this, &m_TPCamera, &m_Camera);
+	SkyMaster->init(m_Scene, &m_TPCamera, &m_Camera);
 
 	//ScoreManager erstellen
 	this->ScoreMaster = new ScoreManager;
-	ScoreMaster->init(&m_Viewport);
+	ScoreMaster->init(&m_OvRoot);
 
 	//Stats
 	m_scoreFont.LoadPreset("LucidaConsoleRed");
 	m_scoreFont.SetChromaKeyingOn();
 	m_SpeedValue.Init(CFloatRect(0.5f, 0.05f, 0.15f, 0.05f), 10, &m_scoreFont);
-	m_Viewport.AddWriting(&m_SpeedValue);
+	m_OvRoot.AddWriting(&m_SpeedValue);
 	m_GasValue.Init(CFloatRect(0.8f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
-	m_Viewport.AddWriting(&m_GasValue);
+	m_OvRoot.AddWriting(&m_GasValue);
 	m_ClutchValue.Init(CFloatRect(0.1f, 0.85f, 0.15f, 0.05f), 10, &m_scoreFont);
-	m_Viewport.AddWriting(&m_ClutchValue);
+	m_OvRoot.AddWriting(&m_ClutchValue);
 
 	// Third-Person-Camera
-	m_TPCamera.Init(25.f, 4.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
+	m_TPCamera.Init(40.f, 4.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
 	m_TPCamera.SetTranslationSensitivity(200.f);
 	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
 
 	// Healthbar
-	m_HealthBar = new ProgressBar(&m_Orange, &m_Viewport, m_dController->getHealth()->getMaxHealth(), m_dController->getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
+	m_HealthBar = new ProgressBar(&m_Orange, &m_OvRoot, m_dController->getHealth()->getMaxHealth(), m_dController->getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
 	// Boostbar
-	m_BoostBar = new ProgressBar(&m_Green, &m_Viewport, m_dController->getBoost()->getMaxBoost(), m_dController->getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
+	m_BoostBar = new ProgressBar(&m_Green, &m_OvRoot, m_dController->getBoost()->getMaxBoost(), m_dController->getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
 
-	CPlacement* test;
-	test = new CPlacement;
-	test->Translate(0.f, 0.f, -50.f);
-	this->AddPlacement(test);
-	test->AddPlacement(Items->getItem(boost));
+	this->AddPlacement(&test);
+	//testcube.Init(1.f, &m_Dark);
+	//test.AddGeo(&testcube);
+	test.Translate(0.f, 0.f, -50.f);
+	test.AddPlacement(Items->getItem(boost));
 }
 
 void GameScene::selectCar(int carID)
@@ -139,7 +143,8 @@ void GameScene::update(float fTime, float fTimeDelta)
 		{
 			m_nextScene = main;
 			m_changeScene = true;
-			// m_PauseMenu.SwitchOff();
+			m_doSetup = true;
+			m_PauseMenu.SwitchOff();
 		}
 	}
 	if (m_Keyboard->KeyDown(DIK_P))
@@ -249,6 +254,8 @@ void GameScene::reset()
 
 void GameScene::setup()
 {
+	// Hier Methoden einfügen, die beim Szenenwechsel aufgerufen werden sollen
+	//SkyMaster->update(ScoreMaster->getScore());
 	selectCar(m_carID);
 	m_dController->reignite();
 	m_currentCar->GetMainPos()->Translate(CHVector(0.f, 0.f, 0.f));

@@ -1,22 +1,22 @@
 #include "Vehicle.h"
 
-void Vehicle::Init(CScene* scene, CPlacement* cam, CMaterial* mat, int carID) {
+void Vehicle::Init(CPlacement* scene, CPlacement* cam, int carID) {
 
 	scene->AddPlacement(&pos);
 	pos.AddPlacement(&carFramePos);
 	switch (carID)
 	{
 	case 0:
-		BuildSuperCar(mat, carID);
+		BuildSuperCar(carID);
 		break;
 	case 1:
-		BuildMonsterTruck(mat, carID);
+		BuildMonsterTruck(carID);
 		break;
 	case 2:
-		BuildBus(mat, carID);
+		BuildBus(carID);
 		break;
 	case 3:
-		BuildOldCar(mat, carID);
+		BuildOldCar(carID);
 		break;
 	default:
 		break;
@@ -27,12 +27,23 @@ void Vehicle::Init(CScene* scene, CPlacement* cam, CMaterial* mat, int carID) {
 	this->currentMaxSpeed = 0;
 }
 
-void Vehicle::BuildSuperCar(CMaterial* mat, int ID)
+void Vehicle::BuildSuperCar(int ID)
 {
 	carID = ID;
+
+	// Models
 	char* modelPath = "models\\Vehicles\\SuperCar\\Offroadcar_Toon.obj";
 	char* FR_Path = "models\\Vehicles\\SuperCar\\FrontLeft_Toon.obj";
 	char* FL_Path = "models\\Vehicles\\SuperCar\\FrontRight_Toon.obj";
+
+	// Materials
+	char* mainframeTexture = "textures\\CarTex_Combined\\CarTexture_Base_Color.png";
+	char* wheelsTextureR = "textures\\CarTex_Combined\\ScarWheelsCombined\\FR-NormalCar-C\\FR-SCar_Base_Color.PNG";
+	char* wheelsTextureL = "textures\\CarTex_Combined\\ScarWheelsCombined\\FL-NormalCar-C\\FL-SCar_Base_Color.PNG";
+
+	m_MSuperCar.MakeTextureDiffuse(mainframeTexture);
+	m_MSuperCarWheelsR.MakeTextureDiffuse(wheelsTextureR);
+	m_MSuperCarWheelsL.MakeTextureDiffuse(wheelsTextureL);
 	
 	CHMat m;
 	m.TranslateY(-1);
@@ -42,7 +53,7 @@ void Vehicle::BuildSuperCar(CMaterial* mat, int ID)
 	carFramePos.AddPlacement(&model_Pos);
 	modelGeo = file.LoadGeo(modelPath, true);
 	modelGeo->Transform(m);
-	modelGeo->SetMaterial(mat);
+	modelGeo->SetMaterial(&m_MSuperCar);
 	model_Pos.AddGeo(modelGeo);
 	model_Pos.RotateYDelta(3.14);
 	model_Pos.TranslateDelta(0, 0.2, 0);
@@ -54,16 +65,16 @@ void Vehicle::BuildSuperCar(CMaterial* mat, int ID)
 	frontWheels_Pos.Translate(0, -1.28f, -1.15f);
 
 	frontWheels_Pos.AddPlacement(&wheel_FR);
-	wheel_FR_Geo = file.LoadGeo(FR_Path);
-	//wheel_FR_Geo->Transform(m);
+	wheel_FR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_FR_Geo->SetMaterial(&m_MSuperCarWheelsR);
 	wheel_FR_zR.AddGeo(wheel_FR_Geo);
 	wheel_FR.Translate(0.92f, 0, 0);
 	wheel_FR.AddPlacement(&wheel_FR_Pos);
 	wheel_FR_Pos.AddPlacement(&wheel_FR_zR);
 
 	frontWheels_Pos.AddPlacement(&wheel_FL);
-	wheel_FL_Geo = file.LoadGeo(FL_Path);
-	//wheel_FL_Geo->Transform(m);
+	wheel_FL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_FL_Geo->SetMaterial(&m_MSuperCarWheelsL);
 	wheel_FL_zR.AddGeo(wheel_FL_Geo);
 	wheel_FL.Translate(-0.92f, 0, 0);
 	wheel_FL.AddPlacement(&wheel_FL_Pos);
@@ -75,14 +86,14 @@ void Vehicle::BuildSuperCar(CMaterial* mat, int ID)
 
 	backWheels_Pos.AddPlacement(&wheel_BR);
 	wheel_BR.Translate(0.9f, 0, 0);
-	wheel_BR_Geo = file.LoadGeo(FR_Path);
-	//wheel_BR_Geo->Transform(m);
+	wheel_BR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_BR_Geo->SetMaterial(&m_MSuperCarWheelsR);
 	wheel_BR_Pos.AddGeo(wheel_BR_Geo);
 	wheel_BR.AddPlacement(&wheel_BR_Pos);
 
 	backWheels_Pos.AddPlacement(&wheel_BL);
-	wheel_BL_Geo = file.LoadGeo(FL_Path);
-	//wheel_BL_Geo->Transform(m);
+	wheel_BL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_BL_Geo->SetMaterial(&m_MSuperCarWheelsL);
 	wheel_BL_Pos.AddGeo(wheel_BL_Geo);
 	wheel_BL.Translate(-0.9f, 0, 0);
 	wheel_BL.AddPlacement(&wheel_BL_Pos);
@@ -100,12 +111,23 @@ void Vehicle::BuildSuperCar(CMaterial* mat, int ID)
 	this->maxSpeed = 260;
 }
 
-void Vehicle::BuildMonsterTruck(CMaterial* mat, int ID)
+void Vehicle::BuildMonsterTruck(int ID)
 {
 	carID = ID;
+
+	// Models
 	char* modelPath = "models\\Vehicles\\MonsterTruck\\TruckKarosserie.obj";
-	char* FR_Path = "models\\Vehicles\\MonsterTruck\\FrontRight_Truck.obj";
-	char* FL_Path = "models\\Vehicles\\MonsterTruck\\FrontLeft_Truck.obj";
+	char* FL_Path = "models\\Vehicles\\MonsterTruck\\FrontRight_Truck.obj";
+	char* FR_Path = "models\\Vehicles\\MonsterTruck\\FrontLeft_Truck.obj";
+
+	// Materials
+	char* mainframeTexture = "textures\\TruckTextures\\TruckTexture_Base_Color.PNG";
+	char* wheelsTextureL = "";
+	char* wheelsTextureR = "";
+
+	m_MTruck.MakeTextureDiffuse(mainframeTexture);
+	m_MTruckWheelsR.MakeTextureDiffuse(wheelsTextureR);
+	m_MTruckWheelsL.MakeTextureDiffuse(wheelsTextureL);
 
 	CHMat m;
 	m.TranslateY(-0.3f);
@@ -113,9 +135,9 @@ void Vehicle::BuildMonsterTruck(CMaterial* mat, int ID)
 	//model
 	CFileWavefront file;
 	carFramePos.AddPlacement(&model_Pos);
-	modelGeo = file.LoadGeo(modelPath);
+	modelGeo = file.LoadGeo(modelPath, true);
 	modelGeo->Transform(m);
-	modelGeo->SetMaterial(mat);
+	modelGeo->SetMaterial(&m_MTruck);
 	model_Pos.AddGeo(modelGeo);
 	model_Pos.RotateYDelta(3.14);
 	model_Pos.TranslateDelta(0, 0.2, 0);
@@ -127,16 +149,16 @@ void Vehicle::BuildMonsterTruck(CMaterial* mat, int ID)
 	frontWheels_Pos.Translate(0, -1.f, -2.4f);
 
 	frontWheels_Pos.AddPlacement(&wheel_FR);
-	wheel_FR_Geo = file.LoadGeo(FR_Path);
-	//wheel_FR_Geo->Transform(m);
+	wheel_FR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_FR_Geo->SetMaterial(&m_MTruckWheelsR);
 	wheel_FR_zR.AddGeo(wheel_FR_Geo);
 	wheel_FR.Translate(1.3f, 0, 0);
 	wheel_FR.AddPlacement(&wheel_FR_Pos);
 	wheel_FR_Pos.AddPlacement(&wheel_FR_zR);
 
 	frontWheels_Pos.AddPlacement(&wheel_FL);
-	wheel_FL_Geo = file.LoadGeo(FL_Path);
-	//wheel_FL_Geo->Transform(m);
+	wheel_FL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_FL_Geo->SetMaterial(&m_MTruckWheelsL);
 	wheel_FL_zR.AddGeo(wheel_FL_Geo);
 	wheel_FL.Translate(-1.15f, 0, 0);
 	wheel_FL.AddPlacement(&wheel_FL_Pos);
@@ -148,14 +170,14 @@ void Vehicle::BuildMonsterTruck(CMaterial* mat, int ID)
 
 	backWheels_Pos.AddPlacement(&wheel_BR);
 	wheel_BR.Translate(1.2f, 0, 0);
-	wheel_BR_Geo = file.LoadGeo(FR_Path);
-	//wheel_BR_Geo->Transform(m);
+	wheel_BR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_BR_Geo->SetMaterial(&m_MTruckWheelsR);
 	wheel_BR_Pos.AddGeo(wheel_BR_Geo);
 	wheel_BR.AddPlacement(&wheel_BR_Pos);
 
 	backWheels_Pos.AddPlacement(&wheel_BL);
-	wheel_BL_Geo = file.LoadGeo(FL_Path);
-	//wheel_BL_Geo->Transform(m);
+	wheel_BL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_BL_Geo->SetMaterial(&m_MTruckWheelsL);
 	wheel_BL_Pos.AddGeo(wheel_BL_Geo);
 	wheel_BL.Translate(-1.05f, 0, 0);
 	wheel_BL.AddPlacement(&wheel_BL_Pos);
@@ -173,12 +195,23 @@ void Vehicle::BuildMonsterTruck(CMaterial* mat, int ID)
 	this->maxSpeed = 170;
 }
 
-void Vehicle::BuildBus(CMaterial* mat, int ID)
+void Vehicle::BuildBus(int ID)
 {
 	carID = ID;
+
+	// Models
 	char* modelPath = "models\\Vehicles\\Bus\\BusKarosserie.obj";
 	char* FR_Path = "models\\Vehicles\\Bus\\BusFrontRight.obj";
 	char* FL_Path = "models\\Vehicles\\Bus\\BusFrontLeft.obj";
+
+	// Materials
+	char* mainframeTexture = "textures\\Bus-C\\BusTexture_Base_Color.png";
+	char* wheelsTextureR = "";
+	char* wheelsTextureL = "";
+
+	m_MBus.MakeTextureDiffuse(mainframeTexture);
+	m_MBusWheelsR.MakeTextureDiffuse(wheelsTextureR);
+	m_MBusWheelsL.MakeTextureDiffuse(wheelsTextureL);
 
 	CHMat m;
 	m.TranslateY(0.2f);
@@ -186,9 +219,9 @@ void Vehicle::BuildBus(CMaterial* mat, int ID)
 	//model
 	CFileWavefront file;
 	carFramePos.AddPlacement(&model_Pos);
-	modelGeo = file.LoadGeo(modelPath);
+	modelGeo = file.LoadGeo(modelPath, true);
 	modelGeo->Transform(m);
-	modelGeo->SetMaterial(mat);
+	modelGeo->SetMaterial(&m_MBus);
 	model_Pos.AddGeo(modelGeo);
 	model_Pos.RotateYDelta(3.14);
 	model_Pos.TranslateDelta(0, 0.2, 0);
@@ -200,16 +233,16 @@ void Vehicle::BuildBus(CMaterial* mat, int ID)
 	frontWheels_Pos.Translate(0, -1.f, -2.8f);
 
 	frontWheels_Pos.AddPlacement(&wheel_FR);
-	wheel_FR_Geo = file.LoadGeo(FR_Path);
-	//wheel_FR_Geo->Transform(m);
+	wheel_FR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_FR_Geo->SetMaterial(&m_MBusWheelsR);
 	wheel_FR_zR.AddGeo(wheel_FR_Geo);
 	wheel_FR.Translate(1.5f, 0, 0);
 	wheel_FR.AddPlacement(&wheel_FR_Pos);
 	wheel_FR_Pos.AddPlacement(&wheel_FR_zR);
 
 	frontWheels_Pos.AddPlacement(&wheel_FL);
-	wheel_FL_Geo = file.LoadGeo(FL_Path);
-	//wheel_FL_Geo->Transform(m);
+	wheel_FL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_FL_Geo->SetMaterial(&m_MBusWheelsL);
 	wheel_FL_zR.AddGeo(wheel_FL_Geo);
 	wheel_FL.Translate(-1.5f, 0, 0);
 	wheel_FL.AddPlacement(&wheel_FL_Pos);
@@ -221,14 +254,14 @@ void Vehicle::BuildBus(CMaterial* mat, int ID)
 
 	backWheels_Pos.AddPlacement(&wheel_BR);
 	wheel_BR.Translate(1.5f, 0, 0);
-	wheel_BR_Geo = file.LoadGeo(FR_Path);
-	//wheel_BR_Geo->Transform(m);
+	wheel_BR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_BR_Geo->SetMaterial(&m_MBusWheelsR);
 	wheel_BR_Pos.AddGeo(wheel_BR_Geo);
 	wheel_BR.AddPlacement(&wheel_BR_Pos);
 
 	backWheels_Pos.AddPlacement(&wheel_BL);
-	wheel_BL_Geo = file.LoadGeo(FL_Path);
-	//wheel_BL_Geo->Transform(m);
+	wheel_BL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_BL_Geo->SetMaterial(&m_MBusWheelsL);
 	wheel_BL_Pos.AddGeo(wheel_BL_Geo);
 	wheel_BL.Translate(-1.5f, 0, 0);
 	wheel_BL.AddPlacement(&wheel_BL_Pos);
@@ -246,12 +279,23 @@ void Vehicle::BuildBus(CMaterial* mat, int ID)
 	this->maxSpeed = 120;
 }
 
-void Vehicle::BuildOldCar(CMaterial* mat, int ID)
+void Vehicle::BuildOldCar(int ID)
 {
 	carID = ID;
+
+	// Models
 	char* modelPath = "models\\Vehicles\\OldCar\\OldCarKarosserie.obj";
 	char* FR_Path = "models\\Vehicles\\OldCar\\OldCarFrontRight.obj";
 	char* FL_Path = "models\\Vehicles\\OldCar\\OldCarFrontLeft.obj";
+
+	// Materials
+	char* mainframeTexture = "textures\\OldCarTex\\Renault12TL_BaseColor.png";
+	char* wheelsTextureR = "";
+	char* wheelsTextureL = "";
+
+	m_MOldCar.MakeTextureDiffuse(mainframeTexture);
+	m_MOldCarWheelsR.MakeTextureDiffuse(wheelsTextureR);
+	m_MOldCarWheelsL.MakeTextureDiffuse(wheelsTextureL);
 
 	CHMat m;
 	m.TranslateY(-0.9f);
@@ -259,9 +303,9 @@ void Vehicle::BuildOldCar(CMaterial* mat, int ID)
 	//model
 	CFileWavefront file;
 	carFramePos.AddPlacement(&model_Pos);
-	modelGeo = file.LoadGeo(modelPath);
+	modelGeo = file.LoadGeo(modelPath, true);
 	modelGeo->Transform(m);
-	modelGeo->SetMaterial(mat);
+	modelGeo->SetMaterial(&m_MOldCar);
 	model_Pos.AddGeo(modelGeo);
 	model_Pos.RotateYDelta(3.14);
 	model_Pos.TranslateDelta(0, 0.2, 0);
@@ -273,16 +317,16 @@ void Vehicle::BuildOldCar(CMaterial* mat, int ID)
 	frontWheels_Pos.Translate(0, -1.28f, -2.15f);
 
 	frontWheels_Pos.AddPlacement(&wheel_FR);
-	wheel_FR_Geo = file.LoadGeo(FR_Path);
-	//wheel_FR_Geo->Transform(m);
+	wheel_FR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_FR_Geo->SetMaterial(&m_MOldCarWheelsR);
 	wheel_FR_zR.AddGeo(wheel_FR_Geo);
 	wheel_FR.Translate(0.92f, 0, 0);
 	wheel_FR.AddPlacement(&wheel_FR_Pos);
 	wheel_FR_Pos.AddPlacement(&wheel_FR_zR);
 
 	frontWheels_Pos.AddPlacement(&wheel_FL);
-	wheel_FL_Geo = file.LoadGeo(FL_Path);
-	//wheel_FL_Geo->Transform(m);
+	wheel_FL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_FL_Geo->SetMaterial(&m_MOldCarWheelsL);
 	wheel_FL_zR.AddGeo(wheel_FL_Geo);
 	wheel_FL.Translate(-0.82f, 0, 0);
 	wheel_FL.AddPlacement(&wheel_FL_Pos);
@@ -294,14 +338,14 @@ void Vehicle::BuildOldCar(CMaterial* mat, int ID)
 
 	backWheels_Pos.AddPlacement(&wheel_BR);
 	wheel_BR.Translate(0.9f, 0, 0);
-	wheel_BR_Geo = file.LoadGeo(FR_Path);
-	//wheel_BR_Geo->Transform(m);
+	wheel_BR_Geo = file.LoadGeo(FR_Path, true);
+	wheel_BR_Geo->SetMaterial(&m_MOldCarWheelsR);
 	wheel_BR_Pos.AddGeo(wheel_BR_Geo);
 	wheel_BR.AddPlacement(&wheel_BR_Pos);
 
 	backWheels_Pos.AddPlacement(&wheel_BL);
-	wheel_BL_Geo = file.LoadGeo(FL_Path);
-	//wheel_BL_Geo->Transform(m);
+	wheel_BL_Geo = file.LoadGeo(FL_Path, true);
+	wheel_BL_Geo->SetMaterial(&m_MOldCarWheelsL);
 	wheel_BL_Pos.AddGeo(wheel_BL_Geo);
 	wheel_BL.Translate(-0.8f, 0, 0);
 	wheel_BL.AddPlacement(&wheel_BL_Pos);

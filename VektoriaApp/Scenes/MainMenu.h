@@ -1,6 +1,5 @@
 #pragma once
 #include "GameScene.h"
-#include "../SkyManager.h"
 #include "../gui/GuiButton.h"
 #include "../gui/GuiSelect.h"
 #include "../gui/GuiSlider.h"
@@ -10,10 +9,13 @@ using namespace Vektoria;
 class MainMenu : public TemplateScene
 {
 public:
-	void selectCar(int carID);
+	void setGameScene(GameScene* game);
+	void Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
 
-	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard, GameScene* gamescene);
+	void selectCar(int carID);
 	void update(float fTime, float fTimeDelta);
+	void reset();
+	void setup();
 
 	bool IsOn();
 	void SwitchOn();
@@ -26,8 +28,8 @@ public:
 private:
 	// Game Scene
 	GameScene* m_GameScene;
+
 	// Camera
-	CCamera m_Camera;
 	CPlacement m_PCamera;
 
 	// Sky
@@ -87,14 +89,18 @@ private:
 	CGeoQuad m_gRed;
 
 	// Car Placeholders
-	CPlacement m_PSuperCarFull;
-	CGeo* m_GSuperCarFull;
-	CPlacement m_PBusFull;
-	CGeo* m_GBusFull;
-	CPlacement m_PTruckFull;
-	CGeo* m_GTruckFull;
-	CPlacement m_POldCarFull;
-	CGeo* m_GOldCarFull;
+	Vehicle m_SportsCar;
+	Vehicle m_MonsterTruck;
+	Vehicle m_Bus;
+	Vehicle m_OldCar;
+	CPlacement m_PSportsCar;
+	CPlacement m_PMonsterTruck;
+	CPlacement m_PBus;
+	CPlacement m_POldCar;
+	CPlacement m_PSuperCarWheel;
+	CPlacement m_PBusWheel;
+	CPlacement m_PTruckWheel;
+	CPlacement m_POldCarWheel;
 	std::vector<CPlacement*> m_cars;
 		
 	// Car-Wheel Variables

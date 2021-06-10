@@ -1,6 +1,6 @@
 #include "ProgressBar.h"
 
-ProgressBar::ProgressBar(CMaterial * mat, CViewport * root, float max, float currentvalue, float xpos, float ypos, float l, float h)
+ProgressBar::ProgressBar(CMaterial * mat, COverlay* root, float max, float currentvalue, float xpos, float ypos, float l, float h)
 {
 	m_barMaterial = mat;
 	m_posx = xpos;

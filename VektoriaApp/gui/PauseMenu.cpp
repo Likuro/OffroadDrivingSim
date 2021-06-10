@@ -1,8 +1,7 @@
 #include "PauseMenu.h"
 
-void PauseMenu::Init(CViewport* viewport, CDeviceCursor* cursor)
+void PauseMenu::Init(COverlay* overlay, CDeviceCursor* cursor)
 {
-	m_Viewport = viewport;
 	m_Cursor = cursor;
 
 	// Laden der Schriftart
@@ -17,7 +16,7 @@ void PauseMenu::Init(CViewport* viewport, CDeviceCursor* cursor)
 	m_MatRed.MakeTextureSprite("textures\\PrototypeTextures\\Red\\texture_06.png");
 
 	// Menu Aufbau
-	m_Viewport->AddOverlay(&m_OvCover);
+	overlay->AddOverlay(&m_OvCover);
 	m_OvCover.InitFull(&m_MatDark);
 	m_OvCover.SetTransparency(0.3f);
 	m_OvCover.SetLayer(0.9999f);
