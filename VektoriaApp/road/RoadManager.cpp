@@ -65,13 +65,13 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
 	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
 	count++;
-
+	
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic/RoadTile_Basic4.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic/ground/RoadTile_Basic_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
 	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
 	count++;
-
+	
 	//Special PrefabRoads laden
 	count = 0;
 	//Curves L
@@ -149,7 +149,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager)
 	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, -1);
 	count++;
 
-	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/RoadTile_Basic_Down1.obj");
+	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/RoadTile_Basic_Down2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/ground/RoadTile_Basic_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
 	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, -1);
@@ -410,7 +410,7 @@ void RoadManager::resetRoad()
 		//RoadTiles von der Scene abhängen
 		RoadSector[i]->removefromScene();
 		//Placements hintereinander in einer Reihe anordnen
-		RoadSector[i]->move(0.0f, 0.0f, (float)((roadTilelength * 2) - (i * roadTilelength)));
+		RoadSector[i]->move(0.0f, 0.0f, ((float)((roadTilelength*2) - (i * roadTilelength)))/2);
 		//RoadTiles an die Scene anhängen
 		RoadSector[i]->addToScene(PrefabRoads[0]);
 

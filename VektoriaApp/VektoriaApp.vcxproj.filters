@@ -59,6 +59,7 @@
     <ClCompile Include="gui\PauseMenu.cpp" />
     <ClCompile Include="knackCar\Health.cpp" />
     <ClCompile Include="knackCar\Boost.cpp" />
+    <ClCompile Include="road\PrefabTerrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="items\BoostItem.h">
@@ -124,6 +125,7 @@
     <ClInclude Include="Scenes\TemplateScene.h" />
     <ClInclude Include="knackCar\Health.h" />
     <ClInclude Include="knackCar\Boost.h" />
+    <ClInclude Include="road\PrefabTerrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VektoriaApp.rc" />
