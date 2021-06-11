@@ -4,10 +4,6 @@ Vektoria-Logfile
 ****************
 Error: Didn't found file .\.\..\..\Lib\Emitters\Sandstorm_ver2\Sandstorm_ver2.ve
 Error: Loading of file .\..\..\Lib\Emitters\Sandstorm_ver2\Sandstorm_ver2.ve failed
-Error: In CRoot::AddMaterial: pmaterial is a nullptr
-Error: In CRoot::AddMaterial: pmaterial is a nullptr
-Error: In CRoot::AddMaterial: pmaterial is a nullptr
-Error: In CRoot::AddMaterial: pmaterial is a nullptr
 Error: ..\..\Lib\DLLKnackDrive\DRV_Crash5.wav has invalid data chunks
 Error: DirectSound: Loading WAV File failed.
 Error: Cannot open WAV-File ..\VektoriaDrive\DRV_Motor.wav
