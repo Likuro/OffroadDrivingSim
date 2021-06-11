@@ -18,7 +18,9 @@ enum  State
 class DriveController
 {
 public:
+
 	void Init(CScene* scene, CViewport* viewport, Vehicle* car);
+	void reignite();
 	void Brake();
 	void ReleaseBrakes();
 	void Accelerate(float deltaTime);
@@ -40,6 +42,8 @@ public:
 
 	Health* getHealth();
 	Boost* getBoost();
+
+	void resetCar(int carID);
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
 
 private:

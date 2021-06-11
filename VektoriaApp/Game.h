@@ -44,6 +44,8 @@ public:
 private:
 	// Grundlegende Vektoria-Objekte
 	CRoot m_Root;
+	CScene m_Scene;
+	CViewport m_Viewport;
 	CFrame m_Frame;
 
 	// Eingabegeräte
@@ -55,6 +57,9 @@ private:
 	TemplateScene* m_currentScene;
 	GameScene m_SGame;
 	MainMenu m_SMain;
+
+	// Setup Bool
+	bool m_doSetup = false;
 };
 
 

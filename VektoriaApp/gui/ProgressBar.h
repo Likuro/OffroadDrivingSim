@@ -5,7 +5,7 @@ using namespace Vektoria;
 class ProgressBar
 {
 public: 
-	ProgressBar(CMaterial* mat, CViewport* root, float max, float currentvalue, float xpos, float ypos, float l, float h);
+	ProgressBar(CMaterial* mat, COverlay* root, float max, float currentvalue, float xpos, float ypos, float l, float h);
 	void update(float progressValue);
 
 private:

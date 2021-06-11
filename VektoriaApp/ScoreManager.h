@@ -10,7 +10,7 @@ class ScoreManager
 {
 public:
 
-	void init(CViewport *tmp_viewport);
+	void init(COverlay *tmp_viewport);
 	void update(CHVector tmp_pos, float tmp_ftime);
 	int getScore();
 	void resetScore();

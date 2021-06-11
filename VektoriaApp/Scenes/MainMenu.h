@@ -1,6 +1,5 @@
 #pragma once
-#include "TemplateScene.h"
-#include "../SkyManager.h"
+#include "GameScene.h"
 #include "../gui/GuiButton.h"
 #include "../gui/GuiSelect.h"
 #include "../gui/GuiSlider.h"
@@ -10,9 +9,13 @@ using namespace Vektoria;
 class MainMenu : public TemplateScene
 {
 public:
+	void setGameScene(GameScene* game);
+	void Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
 
-	void Init(CDeviceCursor* cursor, CDeviceKeyboard* keyboard);
+	void selectCar(int carID);
 	void update(float fTime, float fTimeDelta);
+	void reset();
+	void setup();
 
 	bool IsOn();
 	void SwitchOn();
@@ -23,8 +26,10 @@ public:
 	bool ExitPressed();
 
 private:
+	// Game Scene
+	GameScene* m_GameScene;
+
 	// Camera
-	CCamera m_Camera;
 	CPlacement m_PCamera;
 
 	// Sky
@@ -40,9 +45,9 @@ private:
 	// Materials
 	CMaterial m_MatDark;
 	CMaterial m_MatGreen;
-	CMaterial m_MatOrange;
-	CMaterial m_MatPurple;
-	CMaterial m_MatRed;
+	CMaterial m_MatButtonHovered;
+	CMaterial m_MatButton;
+	CMaterial m_MatGround;
 	CMaterial m_MatRightArrow;
 	CMaterial m_MatRightArrowHovered;
 	CMaterial m_MatLeftArrow;
@@ -84,15 +89,19 @@ private:
 	CGeoQuad m_gRed;
 
 	// Car Placeholders
-	CGeoCube m_Cube1;
-	CPlacement m_PCube1;
-	CGeoCube m_Cube2;
-	CPlacement m_PCube2;
-	CGeoCube m_Cube3;
-	CPlacement m_PCube3;
-	CGeoCube m_Cube4;
-	CPlacement m_PCube4;
-	std::vector<CPlacement*> m_cubes;
+	Vehicle m_SportsCar;
+	Vehicle m_MonsterTruck;
+	Vehicle m_Bus;
+	Vehicle m_OldCar;
+	CPlacement m_PSportsCar;
+	CPlacement m_PMonsterTruck;
+	CPlacement m_PBus;
+	CPlacement m_POldCar;
+	CPlacement m_PSuperCarWheel;
+	CPlacement m_PBusWheel;
+	CPlacement m_PTruckWheel;
+	CPlacement m_POldCarWheel;
+	std::vector<CPlacement*> m_cars;
 		
 	// Car-Wheel Variables
 	CPlacement m_PSelectionAnchor;
@@ -105,5 +114,15 @@ private:
 	int m_carindex = 0;
 	bool m_rotateright = false;
 	bool m_rotateleft = false;
+
+	// Main-Car Display
+	CPlacement m_PMainCar;
+	CPlacement m_PDisplayQuad;
+	CGeoQuad m_GDisplayQuad;
+	CPlacement* m_PSelectedCar;
+	CPlacement m_PSelectSuperCar;
+	CPlacement m_PSelectTruck;
+	CPlacement m_PSelectBus;
+	CPlacement m_PSelectOldCar;
 };
 

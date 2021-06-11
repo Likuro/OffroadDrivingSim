@@ -5,11 +5,11 @@ using namespace Vektoria;
 class Vehicle
 {
 public:
-	void Init(CScene* scene, CPlacement* cam, CMaterial* mat, int carID);
-	void BuildSuperCar(CMaterial* mat, int ID);
-	void BuildMonsterTruck(CMaterial* mat, int ID);
-	void BuildBus(CMaterial* mat, int ID);
-	void BuildOldCar(CMaterial* mat, int ID);
+	void Init(CPlacement* scene, CPlacement* cam, int carID);
+	void BuildSuperCar(int ID);
+	void BuildMonsterTruck(int ID);
+	void BuildBus(int ID);
+	void BuildOldCar(int ID);
 
 	CPlacement* GetMainPos();
 	CHMat GetMat();
@@ -62,4 +62,24 @@ private:
 
 	float lastSpeed, currentSpeed;
 	int carID;
+
+	// Super Car Materials
+	CMaterial m_MSuperCar;
+	CMaterial m_MSuperCarWheelsR;
+	CMaterial m_MSuperCarWheelsL;
+
+	// Truck Materials
+	CMaterial m_MTruck;
+	CMaterial m_MTruckWheelsR;
+	CMaterial m_MTruckWheelsL;
+
+	// Bus Materials
+	CMaterial m_MBus;
+	CMaterial m_MBusWheelsR;
+	CMaterial m_MBusWheelsL;
+
+	// Old Car Materials
+	CMaterial m_MOldCar;
+	CMaterial m_MOldCarWheelsR;
+	CMaterial m_MOldCarWheelsL;
 };

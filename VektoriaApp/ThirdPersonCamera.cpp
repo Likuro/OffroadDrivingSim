@@ -34,6 +34,8 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	toCamera *= m_zoom;
 	toCamera = mat * toCamera;
 
+	float zoomedHeight = m_zoom * m_height;
+
 	switch (m_alignement)
 	{
 	case eAlignObjDir:
@@ -45,12 +47,17 @@ void ThirdPersonCamera::update(float fTimeDelta)
 		m_CameraSwivel.RotateYDelta(HALFPI + PI);
 		break;
 	case eAlignZAxisNegative:
-		this->Translate(followPos.x, followPos.y + m_height, followPos.z + (m_height / tan(angle)));
+		this->Translate(followPos.x, followPos.y + zoomedHeight, followPos.z + (zoomedHeight / tan(angle)));
 		break;
 	default:
 		break;
 	}
 	m_oldYaw = m_yaw;
+}
+
+void ThirdPersonCamera::updateFollowObject(CPlacement* follow)
+{
+	m_FollowObject = follow;
 }
 
 void ThirdPersonCamera::zoom(float value)

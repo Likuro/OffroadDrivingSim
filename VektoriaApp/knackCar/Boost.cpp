@@ -42,7 +42,7 @@ void Boost::substractBoost(float value)
 
 bool Boost::isEmpty()
 {
-	if (m_currentBoost < 0.f)
+	if (m_currentBoost < 0.001f)
 	{
 		return true;
 	}

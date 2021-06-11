@@ -11,6 +11,7 @@ class ThirdPersonCamera :   public CPlacement
 public:
 	void Init(float distance, float height, eAlign alignement, CPlacement* followObject, CCamera* camera);
 	void update(float fTimeDelta);
+	void updateFollowObject(CPlacement* follow);
 	// Zoomt rein und raus um den Wert value (negativ für raus, positiv für rein)
 	void zoom(float value);
 

@@ -18,7 +18,9 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	// Hier die Initialisierung Deiner Vektoria-Objekte einfügen:
 	m_Root.Init(psplash);
 	m_Root.AddFrame(&m_Frame);
+	m_Root.AddScene(&m_Scene);
 	m_Frame.Init(hwnd, procOS);
+	m_Frame.AddViewport(&m_Viewport);
 
 	// Eingabegeräte (Keyboard/Controller/Maus)
 	m_Frame.AddDeviceKeyboard(&m_Keyboard);
@@ -26,14 +28,16 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_Frame.AddDeviceCursor(&m_Cursor);
 
 	// Scenes Init
-	m_SGame.Init(&m_Cursor, &m_Keyboard);
+	m_SGame.Init(&m_Scene, &m_Viewport, &m_Cursor, &m_Keyboard);
+	m_SMain.setGameScene(&m_SGame);
+	m_SMain.Init(&m_Scene, &m_Viewport, &m_Cursor, &m_Keyboard);
 	initScene(&m_SGame);
-	m_SMain.Init(&m_Cursor, &m_Keyboard);
 	initScene(&m_SMain);
 
 	m_currentScene = &m_SMain;
 	m_currentScene->SwitchOn();
-	m_currentScene->getViewport()->SwitchOn();
+	m_currentScene->getOverlay()->SwitchOn();
+	m_Viewport.InitFull(m_currentScene->getCamera());
 }
 
 void CGame::Tick(float fTime, float fTimeDelta)
@@ -60,32 +64,39 @@ void CGame::WindowReSize(int iNewWidth, int iNewHeight)
 
 void CGame::initScene(TemplateScene* scene)
 {
-	m_Root.AddScene(scene);
-	m_Frame.AddViewport(scene->getViewport());
+	m_Scene.AddPlacement(scene);
+	scene->getOverlay()->SwitchOff();
 	scene->SwitchOff();
-	scene->getViewport()->SwitchOff();
 }
 
 void CGame::changeScene(eSceneType scene)
 {
+	m_doSetup = m_currentScene->getSetup();
+	m_currentScene->setSetup(false);
 	m_currentScene->reset();
 	switch (scene)
 	{
 	case main:
 		m_currentScene->SwitchOff();
-		m_currentScene->getViewport()->SwitchOff();
+		m_currentScene->getOverlay()->SwitchOff();
 		m_currentScene = &m_SMain;
 		m_currentScene->SwitchOn();
-		m_currentScene->getViewport()->SwitchOn();
+		m_currentScene->getOverlay()->SwitchOn();
+		m_Viewport.InitFull(m_currentScene->getCamera());
 		break;
 	case game:
 		m_currentScene->SwitchOff();
-		m_currentScene->getViewport()->SwitchOff();
+		m_currentScene->getOverlay()->SwitchOff();
 		m_currentScene = &m_SGame;
 		m_currentScene->SwitchOn();
-		m_currentScene->getViewport()->SwitchOn();
+		m_currentScene->getOverlay()->SwitchOn();
+		m_Viewport.InitFull(m_currentScene->getCamera());
 		break;
 	default:
 		break;
+	}
+	if (m_doSetup)
+	{
+		m_currentScene->setup();
 	}
 }
