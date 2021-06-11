@@ -13,6 +13,9 @@ public:
 
 	void addtoScene(CPlacement *tmp_roadPlacement, CPlacement* tmp_hitboxPlacement, CPlacement* tmp_hitboxFrontalPlacement);
 	void subfromScene(CPlacement *tmp_roadPlacement, CPlacement* tmp_hitboxPlacement, CPlacement* tmp_hitboxFrontalPlacement);
+
+	void addMaterial(char *tmp_basecolor, char *tmp_heightmap, char *tmp_normalmap, char *tmp_roughness);
+
 	CHVector getItemspawnPosition();
 
 private:
@@ -24,11 +27,14 @@ private:
 	// Positionen für mögliche Itemspawns
 	CHVector itemspawns[3];
 
-	CGeo* roadModel;
+	CGeoTriangleTable* roadModel;
 	CGeo* roadHitboxGround;
 	CGeo* roadHitboxFrontal;
 	CFileWavefront loadModel;
 	CFileWavefront loadHitboxGround;
 	CFileWavefront loadHitboxFrontal;
+
+	CMaterial myMaterial;
+
 };
 

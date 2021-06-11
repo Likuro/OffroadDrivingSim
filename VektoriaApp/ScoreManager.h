@@ -2,6 +2,7 @@
 #include "Vektoria\Root.h"
 
 #define refreshrate 0.1
+#define defaultscore 0;
 
 using namespace Vektoria;
 

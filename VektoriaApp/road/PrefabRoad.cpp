@@ -8,6 +8,9 @@ PrefabRoad::PrefabRoad(char* tmp_modelpath, char* tmp_groundhitboxpath, char* tm
 	roadModel = loadModel.LoadGeo(modelpath, true);
 	roadHitboxGround = loadHitboxGround.LoadGeo(groundhitboxpath, true);
 	roadHitboxFrontal = loadHitboxFrontal.LoadGeo(frontalhitboxpath, true);
+
+	roadModel->EstimateTangentsAndBitangents2();
+
 	tmp_roadTilesHitboxGround->Add(roadHitboxGround);
 	tmp_roadTilesHitboxFrontal->Add(roadHitboxFrontal);
 
@@ -33,6 +36,17 @@ void PrefabRoad::subfromScene(CPlacement* tmp_roadPlacement, CPlacement* tmp_hit
 	tmp_roadPlacement->SubGeo(roadModel);
 	tmp_hitboxGroundPlacement->SubGeo(roadHitboxGround);
 	tmp_hitboxFrontalPlacement->SubGeo(roadHitboxFrontal);
+}
+
+void PrefabRoad::addMaterial(char *tmp_basecolor, char *tmp_heightmap, char *tmp_normalmap, char *tmp_roughness)
+{
+	myMaterial.MakeTextureDiffuse(tmp_basecolor);
+	//myMaterial.MakeTextureHeight(tmp_heightmap);
+	myMaterial.MakeTextureBump(tmp_normalmap);
+	//Roughness muss noch importiert werden
+	//myMaterial.MakeTextureSpecular(tmp_roughness);
+
+	roadModel->SetMaterial(&myMaterial);
 }
 
 CHVector PrefabRoad::getItemspawnPosition()

@@ -2,7 +2,7 @@
 
 void ScoreManager::init(CViewport *tmp_viewport)
 {
-	score = 0;
+	score = defaultscore;
 	time = 0;
 	lastPos = CHVector(0.0f, 0.0f, 0.0f);
 	
@@ -32,7 +32,7 @@ int ScoreManager::getScore()
 
 void ScoreManager::resetScore()
 {
-	score = 0;
+	score = defaultscore;
 	time = 0;
 	lastPos = CHVector(0.0f, 0.0f, 0.0f);
 

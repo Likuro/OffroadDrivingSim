@@ -3,11 +3,12 @@
 #include  "RoadTile.h"
 #include "PrefabRoad.h"
 #include "SpecialPrefabRoad.h"
+#include "PrefabTerrain.h"
 #include "../items/ItemManager.h"
 
 //Settings fpr die PrefabRoads
-#define  anzahlPrefabRoads 2
-#define anzahlSpecialPrefabRoads 8
+#define  anzahlPrefabRoads 5
+#define anzahlSpecialPrefabRoads 34
 
 //Settings für die RoadTiles
 #define anzahlRoadTiles 10
@@ -55,6 +56,7 @@ private:
 	int activeSpawn;
 	int lastSpawn;
 	int specialSpawnChance;
+	int terrainSpawnCounter;
 
 	//.
 	int timesSpawned;
@@ -73,6 +75,7 @@ private:
 	int nextTile;
 	int nextspecialTile;
 	int lastspecialTile;
+	int count;
 
 	//zum Speichern der Pfade für den import
 	char prefabModelLoadPath[_MAX_PATH];
@@ -81,15 +84,6 @@ private:
 
 	//Placement das dem RoadManager beim init übergeben wird und an dem alles angehängt wird
 	CPlacement *myPlacement;
-
-	//Placement an den ein RoadTile angehängt wird
-	CPlacement placementGroundPlane[anzahlRoadTiles];
-	CPlacement placementRoadBase[anzahlRoadTiles];
-	CPlacement placementRoadTile[anzahlRoadTiles];
-
-	//Groundplane unter der Road
-	CGeoQuad groundplane;
-	CMaterial groundplaneColor;
 
 	//Placement für die Plane des Sandsturms
 	CPlacement wallofDEATH;
@@ -104,6 +98,13 @@ private:
 	//Für die PrefabRoads & SPecialPrefabRoads
 	PrefabRoad* PrefabRoads[anzahlPrefabRoads];
 	SpecialPrefabRoad* SpecialPrefabRoads[anzahlSpecialPrefabRoads];
+
+	//Groundplane unter der Road
+	CGeoQuad groundplane;
+	CMaterial groundplaneColor;
+
+	//Ambiente Terrain
+	PrefabTerrain* ambienteTerrain;
 
 	// Kollisionsobjektmenge der RoadTiles
 	CGeos roadTilesHitboxGround;
