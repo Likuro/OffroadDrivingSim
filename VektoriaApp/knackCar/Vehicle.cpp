@@ -122,8 +122,8 @@ void Vehicle::BuildMonsterTruck(int ID)
 
 	// Materials
 	char* mainframeTexture = "textures\\TruckTextures\\TruckTexture_Base_Color.PNG";
-	char* wheelsTextureL = "";
-	char* wheelsTextureR = "";
+	char* wheelsTextureL = "textures\\TruckFL\\TruckFLTexture_Base_Color.PNG";
+	char* wheelsTextureR = "textures\\TruckFR\\TruckFRTexture_Base_Color.PNG";
 
 	m_MTruck.MakeTextureDiffuse(mainframeTexture);
 	m_MTruckWheelsR.MakeTextureDiffuse(wheelsTextureR);
