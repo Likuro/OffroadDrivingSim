@@ -206,8 +206,8 @@ void Vehicle::BuildBus(int ID)
 
 	// Materials
 	char* mainframeTexture = "textures\\Bus-C\\BusTexture_Base_Color.png";
-	char* wheelsTextureR = "";
-	char* wheelsTextureL = "";
+	char* wheelsTextureR = "textures\\BusFR\\BusFRTexture_Base_Color.PNG";
+	char* wheelsTextureL = "textures\\BusFL\\BusFLTexture_Base_Color.PNG";
 
 	m_MBus.MakeTextureDiffuse(mainframeTexture);
 	m_MBusWheelsR.MakeTextureDiffuse(wheelsTextureR);
