@@ -189,7 +189,7 @@ void MainMenu::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, C
 	m_PSelectionAnchor.Translate(-100.f, -10.f, 0.f);
 
 	CFileWavefront file;
-	m_GRoad = file.LoadGeo("models\\road\\RoadTile_Basic.obj");
+	m_GRoad = file.LoadGeo("models\\menu\\RoadTile_Basic0.obj");
 	m_PSelectionAnchor.AddPlacement(&m_PRoad);
 	m_PRoad.AddGeo(m_GRoad);
 	m_PRoad.TranslateZ(-20.f);
