@@ -33,6 +33,8 @@ void DriveController::Init(CScene* scene, CViewport* viewport, Vehicle* car)
 	oldPos = myCar->GetMainPos()->GetPos();
 	mBoost = new Boost(MAX_BOOST, MAX_BOOST);
 	mHealth = new Health(MAX_HEALTH, MAX_HEALTH);
+
+	m_oldPlayerPos.Null();
 }
 
 void DriveController::reignite()
@@ -206,4 +208,78 @@ void DriveController::Update(float deltaTime, CGeoTerrains& terrain, CGeos& grou
 	myCar->UpdateFrontWheels(fSteering, iClutch, speed);
 	CalculateSpeed(deltaTime);
 	DrivingState();
+	collisionCooldown -= deltaTime;
+}
+
+void DriveController::CheckCollisions(CGeos* obstacle_Geos)
+{
+	bool currentCollided = false;
+	if (m_pathRays.size() == 0) {
+		m_pathRays.clear();
+		// Berechnen des Strahlenbüschels
+		CHVector minBox = myCar->GetMainPos()->GetAABB()->GetMin();
+		CHVector maxBox = myCar->GetMainPos()->GetAABB()->GetMax();
+		m_RayLength = myCar->GetMainPos()->GetAABB()->GetSize().z / 2.f;
+
+		float width = maxBox.x - minBox.x;
+		float height = maxBox.y - minBox.y;
+		float div = sqrtf(m_RayMaxDist / 2.f);
+		int widthDivided = width / div;
+		int heightDivided = height / div;
+		float widthDivValue = width / (float)widthDivided;
+		float heightDivValue = height / (float)heightDivided;
+		CHVector* tmp;
+
+		for (size_t i = 0; i < widthDivided; i++)
+		{
+			for (size_t j = 0; j < heightDivided; j++)
+			{
+				tmp = new CHVector(minBox.x + (i * widthDivValue), minBox.y + (j * heightDivValue), 0.f);
+				m_pathRays.push_back(tmp);
+			}
+		}
+	}
+
+	////////////////////////////////////////////////
+	CHVector playerPos = myCar->GetMainPos()->GetPos();
+	CHVector playerDir = myCar->GetMainPos()->GetPos() - m_oldPlayerPos;
+	m_oldPlayerPos = myCar->GetMainPos()->GetPos();
+	playerDir.Norm();
+	CRay ray(playerPos, playerDir, 0.f, 1.f);
+	CHMat playerMat = myCar->GetMainPos()->GetMat();
+	CHitPoint hitpoint;
+	bool hasHit = false;
+
+	if (m_pathRays.size() > 0 && collisionCooldown <= 0)
+	{
+		for (auto vector : m_pathRays)
+		{
+			ray.Init((playerMat * *vector), playerDir);
+			ray.SetMax(m_RayLength);
+			if (hasHit = obstacle_Geos->Intersects(ray, hitpoint)) {
+				ULDebug("Hit Cube");
+				currentCollided = true;
+				currentColObject = hitpoint.m_pzg;
+				collisionCooldown = 0.15f;
+				break;
+			}
+			else {
+				currentCollided = false;
+			}
+		}
+		if (currentCollided)
+			o_Collided = true;
+		else {
+			o_Collided = false;
+			lastColObject = NULL;			
+		}
+	}
+	DealDamage();
+}
+void DriveController::DealDamage() {
+	if (lastColObject != currentColObject && o_Collided) {
+		mHealth->dealDamage(10);		
+		lastColObject = currentColObject;
+	}
+	ULDebug("%i" , mHealth->getHealth());
 }

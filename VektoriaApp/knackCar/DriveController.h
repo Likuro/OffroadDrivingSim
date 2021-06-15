@@ -45,6 +45,8 @@ public:
 
 	void resetCar(int carID);
 	void Update(float deltaTime, CGeoTerrains& terrain, CGeos& groundItems, CGeos& collisionItems);
+	void CheckCollisions(CGeos* obstacle_Geos);
+	void DealDamage();
 
 private:
 
@@ -70,4 +72,14 @@ private:
 	Boost* mBoost;
 	bool mUseBoost = false;
 	Health* mHealth;
+
+	//Collision Stuff
+	float m_RayLength;
+	float m_RayMaxDist = 0.3f;
+	std::vector<CHVector*> m_pathRays;
+	CHVector m_oldPlayerPos;
+	bool o_Collided = false;
+	CGeo* currentColObject;
+	CGeo* lastColObject;
+	float collisionCooldown = 0.1f;
 };

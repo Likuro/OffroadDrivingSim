@@ -243,6 +243,7 @@ void GameScene::update(float fTime, float fTimeDelta)
 	//BoostBar
 	m_BoostBar->update(m_dController->getBoost()->getBoost());
 
+	m_dController->CheckCollisions(&RoadMaster->getGeosFrontal());
 	//HealthBar
 	m_HealthBar->update(m_dController->getHealth()->getHealth());
 }
