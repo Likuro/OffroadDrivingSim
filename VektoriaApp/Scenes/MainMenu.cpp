@@ -66,6 +66,10 @@ void MainMenu::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, C
 	m_MatGround.MakeTextureDiffuse("textures\\Menu_Ground\\Ground_BaseColor.png");
 	m_MatGround.MakeTextureBump("textures\\Menu_Ground\\Ground_Normal.png");
 	m_MatGround.MakeTextureSpecular("textures\\Ground_Menu\\Ground_Specular.png");
+	m_MatRoad.MakeTextureDiffuse("textures\\RoadTiles\\BasicTexture_Combined\\BasicTexture_Base_Color.png");
+	m_MatRoad.MakeTextureBump("textures\\RoadTiles\\BasicTexture_Combined\\BasicTexture_Normal.png");
+	m_MatRoad.MakeTextureHeight("textures\\RoadTiles\\BasicTexture_Combined\\BasicTexture_Height.png");
+	m_MatRoad.MakeTextureSpecular("textures\\RoadTiles\\BasicTexture_Combined\\BasicTexture_Roughness.png");
 
 	// Dark für den Boden
 	//this->AddPlacement(&m_pDark);
@@ -189,7 +193,8 @@ void MainMenu::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, C
 	m_PSelectionAnchor.Translate(-100.f, -10.f, 0.f);
 
 	CFileWavefront file;
-	m_GRoad = file.LoadGeo("models\\menu\\RoadTile_Basic0.obj");
+	m_GRoad = file.LoadGeo("models\\menu\\RoadTile_Basic0.obj", true);
+	m_GRoad->SetMaterial(&m_MatRoad);
 	m_PSelectionAnchor.AddPlacement(&m_PRoad);
 	m_PRoad.AddGeo(m_GRoad);
 	m_PRoad.TranslateZ(-20.f);

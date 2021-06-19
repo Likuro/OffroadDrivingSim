@@ -52,6 +52,7 @@ private:
 	CMaterial m_MatRightArrowHovered;
 	CMaterial m_MatLeftArrow;
 	CMaterial m_MatLeftArrowHovered;
+	CMaterial m_MatRoad;
 
 	// Overlays (Menüs)
 	COverlay m_OvCover;
