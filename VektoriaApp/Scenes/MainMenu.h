@@ -54,6 +54,9 @@ private:
 	CMaterial m_MatLeftArrowHovered;
 	CMaterial m_MatRoad;
 
+	//Emitter
+	CEmitter m_EDisplayQuadWall;
+
 	// Overlays (Menüs)
 	COverlay m_OvCover;
 	COverlay m_OvMenu;
@@ -120,10 +123,13 @@ private:
 	CPlacement m_PMainCar;
 	CPlacement m_PDisplayQuad;
 	CGeoQuad m_GDisplayQuad;
+	CPlacement m_PDisplayQuadWall;
+	CGeoQuad m_GDisplayQuadWall;
 	CPlacement* m_PSelectedCar;
 	CPlacement m_PSelectSuperCar;
 	CPlacement m_PSelectTruck;
 	CPlacement m_PSelectBus;
 	CPlacement m_PSelectOldCar;
+
 };
 

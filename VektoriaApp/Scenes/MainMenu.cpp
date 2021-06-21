@@ -240,6 +240,16 @@ void MainMenu::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, C
 	m_PMainCar.AddPlacement(&m_PSelectBus);
 	m_PMainCar.AddPlacement(&m_PSelectOldCar);
 
+	m_GDisplayQuadWall.Init(25.f, 3.f, &m_MatDark);
+	m_MatDark.SetTransparency(1.f);
+	m_EDisplayQuadWall.LoadPreset("Sandstorm");
+	m_PDisplayQuadWall.AddGeo(&m_GDisplayQuadWall);
+	m_GDisplayQuadWall.AddEmitter(&m_EDisplayQuadWall);
+	m_PDisplayQuadWall.TranslateZ(-20.f);
+	m_PDisplayQuadWall.TranslateXDelta(-5.f);
+	m_PDisplayQuadWall.TranslateYDelta(1.f);
+	m_PMainCar.AddPlacement(&m_PDisplayQuadWall);
+
 	// Verteilen der Autos auf dem Auswahlkreis
 	CHVector vectorToCar(eAxisX);
 	vectorToCar *= m_wheelradius;
