@@ -27,9 +27,11 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_FontLucRed.LoadPreset("LucidaConsoleRed");
 	m_FontLucRed.SetChromaKeyingOn();
 
-	//m_Viewport.SetMistOn(true);
-	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
-	//m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
+	m_Viewport->SetMistOn(true);
+	m_Viewport->SetMistStartDistance(roadTilelength * (anzahlRoadTiles / 2));
+	m_Viewport->SetMistStrength(0.01f); //1.0 / ((float)roadTilelength * (float)anzahlRoadTiles)
+	m_Viewport->SetMistHeightMax(4000.f);
+	m_Viewport->SetMistHeightMin(-4000.f);
 
 	// OvRoot Init
 	m_Viewport->AddOverlay(&m_OvRoot);
@@ -98,7 +100,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_OvRoot.AddWriting(&m_ClutchValue);
 
 	// Third-Person-Camera
-	m_TPCamera.Init(40.f, 4.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
+	m_TPCamera.Init(80.f, 10.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
 	m_TPCamera.SetTranslationSensitivity(200.f);
 	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
@@ -112,7 +114,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	//testcube.Init(1.f, &m_Dark);
 	//test.AddGeo(&testcube);
 	test.Translate(0.f, 0.f, -50.f);
-	test.AddPlacement(Items->getItem(boost));
+	test.AddPlacement(Items->getItem(health));
 }
 
 void GameScene::selectCar(int carID)

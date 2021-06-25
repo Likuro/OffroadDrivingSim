@@ -11,9 +11,15 @@ public:
 	~PrefabTerrain();
 
 	CGeoTerrain* getTerrain();
+	void initTerrain(CPerlin* tmp_perlinNoise, CMaterial* tmp_material);
 
 private:
 	CGeoTerrain myTerrain;
-	CMaterial myTerrainMaterial;
-};
 
+	//RoadSettingsSpeicher
+	int my_roadTilelength;
+	int my_roadTilewidth;
+	int my_roadTileheight;
+	int my_RoadTileBoundingBox;
+	CBlob* my_blob;
+};

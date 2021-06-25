@@ -18,4 +18,5 @@ void SkyManager::update(int tmp_score)
 	scoreTime = scoreTime / switchTime;
 
 	mySkyScene->SetSkyTimeOfDay(scoreTime);
+	mySkyScene->SetLightAmbient(0.8f);
 }

@@ -6,7 +6,7 @@
 #include "PrefabTerrain.h"
 #include "../items/ItemManager.h"
 
-//Settings fpr die PrefabRoads
+//Settings für die PrefabRoads
 #define  anzahlPrefabRoads 5
 #define anzahlSpecialPrefabRoads 34
 
@@ -17,8 +17,12 @@
 #define roadTileheight 30
 #define RoadTileBoundingBox 6
 
+//Settings für das Terrain
+#define anzahlPrefabTerrain 6
+
 //Settings für den Spawn
 #define spawnTime 90
+
 //gibt an, wie viele RoadTiles zwischen dem Auto und dem "Ende" der Road sein sollen, wird dies unterschritten, wird ein Spawn erzwungen
 #define tilesremaining 5
 #define specialSpawnChanceSetting 1
@@ -34,8 +38,8 @@ using namespace Vektoria;
 class RoadManager
 {
 public:
-
-	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager);
+	~RoadManager();
+	void init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager);
 	void updateRoad();
 	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
 	void resetRoad();
@@ -83,11 +87,11 @@ private:
 	char prefabHitboxFrontalLoadPath[_MAX_PATH];
 
 	//Placement das dem RoadManager beim init übergeben wird und an dem alles angehängt wird
-	CPlacement *myPlacement;
+	CPlacement* myPlacement;
 
 	//Placement für die Plane des Sandsturms
 	CPlacement wallofDEATH;
-	CGeo *wallofMODEL;
+	CGeo* wallofMODEL;
 	CGeoQuad wallofSTORM;
 	CMaterial wallofCOLOR;
 	CEmitter wallofEMITTER;
@@ -104,7 +108,8 @@ private:
 	CMaterial groundplaneColor;
 
 	//Ambiente Terrain
-	PrefabTerrain* ambienteTerrain;
+	CMaterial myTerrainMaterial;
+	PrefabTerrain* ambienteTerrain[anzahlPrefabTerrain];
 
 	// Kollisionsobjektmenge der RoadTiles
 	CGeos roadTilesHitboxGround;
@@ -113,5 +118,7 @@ private:
 
 	//ItemManager
 	ItemManager* myItemManager;
-};
 
+	//Perlin Noise
+	CPerlin** myPerlinNoise;
+};
