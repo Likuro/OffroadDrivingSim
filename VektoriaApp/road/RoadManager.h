@@ -39,7 +39,8 @@ class RoadManager
 {
 public:
 
-	void init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CRoot* tmp_myRoot);
+	~RoadManager();
+	void init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager);
 	void updateRoad();
 	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
 	void resetRoad();
@@ -99,7 +100,7 @@ private:
 	//Für die RoadTiles
 	RoadTile* RoadSector[anzahlRoadTiles];
 
-	//Materials f�r RoadTiles
+	//Materials für RoadTiles
 	CMaterial basicRoadTile;
 	CMaterial curveRoadTile;
 	CMaterial upDownRoadTile;
@@ -114,6 +115,7 @@ private:
 	CMaterial groundplaneColor;
 
 	//Ambiente Terrain
+	CMaterial myTerrainMaterial;
 	PrefabTerrain* ambienteTerrain[anzahlPrefabTerrain];
 
 	// Kollisionsobjektmenge der RoadTiles
@@ -123,6 +125,9 @@ private:
 
 	//ItemManager
 	ItemManager* myItemManager;
+
+	//Perlin Noise
+	CPerlin** myPerlinNoise;
 
 	//Root
 	CRoot* myRoot;

@@ -1,9 +1,14 @@
 
 #include "RoadManager.h"
 
-void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager, CRoot* tmp_myRoot)
+RoadManager::~RoadManager()
 {
+	delete myPerlinNoise;
+}
 
+void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager)
+{
+	srand(time(NULL));
 	myPlacement = tmp_scene;
 	myItemManager = tmp_myItemManager;
 	specialSpawnChance = specialSpawnChanceSetting;
@@ -23,11 +28,21 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager, CR
 	terrainSpawnCounter = 0;
 	count = 0;
 
+	//Perlin Noise
+	myPerlinNoise = new CPerlin * [6];
+	for (size_t i = 0; i < 6; i++)
+	{
+		myPerlinNoise[i] = new CPerlin(rand() % 1000, 1.f, 10, 0.6f, 0.8f, 0.f, 0.f, ePerlinInterpol_Standard, true);
+	}
+
+
+	myTerrainMaterial.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
+
 	//Sandsturm laden & anhängen
 	wallofCOLOR.MakeTextureDiffuse("textures\\Sandstorm_cube.png");
 	wallofCOLOR.SetTransparency(1.0f);
 	wallofEMITTER.LoadPreset("Sandstorm_ver2");
-	wallofSTORM.Init(roadTilewidth* RoadTileBoundingBox, roadTileheight* RoadTileBoundingBox, &wallofCOLOR);
+	wallofSTORM.Init(roadTilewidth * RoadTileBoundingBox, roadTileheight * RoadTileBoundingBox, &wallofCOLOR);
 	wallofDEATH.AddGeo(&wallofSTORM);
 	wallofSTORM.AddEmitter(&wallofEMITTER);
 	myPlacement->AddPlacement(&wallofDEATH);
@@ -352,33 +367,33 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager, CR
 
 	//Groundplane erstellen
 	groundplaneColor.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
-	groundplane.Init((2+roadTilewidth)+(roadTilewidth * RoadTileBoundingBox), roadTilelength, &groundplaneColor);
-	
-	for(int i = 0; i < anzahlPrefabTerrain; i++){
-	ambienteTerrain[i] = new PrefabTerrain(roadTilelength, roadTilewidth, roadTileheight, RoadTileBoundingBox);
+	groundplane.Init((2 + roadTilewidth) + (roadTilewidth * RoadTileBoundingBox), roadTilelength, &groundplaneColor);
+
+	for (int i = 0; i < anzahlPrefabTerrain; i++) {
+		ambienteTerrain[i] = new PrefabTerrain(roadTilelength, roadTilewidth, roadTileheight, RoadTileBoundingBox);
 	}
-	
+
 	count = 0;
-	
-	ambienteTerrain[count]->initTerrain();
+
+	ambienteTerrain[count]->initTerrain(myPerlinNoise[0], &myTerrainMaterial);
 	count++;
 
-	ambienteTerrain[count]->initTerrain();
-	count++;
-	
-	ambienteTerrain[count]->initTerrain();
-	count++;	
-	
-	ambienteTerrain[count]->initTerrain();
+	ambienteTerrain[count]->initTerrain(myPerlinNoise[1], &myTerrainMaterial);
 	count++;
 
-	ambienteTerrain[count]->initTerrain();
+	ambienteTerrain[count]->initTerrain(myPerlinNoise[2], &myTerrainMaterial);
 	count++;
 
-	ambienteTerrain[count]->initTerrain();
+	ambienteTerrain[count]->initTerrain(myPerlinNoise[3], &myTerrainMaterial);
 	count++;
-	
-	
+
+	ambienteTerrain[count]->initTerrain(myPerlinNoise[4], &myTerrainMaterial);
+	count++;
+
+	ambienteTerrain[count]->initTerrain(myPerlinNoise[5], &myTerrainMaterial);
+	count++;
+
+
 	count = 3;
 	
 	for (int i = 0; i < anzahlRoadTiles; i++) {
@@ -387,7 +402,7 @@ void RoadManager::init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager, CR
 		RoadSector[i] = new RoadTile(PrefabRoads[0], myPlacement, roadTilewidth, roadTilelength, roadTileheight, RoadTileBoundingBox, &roadTilesGravityPlanes, &groundplane);
 		RoadSector[i]->move(0.0f, 0.0f, 0.0f);
 		if (count >= 3) {
-			RoadSector[i]->addTerrain(ambienteTerrain[std::rand()% anzahlPrefabTerrain]->getTerrain());
+			RoadSector[i]->addTerrain(ambienteTerrain[std::rand() % anzahlPrefabTerrain]->getTerrain());
 			count = 0;
 		}
 		count++;
@@ -410,15 +425,15 @@ void RoadManager::updateRoad()
 	RoadSector[activeSpawn]->move((float)(lane * roadTilewidth), (float)(lanehight * roadTileheight), (float)-(roadTilelength * anzahlRoadTiles));
 
 	//festlegen, ob eine SpecialRoad oder eine "normale" Road gespawnt werden soll
-	if (sinceLastSpecial>=specialSpawnForce || 0 == std::rand()% specialSpawnChance) {
+	if (sinceLastSpecial >= specialSpawnForce || 0 == std::rand() % specialSpawnChance) {
 		sinceLastSpecial = 0;
-		while ((nextspecialTile == lastspecialTile) || (lane >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneShift() >=1) || (lane <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneShift() <= -1) || (lanehight >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() >= 1) || (lanehight <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() <= -1)) {
+		while ((nextspecialTile == lastspecialTile) || (lane >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneShift() >= 1) || (lane <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneShift() <= -1) || (lanehight >= RoadTileBoundingBox && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() >= 1) || (lanehight <= -(RoadTileBoundingBox) && SpecialPrefabRoads[nextspecialTile]->getLaneSlope() <= -1)) {
 			nextspecialTile = std::rand() % anzahlSpecialPrefabRoads;
 		}
 		RoadSector[activeSpawn]->addToScene(SpecialPrefabRoads[nextspecialTile]);
 
 		if (count >= 3) {
-			RoadSector[activeSpawn]->addTerrain(ambienteTerrain[std::rand()% anzahlPrefabTerrain]->getTerrain());
+			RoadSector[activeSpawn]->addTerrain(ambienteTerrain[std::rand() % anzahlPrefabTerrain]->getTerrain());
 			count = 0;
 		}
 		count++;
