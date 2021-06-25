@@ -203,8 +203,11 @@ void MainMenu::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, C
 	// Cars Init
 	m_SportsCar.Init(&m_PSportsCar, &m_PCamera, 0);
 	m_MonsterTruck.Init(&m_PMonsterTruck, &m_PCamera, 1);
+	m_MonsterTruck.GetMainPos()->RotateY(HALFPI + PI);
 	m_Bus.Init(&m_PBus, &m_PCamera, 2);
+	m_Bus.GetMainPos()->RotateY(PI);
 	m_OldCar.Init(&m_POldCar, &m_PCamera, 3);
+	m_OldCar.GetMainPos()->RotateY(HALFPI);
 
 	// SuperCar (ID = 0)
 	m_PSelectionWheel.AddPlacement(&m_PSportsCar);

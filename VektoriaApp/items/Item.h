@@ -15,6 +15,13 @@ public:
 		Transform.AddGeo(Geo);
 	}
 
+	// lädt das Material
+	void loadMat(char* path)
+	{
+		Material.MakeTextureGlow(path);
+		Geo->SetMaterial(&Material);
+	}
+
 	// hängt das Item von dem darüberliegendem Placement ab und schaltet sich aus; gibt true aus wenn erfolgreich
 	bool resetItem()
 	{

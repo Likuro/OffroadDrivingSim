@@ -34,8 +34,10 @@ private:
 	int m_itemCount;
 	BoostItem** m_BoostArray;
 	char* m_boostModelPath = "models\\items\\BoostItem.obj";
+	char* m_boostMatPath = "textures\\BoostItemTexture\\Material.001_Emissive.png";
 	HealthItem** m_HealthArray;
 	char* m_healthModelPath = "models\\items\\HealthItem.obj";
+	char* m_healthMatPath = "textures\\HealthItemTexture\\Material.002_Emissive.png";
 
 	// Container für alle aktiven Geos, die mit dem Auto kollidieren können
 	CGeos m_Geos;

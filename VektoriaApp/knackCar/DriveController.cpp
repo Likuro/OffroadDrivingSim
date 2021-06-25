@@ -69,14 +69,14 @@ void DriveController::Deaccelerate(float deltaTime)
 
 void DriveController::RotateRight(float deltaTime)
 {
-	fSteering += deltaTime * 0.04f;
+	fSteering += deltaTime * 0.08f;
 	UM_SETINRANGE(fSteering, -0.15, 0.15);
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
 
 void DriveController::RotateLeft(float deltaTime)
 {
-	fSteering -= deltaTime * 0.04f;
+	fSteering -= deltaTime * 0.08f;
 	UM_SETINRANGE(fSteering, -0.15, 0.15);
 	//UM_SETINRANGE(fSteering, -QUARTERPI, +QUARTERPI);
 }
@@ -106,9 +106,9 @@ void DriveController::ResetRotation(float deltaTime)
 		return;
 	else {
 		if (fSteering > 0)
-			fSteering -= deltaTime * 0.012f;
+			fSteering -= deltaTime * 0.02f;
 		else if (fSteering < 0)
-			fSteering += deltaTime * 0.012f;
+			fSteering += deltaTime * 0.02f;
 	}
 }
 

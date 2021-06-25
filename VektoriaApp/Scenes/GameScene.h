@@ -49,6 +49,13 @@ private:
 	CMaterial m_Purple;
 	CMaterial m_Red;
 
+	// Materials
+	CMaterial m_MatButton;
+	CMaterial m_MatButtonHovered;
+
+	// Fonts
+	CWritingFont m_FontLucRed;
+
 	// Scorebar
 	CWriting m_scoreWriting;
 	CWritingFont m_scoreFont;
@@ -56,6 +63,12 @@ private:
 
 	// PauseMenu
 	PauseMenu m_PauseMenu;
+
+	// Endscreen
+	COverlay m_EndScreen;
+	COverlay m_EndTextBox;
+	CMaterial m_MYouDied;
+	CGuiButton m_BEndGame;
 
 	// Einmal nach dem ersten Tick aufzurufen
 	bool m_callOnceAfterTick = true;

@@ -14,6 +14,7 @@ ItemManager::ItemManager(int count, CPlacement* player, DriveController* car)
 	{
 		m_BoostArray[i] = new BoostItem;
 		m_BoostArray[i]->loadGeo(m_boostModelPath);
+		m_BoostArray[i]->loadMat(m_boostMatPath);
 		m_BoostArray[i]->Transform.SwitchOff();
 	}
 
@@ -22,6 +23,7 @@ ItemManager::ItemManager(int count, CPlacement* player, DriveController* car)
 	{
 		m_HealthArray[i] = new HealthItem;
 		m_HealthArray[i]->loadGeo(m_healthModelPath);
+		m_HealthArray[i]->loadMat(m_healthMatPath);
 		m_HealthArray[i]->Transform.SwitchOff();
 	}
 }

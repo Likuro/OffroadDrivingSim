@@ -19,9 +19,19 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
 	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
 
-	//m_Viewport.SetMistOn(true);
-	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
-	//m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
+	// Button Materials
+	m_MatButtonHovered.MakeTextureSprite("textures\\Buttons\\Button_Pressed.png");
+	m_MatButton.MakeTextureSprite("textures\\Buttons\\Button.png");
+
+	// Laden der Schriftart
+	m_FontLucRed.LoadPreset("LucidaConsoleRed");
+	m_FontLucRed.SetChromaKeyingOn();
+
+	m_Viewport->SetMistOn(true);
+	m_Viewport->SetMistStartDistance(roadTilelength * (anzahlRoadTiles / 2));
+	m_Viewport->SetMistStrength(0.01f); //1.0 / ((float)roadTilelength * (float)anzahlRoadTiles)
+	m_Viewport->SetMistHeightMax(4000.f);
+	m_Viewport->SetMistHeightMin(-4000.f);
 
 	// OvRoot Init
 	m_Viewport->AddOverlay(&m_OvRoot);
@@ -50,6 +60,19 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	// PauseMenu
 	m_PauseMenu.Init(&m_OvRoot, m_Cursor);
 
+	// EndScreen
+	m_MYouDied.MakeTextureSprite("textures\\EndScreenYouDied.png");
+	m_OvRoot.AddOverlay(&m_EndScreen);
+	m_EndScreen.InitFull(&m_MYouDied);
+	m_EndScreen.SetLayer(0.99f);
+	m_EndScreen.SwitchOff();
+	m_EndScreen.AddOverlay(&m_BEndGame);
+	m_BEndGame.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.3f, 0.7f, 0.4f, 0.2f));
+	m_BEndGame.SetLabel("CLOSE GAME");
+	m_BEndGame.SetMaterialNormal(m_MatButton);
+	m_BEndGame.SetMaterialHover(m_MatButtonHovered);
+	m_BEndGame.SetMaterialClick(m_MatButton);
+
 	// ItemManager
 	Items = new ItemManager(25, m_currentCar->GetMainPos(), m_dController);
 
@@ -77,7 +100,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_OvRoot.AddWriting(&m_ClutchValue);
 
 	// Third-Person-Camera
-	m_TPCamera.Init(40.f, 4.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
+	m_TPCamera.Init(80.f, 10.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
 	m_TPCamera.SetTranslationSensitivity(200.f);
 	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
@@ -91,7 +114,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	//testcube.Init(1.f, &m_Dark);
 	//test.AddGeo(&testcube);
 	test.Translate(0.f, 0.f, -50.f);
-	test.AddPlacement(Items->getItem(boost));
+	test.AddPlacement(Items->getItem(health));
 }
 
 void GameScene::selectCar(int carID)
@@ -131,6 +154,16 @@ void GameScene::update(float fTime, float fTimeDelta)
 		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
 		m_callOnceAfterTick = false;
 		Items->InitRays(m_currentCar->GetMainPos()->GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
+	}
+
+	if (m_dController->getHealth()->isDead())
+	{
+		m_EndScreen.SwitchOn();
+	}
+
+	if (m_EndScreen.IsOn())
+	{
+		return;
 	}
 
 	if (m_PauseMenu.IsOn())
@@ -181,13 +214,12 @@ void GameScene::update(float fTime, float fTimeDelta)
 	else if (m_Keyboard->KeyPressed(DIK_DOWN))
 		m_TPCamera.zoom(fTimeDelta);
 
+	// Car Input
 
 	if (m_Keyboard->KeyDown(DIK_Q))
 		m_dController->GearUp();
 	if (m_Keyboard->KeyDown(DIK_F))
 		m_dController->GearDown();
-
-
 
 	if (m_Keyboard->KeyPressed(DIK_W))
 		m_dController->Accelerate(fTimeDelta);
