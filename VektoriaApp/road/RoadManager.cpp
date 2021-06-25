@@ -6,8 +6,9 @@ RoadManager::~RoadManager()
 	delete myPerlinNoise;
 }
 
-void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager)
+void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CRoot* tmp_myRoot )
 {
+	myRoot = tmp_myRoot;
 	srand(time(NULL));
 	myPlacement = tmp_scene;
 	myItemManager = tmp_myItemManager;

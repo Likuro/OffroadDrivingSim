@@ -40,7 +40,7 @@ class RoadManager
 public:
 
 	~RoadManager();
-	void init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager);
+	void init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CRoot* tmp_myRoot);
 	void updateRoad();
 	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
 	void resetRoad();
