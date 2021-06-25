@@ -56,7 +56,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	// RoadMaster erstellen
 	this->AddPlacement(&drivingScenePlacement);
 	this->RoadMaster = new RoadManager;
-	RoadMaster->init(&drivingScenePlacement, Items);
+	RoadMaster->init(&drivingScenePlacement, Items, m_Root);
 
 	//SkyMaster erstellen
 	this->SkyMaster = new SkyManager;

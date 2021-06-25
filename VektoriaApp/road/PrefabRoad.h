@@ -15,6 +15,7 @@ public:
 	void subfromScene(CPlacement *tmp_roadPlacement, CPlacement* tmp_hitboxPlacement, CPlacement* tmp_hitboxFrontalPlacement);
 
 	void addMaterial(char *tmp_basecolor, char *tmp_heightmap, char *tmp_normalmap, char *tmp_roughness);
+	void addMaterial(CMaterial* tmp_material);
 
 	CHVector getItemspawnPosition();
 

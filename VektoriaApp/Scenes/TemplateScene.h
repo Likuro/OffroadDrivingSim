@@ -40,6 +40,10 @@ public:
 	{
 		m_doSetup = s;
 	}
+	void setRoot(CRoot* tmp_Root)
+	{
+		m_Root = tmp_Root;
+	}
 
 protected:
 	CScene* m_Scene;
@@ -49,5 +53,6 @@ protected:
 	eSceneType m_nextScene = main;
 	bool m_changeScene = false;
 	bool m_doSetup = false;
+	CRoot* m_Root;
 };
 

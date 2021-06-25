@@ -35,7 +35,7 @@ class RoadManager
 {
 public:
 
-	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager);
+	void init(CPlacement *tmp_scene, ItemManager *tmp_myItemManager, CRoot *tmp_myRoot);
 	void updateRoad();
 	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
 	void resetRoad();
@@ -95,6 +95,12 @@ private:
 	//Für die RoadTiles
 	RoadTile* RoadSector[anzahlRoadTiles];
 
+	//Materials für RoadTiles
+	CMaterial basicRoadTile;
+	CMaterial curveRoadTile;
+	CMaterial upDownRoadTile;
+	CMaterial upDownCurveRoadTile;
+
 	//Für die PrefabRoads & SPecialPrefabRoads
 	PrefabRoad* PrefabRoads[anzahlPrefabRoads];
 	SpecialPrefabRoad* SpecialPrefabRoads[anzahlSpecialPrefabRoads];
@@ -113,5 +119,8 @@ private:
 
 	//ItemManager
 	ItemManager* myItemManager;
+
+	//Root
+	CRoot* myRoot;
 };
 

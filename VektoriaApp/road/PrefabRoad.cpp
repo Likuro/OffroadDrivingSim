@@ -44,9 +44,14 @@ void PrefabRoad::addMaterial(char *tmp_basecolor, char *tmp_heightmap, char *tmp
 	//myMaterial.MakeTextureHeight(tmp_heightmap);
 	myMaterial.MakeTextureBump(tmp_normalmap);
 	//Roughness muss noch importiert werden
-	//myMaterial.MakeTextureSpecular(tmp_roughness);
+	myMaterial.MakeTextureSpecular(tmp_roughness);
 
 	roadModel->SetMaterial(&myMaterial);
+}
+
+void PrefabRoad::addMaterial(CMaterial* tmp_material)
+{
+	roadModel->SetMaterial(tmp_material);
 }
 
 CHVector PrefabRoad::getItemspawnPosition()

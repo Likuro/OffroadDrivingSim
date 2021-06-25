@@ -28,6 +28,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), CS
 	m_Frame.AddDeviceCursor(&m_Cursor);
 
 	// Scenes Init
+	m_SGame.setRoot(&m_Root);
 	m_SGame.Init(&m_Scene, &m_Viewport, &m_Cursor, &m_Keyboard);
 	m_SMain.setGameScene(&m_SGame);
 	m_SMain.Init(&m_Scene, &m_Viewport, &m_Cursor, &m_Keyboard);
