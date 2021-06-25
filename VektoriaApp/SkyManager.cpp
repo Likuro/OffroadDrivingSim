@@ -8,6 +8,7 @@ void SkyManager::init(CScene* tmp_scene, CPlacement* tmp_Pcamera, CCamera* tmp_C
 
 	mySkyScene->SetSkyShadowResolution(16000, 16000);
 	mySkyScene->SetSkyShadowDepth(1000);
+	mySkyScene->SetLightAmbient(0.6f);
 }
 
 void SkyManager::update(int tmp_score)
@@ -18,5 +19,5 @@ void SkyManager::update(int tmp_score)
 	scoreTime = scoreTime / switchTime;
 
 	mySkyScene->SetSkyTimeOfDay(scoreTime);
-	mySkyScene->SetLightAmbient(0.8f);
+	mySkyScene->SetLightAmbient(0.6f);
 }

@@ -20,7 +20,7 @@ CGeoTerrain* PrefabTerrain::getTerrain()
 void PrefabTerrain::initTerrain(CPerlin* tmp_perlinNoise, CMaterial* tmp_material)
 {
 	//myTerrain.InitQuick(my_roadTilelength * 3, my_roadTilewidth * 3, (my_roadTileheight * my_RoadTileBoundingBox) * 10.f, true, &myTerrainMaterial, 100, 100, 0, 0, 10, 10);
-	my_blob = new CBlob(0.5f, 0.5f, 0.5f, 0.5f, (my_roadTileheight * my_RoadTileBoundingBox) * 50.f, eBlobShapeGround_Radial, eBlobShapeSide_Hill, tmp_perlinNoise);
+	my_blob = new CBlob(0.5f, 0.5f, 0.5f, 0.5f, (my_roadTileheight * my_RoadTileBoundingBox) * 100.f, eBlobShapeGround_Radial, eBlobShapeSide_Hill, tmp_perlinNoise);
 	myTerrain.AddBlob(my_blob);
 	myTerrain.CreateField(my_roadTilelength * 5.f, my_roadTilewidth * 9.f, 200, 200);
 	myTerrain.InitFromOther(myTerrain, tmp_material);
