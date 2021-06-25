@@ -158,6 +158,7 @@
     <ClInclude Include="items\BoostItem.h" />
     <ClInclude Include="knackCar\DriveController.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="road\PrefabTerrain.h" />
     <ClInclude Include="Scenes\GameScene.h" />
     <ClInclude Include="gui\GuiButton.h" />
     <ClInclude Include="gui\GuiElement.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="items\BoostItem.cpp" />
     <ClCompile Include="knackCar\DriveController.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="road\PrefabTerrain.cpp" />
     <ClCompile Include="Scenes\GameScene.cpp" />
     <ClCompile Include="gui\GuiButton.cpp" />
     <ClCompile Include="gui\GuiElement.cpp" />

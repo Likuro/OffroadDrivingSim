@@ -19,6 +19,14 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
 	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
 
+	// Button Materials
+	m_MatButtonHovered.MakeTextureSprite("textures\\Buttons\\Button_Pressed.png");
+	m_MatButton.MakeTextureSprite("textures\\Buttons\\Button.png");
+
+	// Laden der Schriftart
+	m_FontLucRed.LoadPreset("LucidaConsoleRed");
+	m_FontLucRed.SetChromaKeyingOn();
+
 	//m_Viewport.SetMistOn(true);
 	//m_zv.SetMistStartDistance(roadTilelength*(anzahlRoadTiles/2));
 	//m_Viewport.SetMistStrength(1.0 / ((float)roadTilelength * (float)anzahlRoadTiles));
@@ -49,6 +57,19 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 
 	// PauseMenu
 	m_PauseMenu.Init(&m_OvRoot, m_Cursor);
+
+	// EndScreen
+	m_MYouDied.MakeTextureSprite("textures\\EndScreenYouDied.png");
+	m_OvRoot.AddOverlay(&m_EndScreen);
+	m_EndScreen.InitFull(&m_MYouDied);
+	m_EndScreen.SetLayer(0.99f);
+	m_EndScreen.SwitchOff();
+	m_EndScreen.AddOverlay(&m_BEndGame);
+	m_BEndGame.Init(m_Cursor, &m_FontLucRed, CFloatRect(0.3f, 0.7f, 0.4f, 0.2f));
+	m_BEndGame.SetLabel("CLOSE GAME");
+	m_BEndGame.SetMaterialNormal(m_MatButton);
+	m_BEndGame.SetMaterialHover(m_MatButtonHovered);
+	m_BEndGame.SetMaterialClick(m_MatButton);
 
 	// ItemManager
 	Items = new ItemManager(25, m_currentCar->GetMainPos(), m_dController);
@@ -133,6 +154,16 @@ void GameScene::update(float fTime, float fTimeDelta)
 		Items->InitRays(m_currentCar->GetMainPos()->GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
 	}
 
+	if (m_dController->getHealth()->isDead())
+	{
+		m_EndScreen.SwitchOn();
+	}
+
+	if (m_EndScreen.IsOn())
+	{
+		return;
+	}
+
 	if (m_PauseMenu.IsOn())
 	{
 		if (m_PauseMenu.ContinuePressed())
@@ -181,13 +212,12 @@ void GameScene::update(float fTime, float fTimeDelta)
 	else if (m_Keyboard->KeyPressed(DIK_DOWN))
 		m_TPCamera.zoom(fTimeDelta);
 
+	// Car Input
 
 	if (m_Keyboard->KeyDown(DIK_Q))
 		m_dController->GearUp();
 	if (m_Keyboard->KeyDown(DIK_F))
 		m_dController->GearDown();
-
-
 
 	if (m_Keyboard->KeyPressed(DIK_W))
 		m_dController->Accelerate(fTimeDelta);
