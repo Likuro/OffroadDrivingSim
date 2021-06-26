@@ -41,7 +41,8 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	}
 
 
-	myTerrainMaterial.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
+	myTerrainMaterial.MakeTextureDiffuse("textures\\tex_stone\\Stone_Base_Color.png");
+	myTerrainMaterial.MakeTextureSpecular("textures\\tex_stone\\Stone_Roughness.png");
 
 	//Sandsturm laden & anhängen
 	wallofCOLOR.MakeTextureDiffuse("textures\\Sandstorm_cube.png");
