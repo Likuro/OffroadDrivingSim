@@ -163,6 +163,10 @@ void GameScene::update(float fTime, float fTimeDelta)
 
 	if (m_EndScreen.IsOn())
 	{
+		if (m_BEndGame.IsClicked())
+		{
+			exitGame();
+		}
 		return;
 	}
 

@@ -287,6 +287,11 @@ void MainMenu::update(float fTime, float fTimeDelta)
 		m_selectTransition = true;
 	}
 
+	if (m_BExit.IsClicked())
+	{
+		exitGame();
+	}
+
 	if (m_OvMenu.IsOn())
 	{
 		m_PSelectedCar->RotateYDelta(0.25f * fTimeDelta);

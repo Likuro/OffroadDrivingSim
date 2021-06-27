@@ -257,7 +257,7 @@ void DriveController::CheckCollisions(CGeos* obstacle_Geos)
 			ray.Init((playerMat * *vector), playerDir);
 			ray.SetMax(m_RayLength);
 			if (hasHit = obstacle_Geos->Intersects(ray, hitpoint)) {
-				ULDebug("Hit Cube");
+				//ULDebug("Hit Cube");
 				currentCollided = true;
 				currentColObject = hitpoint.m_pzg;
 				collisionCooldown = 0.15f;
@@ -281,5 +281,5 @@ void DriveController::DealDamage() {
 		mHealth->dealDamage(10);		
 		lastColObject = currentColObject;
 	}
-	ULDebug("%i" , mHealth->getHealth());
+	//ULDebug("%i" , mHealth->getHealth());
 }

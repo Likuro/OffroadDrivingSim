@@ -44,6 +44,14 @@ public:
 	{
 		m_Root = tmp_Root;
 	}
+	void exitGame()
+	{
+		m_exitGame = true;
+	}
+	bool getexitGame()
+	{
+		return m_exitGame;
+	}
 
 protected:
 	CScene* m_Scene;
@@ -53,6 +61,7 @@ protected:
 	eSceneType m_nextScene = main;
 	bool m_changeScene = false;
 	bool m_doSetup = false;
+	bool m_exitGame = false;
 	CRoot* m_Root;
 };
 

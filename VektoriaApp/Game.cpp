@@ -45,6 +45,10 @@ void CGame::Tick(float fTime, float fTimeDelta)
 {
 	m_Root.Tick(fTimeDelta);
 	m_currentScene->update(fTime, fTimeDelta);
+	if (m_currentScene->getexitGame() == true)
+	{
+		m_exit = true;
+	}
 	if (m_currentScene->getChange())
 	{
 		changeScene(m_currentScene->getNextScene());
@@ -100,4 +104,9 @@ void CGame::changeScene(eSceneType scene)
 	{
 		m_currentScene->setup();
 	}
+}
+
+bool CGame::getExit()
+{
+	return m_exit;
 }

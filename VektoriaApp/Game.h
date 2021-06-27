@@ -41,6 +41,8 @@ public:
 
 	void initScene(TemplateScene* scene);
 	void changeScene(eSceneType scene);
+
+	bool getExit();
 private:
 	// Grundlegende Vektoria-Objekte
 	CRoot m_Root;
@@ -60,6 +62,7 @@ private:
 
 	// Setup Bool
 	bool m_doSetup = false;
+	bool m_exit = false;
 };
 
 

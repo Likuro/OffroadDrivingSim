@@ -294,6 +294,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmd
 				g_splash.Hide();
 				bFirstTick = false;
 			}
+
+			if (g_game.getExit())
+			{
+				bQuit = true;
+			}
 		}
 
 	} while (!bQuit);
