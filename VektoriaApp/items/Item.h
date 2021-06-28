@@ -18,7 +18,7 @@ public:
 	// lädt das Material
 	void loadMat(char* path)
 	{
-		Material.MakeTextureGlow(path);
+		Material.MakeTextureDiffuse(path);
 		Geo->SetMaterial(&Material);
 	}
 
