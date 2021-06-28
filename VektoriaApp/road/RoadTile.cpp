@@ -20,11 +20,11 @@ RoadTile::RoadTile(PrefabRoad* tmp_myPrefabRoad, CPlacement* tmp_DrivingScenePla
 	myRoadPlacement.AddPlacement(&myGravityPlacement);
 	myBasePlacement.AddPlacement(&myGroundPlacement);
 
-	myTerrainPlacementL.TranslateZ(-((float)tmp_roadTilewidth*4 +((float)tmp_roadTilewidth *((float)tmp_RoadTileBoundingBox/2))));
+	myTerrainPlacementL.TranslateZ(-((float)tmp_roadTilewidth*5 +((float)tmp_roadTilewidth *((float)tmp_RoadTileBoundingBox/2))));
 	myTerrainPlacementL.TranslateYDelta(-(tmp_roadTileheight * (2 + tmp_RoadTileBoundingBox / 2)));
 	myTerrainPlacementL.RotateYDelta(-HALFPI);
 
-	myTerrainPlacementR.TranslateZ(((float)tmp_roadTilewidth*4 + ((float)tmp_roadTilewidth * ((float)tmp_RoadTileBoundingBox / 2))));
+	myTerrainPlacementR.TranslateZ(((float)tmp_roadTilewidth*5 + ((float)tmp_roadTilewidth * ((float)tmp_RoadTileBoundingBox / 2))));
 	myTerrainPlacementR.TranslateYDelta(-(tmp_roadTileheight * (2 + tmp_RoadTileBoundingBox / 2)));
 	myTerrainPlacementR.RotateYDelta(-HALFPI);
 

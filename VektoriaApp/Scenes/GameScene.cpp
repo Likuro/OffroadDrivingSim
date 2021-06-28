@@ -29,9 +29,9 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 
 	m_Viewport->SetMistOn(true);
 	m_Viewport->SetMistStartDistance(roadTilelength * (anzahlRoadTiles / 2));
-	m_Viewport->SetMistStrength(0.01f); //1.0 / ((float)roadTilelength * (float)anzahlRoadTiles)
-	m_Viewport->SetMistHeightMax(300.f);
-	m_Viewport->SetMistHeightMin(-300.f);
+	m_Viewport->SetMistStrength(0.001f); //1.0 / ((float)roadTilelength * (float)anzahlRoadTiles)
+	m_Viewport->SetMistHeightMax(10.f);
+	m_Viewport->SetMistHeightMin(1.f);
 
 	// OvRoot Init
 	m_Viewport->AddOverlay(&m_OvRoot);
@@ -74,7 +74,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_BEndGame.SetMaterialClick(m_MatButton);
 
 	// ItemManager
-	Items = new ItemManager(25, m_currentCar->GetMainPos(), m_dController);
+	Items = new ItemManager(25, m_currentCar->GetMainPos(), m_dController, m_Root);
 
 	// RoadMaster erstellen
 	this->AddPlacement(&drivingScenePlacement);
@@ -110,11 +110,11 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	// Boostbar
 	m_BoostBar = new ProgressBar(&m_Green, &m_OvRoot, m_dController->getBoost()->getMaxBoost(), m_dController->getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
 
-	this->AddPlacement(&test);
-	//testcube.Init(1.f, &m_Dark);
-	//test.AddGeo(&testcube);
-	test.Translate(0.f, 0.f, -50.f);
-	test.AddPlacement(Items->getItem(health));
+	//this->AddPlacement(&test);
+	////testcube.Init(1.f, &m_Dark);
+	////test.AddGeo(&testcube);
+	//test.Translate(0.f, 0.f, -50.f);
+	//test.AddPlacement(Items->getItem(health));
 }
 
 void GameScene::selectCar(int carID)

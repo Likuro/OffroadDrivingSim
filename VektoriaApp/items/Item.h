@@ -16,10 +16,11 @@ public:
 	}
 
 	// lädt das Material
-	void loadMat(char* path)
+	void loadMat(char* path, CRoot* root)
 	{
 		Material.MakeTextureDiffuse(path);
 		Geo->SetMaterial(&Material);
+		root->AddMaterial(&Material);
 	}
 
 	// hängt das Item von dem darüberliegendem Placement ab und schaltet sich aus; gibt true aus wenn erfolgreich

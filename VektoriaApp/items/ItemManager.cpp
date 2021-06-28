@@ -1,11 +1,12 @@
 #include "ItemManager.h"
 
-ItemManager::ItemManager(int count, CPlacement* player, DriveController* car)
+ItemManager::ItemManager(int count, CPlacement* player, DriveController* car, CRoot* root)
 {
 	srand(time(NULL));
 	m_Player = player;
 	m_itemCount = count;
 	m_Car = car;
+	m_Root = root;
 	m_oldPlayerPos.Null();
 	
 	// Items werden gepoolt
@@ -14,7 +15,7 @@ ItemManager::ItemManager(int count, CPlacement* player, DriveController* car)
 	{
 		m_BoostArray[i] = new BoostItem;
 		m_BoostArray[i]->loadGeo(m_boostModelPath);
-		m_BoostArray[i]->loadMat(m_boostMatPath);
+		m_BoostArray[i]->loadMat(m_boostMatPath, m_Root);
 		m_BoostArray[i]->Transform.SwitchOff();
 	}
 
@@ -23,7 +24,7 @@ ItemManager::ItemManager(int count, CPlacement* player, DriveController* car)
 	{
 		m_HealthArray[i] = new HealthItem;
 		m_HealthArray[i]->loadGeo(m_healthModelPath);
-		m_HealthArray[i]->loadMat(m_healthMatPath);
+		m_HealthArray[i]->loadMat(m_healthMatPath, m_Root);
 		m_HealthArray[i]->Transform.SwitchOff();
 	}
 }

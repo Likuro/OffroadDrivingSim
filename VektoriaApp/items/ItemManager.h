@@ -10,7 +10,7 @@ enum itemType { random, boost, health };
 class ItemManager
 {
 public:
-	ItemManager(int count, CPlacement* player, DriveController* car);
+	ItemManager(int count, CPlacement* player, DriveController* car, CRoot* root);
 
 	CPlacement* getItem(itemType type);
 	void update(float fTime, float fTimeDelta);
@@ -29,6 +29,8 @@ private:
 	float m_RayLength;
 	// Container für Pfadbüschel
 	std::vector<CHVector*> m_pathRays;
+
+	CRoot* m_Root;
 
 	// ItemArrays
 	int m_itemCount;
