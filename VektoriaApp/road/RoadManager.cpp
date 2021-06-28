@@ -87,35 +87,35 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic/RoadTile_Basic0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic/ground/RoadTile_Basic_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_FrontalHB/RoadTile_Basic0_FrontalHB.obj");
-	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
+	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-9.2f, 2.0f, 120.0f), CHVector(6.0f, 2.0f, 44.0f), CHVector(-5.0f, 2.0f, 72.0f));
 	PrefabRoads[count]->addMaterial(&basicRoadTile);
 	count++;
 	
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic/RoadTile_Basic1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic/ground/RoadTile_Basic_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_FrontalHB/RoadTile_Basic1_FrontalHB.obj");
-	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
+	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-9.2f, 2.0f, 120.0f), CHVector(6.0f, 2.0f, 44.0f), CHVector(-5.0f, 2.0f, 72.0f));
 	PrefabRoads[count]->addMaterial(&basicRoadTile);
 	count++;
 	
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic/RoadTile_Basic2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic/ground/RoadTile_Basic_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_FrontalHB/RoadTile_Basic2_FrontalHB.obj");
-	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
+	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-9.2f, 2.0f, 120.0f), CHVector(6.0f, 2.0f, 44.0f), CHVector(-5.0f, 2.0f, 72.0f));
 	PrefabRoads[count]->addMaterial(&basicRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic/RoadTile_Basic3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic/ground/RoadTile_Basic_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_FrontalHB/RoadTile_Basic3_FrontalHB.obj");
-	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
+	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-9.2f, 2.0f, 120.0f), CHVector(6.0f, 2.0f, 44.0f), CHVector(-5.0f, 2.0f, 72.0f));
 	PrefabRoads[count]->addMaterial(&basicRoadTile);
 	count++;
 	
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic/RoadTile_Basic4.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic/ground/RoadTile_Basic_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_FrontalHB/RoadTile_Basic4_FrontalHB.obj");
-	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f));
+	PrefabRoads[count] = new PrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-9.2f, 2.0f, 120.0f), CHVector(6.0f, 2.0f, 44.0f), CHVector(-5.0f, 2.0f, 72.0f));
 	PrefabRoads[count]->addMaterial(&basicRoadTile);
 	count++;
 	
@@ -124,72 +124,72 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	//Curves L
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/RoadTile_Curve_L0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/ground/RoadTile_Curve_L_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveL_FrontalHB/RoadTile_Curve_L0_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-86.7f, 1.0f, -108.0f), CHVector(-82.0f, 1.0f, 14.0f), CHVector(-13.8f, 1.0f, 89.0f), -1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 	
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/RoadTile_Curve_L1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/ground/RoadTile_Curve_L_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveL_FrontalHB/RoadTile_Curve_L1_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-86.7f, 1.0f, -108.0f), CHVector(-82.0f, 1.0f, 14.0f), CHVector(-13.8f, 1.0f, 89.0f), -1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
-	
+
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/RoadTile_Curve_L2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/ground/RoadTile_Curve_L_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveL_FrontalHB/RoadTile_Curve_L2_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-86.7f, 1.0f, -108.0f), CHVector(-82.0f, 1.0f, 14.0f), CHVector(-13.8f, 1.0f, 89.0f), -1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/RoadTile_Curve_L3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/ground/RoadTile_Curve_L_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveL_FrontalHB/RoadTile_Curve_L3_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-86.7f, 1.0f, -108.0f), CHVector(-82.0f, 1.0f, 14.0f), CHVector(-13.8f, 1.0f, 89.0f), -1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/RoadTile_Curve_L4.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RaodTiles_CurveL/ground/RoadTile_Curve_L_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), -1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveL_FrontalHB/RoadTile_Curve_L4_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-86.7f, 1.0f, -108.0f), CHVector(-82.0f, 1.0f, 14.0f), CHVector(-13.8f, 1.0f, 89.0f), -1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	//Curves R
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/RoadTile_Curve_R0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/ground/RoadTile_Curve_R_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveR_FrontalHB/RoadTile_Curve_R0_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(20.0f, 1.0f, 100.0f), CHVector(77.0f, 1.0f, -71.0f), CHVector(29.0f, 1.0f, 129.0f), 1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/RoadTile_Curve_R1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/ground/RoadTile_Curve_R_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveR_FrontalHB/RoadTile_Curve_R1_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(20.0f, 1.0f, 100.0f), CHVector(77.0f, 1.0f, -71.0f), CHVector(29.0f, 1.0f, 129.0f), 1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/RoadTile_Curve_R2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/ground/RoadTile_Curve_R_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveR_FrontalHB/RoadTile_Curve_R2_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(20.0f, 1.0f, 100.0f), CHVector(77.0f, 1.0f, -71.0f), CHVector(29.0f, 1.0f, 129.0f), 1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/RoadTile_Curve_R3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/ground/RoadTile_Curve_R_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveR_FrontalHB/RoadTile_Curve_R3_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(20.0f, 1.0f, 100.0f), CHVector(77.0f, 1.0f, -71.0f), CHVector(29.0f, 1.0f, 129.0f), 1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/RoadTile_Curve_R4.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve/RoadTiles_CurveR/ground/RoadTile_Curve_R_ground.obj");
-	strcpy(prefabHitboxFrontalLoadPath, "models/dummy/void.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), CHVector(0.0f, 0.0f, 2.0f), 1, 0);
+	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_FrontalHB/RaodTiles_CurveR_FrontalHB/RoadTile_Curve_R4_FrontalHB.obj");
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(20.0f, 1.0f, 100.0f), CHVector(77.0f, 1.0f, -71.0f), CHVector(29.0f, 1.0f, 129.0f), 1, 0);
 	SpecialPrefabRoads[count]->addMaterial(&curveRoadTile);
 	count++;
 
@@ -197,28 +197,28 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/RoadTile_Basic_Down0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/ground/RoadTile_Basic_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Down_FrontalHB/RoadTile_Basic_Down0_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-5.0f, -27.8f, -72.0f), CHVector(5.0f, -13.5f, 2.4f), CHVector(-2.4f, 1.0f, 127.0f), 0, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/RoadTile_Basic_Down1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/ground/RoadTile_Basic_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Down_FrontalHB/RoadTile_Basic_Down1_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-5.0f, -27.8f, -72.0f), CHVector(5.0f, -13.5f, 2.4f), CHVector(-2.4f, 1.0f, 127.0f), 0, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/RoadTile_Basic_Down2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/ground/RoadTile_Basic_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Down_FrontalHB/RoadTile_Basic_Down2_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-5.0f, -27.8f, -72.0f), CHVector(5.0f, -13.5f, 2.4f), CHVector(-2.4f, 1.0f, 127.0f), 0, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/RoadTile_Basic_Down3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Down/ground/RoadTile_Basic_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Down_FrontalHB/RoadTile_Basic_Down3_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-5.0f, -27.8f, -72.0f), CHVector(5.0f, -13.5f, 2.4f), CHVector(-2.4f, 1.0f, 127.0f), 0, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
@@ -226,28 +226,28 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/RoadTile_Basic_Up0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/ground/RoadTile_Basic_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Up_FrontalHB/RoadTile_Basic_Up0_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-2.4f, 1.0f, 127.0f), CHVector(-11.3f, 7.8f, 35.6f), CHVector(-28.5f, 31.0f, -105.0f), 0, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/RoadTile_Basic_Up1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/ground/RoadTile_Basic_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Up_FrontalHB/RoadTile_Basic_Up1_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-2.4f, 1.0f, 127.0f), CHVector(-11.3f, 7.8f, 35.6f), CHVector(-28.5f, 31.0f, -105.0f), 0, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/RoadTile_Basic_Up2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/ground/RoadTile_Basic_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Up_FrontalHB/RoadTile_Basic_Up2_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-2.4f, 1.0f, 127.0f), CHVector(-11.3f, 7.8f, 35.6f), CHVector(-28.5f, 31.0f, -105.0f), 0, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/RoadTile_Basic_Up3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown/RoadTile_Basic_Up/ground/RoadTile_Basic_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Basic_UpDown_FrontalHB/RoadTile_Basic_Up_FrontalHB/RoadTile_Basic_Up3_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 0, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-2.4f, 1.0f, 127.0f), CHVector(-11.3f, 7.8f, 35.6f), CHVector(-28.5f, 31.0f, -105.0f), 0, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownRoadTile);
 	count++;
 	
@@ -256,28 +256,28 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/RoadTile_Curve_L_Down0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/ground/RoadTile_Curve_L_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Down_FrontalHB/RoadTile_Curve_L_Down0_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(5.8f, 1.0f, 121.0f), CHVector(-36.7f, -7.0f, 33.4f), CHVector(-77.8f, -28.4f, -84.4f), -1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/RoadTile_Curve_L_Down1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/ground/RoadTile_Curve_L_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Down_FrontalHB/RoadTile_Curve_L_Down1_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(5.8f, 1.0f, 121.0f), CHVector(-36.7f, -7.0f, 33.4f), CHVector(-77.8f, -28.4f, -84.4f), -1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/RoadTile_Curve_L_Down2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/ground/RoadTile_Curve_L_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Down_FrontalHB/RoadTile_Curve_L_Down2_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(5.8f, 1.0f, 121.0f), CHVector(-36.7f, -7.0f, 33.4f), CHVector(-77.8f, -28.4f, -84.4f), -1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/RoadTile_Curve_L_Down3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Down/ground/RoadTile_Curve_L_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Down_FrontalHB/RoadTile_Curve_L_Down3_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(5.8f, 1.0f, 121.0f), CHVector(-36.7f, -7.0f, 33.4f), CHVector(-77.8f, -28.4f, -84.4f), -1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
@@ -285,28 +285,28 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/RoadTile_Curve_L_Up0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/ground/RoadTile_Curve_L_up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Up_FrontalHB/RoadTile_Curve_L_Up0_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-77.8f, 30.4f, -84.4f), CHVector(-86.8f, 19.9f, -16.7f), CHVector(-26.0f, 1.0f, 124.0f), -1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/RoadTile_Curve_L_Up1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/ground/RoadTile_Curve_L_up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Up_FrontalHB/RoadTile_Curve_L_Up1_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-77.8f, 30.4f, -84.4f), CHVector(-86.8f, 19.9f, -16.7f), CHVector(-26.0f, 1.0f, 124.0f), -1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/RoadTile_Curve_L_Up2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/ground/RoadTile_Curve_L_up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Up_FrontalHB/RoadTile_Curve_L_Up2_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-77.8f, 30.4f, -84.4f), CHVector(-86.8f, 19.9f, -16.7f), CHVector(-26.0f, 1.0f, 124.0f), -1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/RoadTile_Curve_L_Up3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_L_Up/ground/RoadTile_Curve_L_up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_L_Up_FrontalHB/RoadTile_Curve_L_Up3_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), -1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(-77.8f, 30.4f, -84.4f), CHVector(-86.8f, 19.9f, -16.7f), CHVector(-26.0f, 1.0f, 124.0f), -1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
@@ -314,28 +314,28 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/RoadTile_Curve_R_Down0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/ground/RoadTile_Curve_R_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Down_FrontalHB/RoadTile_Curve_R_Down0_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(6.8f, 1.0f, -130.0f), CHVector(37.9f, -20.0f, -26.8f), CHVector(88.0f, -29.0f, -125.0f), 1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/RoadTile_Curve_R_Down1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/ground/RoadTile_Curve_R_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Down_FrontalHB/RoadTile_Curve_R_Down1_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(6.8f, 1.0f, -130.0f), CHVector(37.9f, -20.0f, -26.8f), CHVector(88.0f, -29.0f, -125.0f), 1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/RoadTile_Curve_R_Down2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/ground/RoadTile_Curve_R_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Down_FrontalHB/RoadTile_Curve_R_Down2_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(6.8f, 1.0f, -130.0f), CHVector(37.9f, -20.0f, -26.8f), CHVector(88.0f, -29.0f, -125.0f), 1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/RoadTile_Curve_R_Down3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Down/ground/RoadTile_Curve_R_Down_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Down_FrontalHB/RoadTile_Curve_R_Down3_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, -1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(6.8f, 1.0f, -130.0f), CHVector(37.9f, -20.0f, -26.8f), CHVector(88.0f, -29.0f, -125.0f), 1, -1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
@@ -344,28 +344,28 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/RoadTile_Curve_R_Up0.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/ground/RoadTile_Curve_R_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Up_FrontalHB/RoadTile_Curve_R_Up0_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(109.0f, 31.0f, -128.0f), CHVector(88.0f, 22.4f, -29.4f), CHVector(11.0f, 1.0f, 120.0f), 1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/RoadTile_Curve_R_Up1.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/ground/RoadTile_Curve_R_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Up_FrontalHB/RoadTile_Curve_R_Up1_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(109.0f, 31.0f, -128.0f), CHVector(88.0f, 22.4f, -29.4f), CHVector(11.0f, 1.0f, 120.0f), 1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/RoadTile_Curve_R_Up2.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/ground/RoadTile_Curve_R_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Up_FrontalHB/RoadTile_Curve_R_Up2_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(109.0f, 31.0f, -128.0f), CHVector(88.0f, 22.4f, -29.4f), CHVector(11.0f, 1.0f, 120.0f), 1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
 	strcpy(prefabModelLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/RoadTile_Curve_R_Up3.obj");
 	strcpy(prefabHitboxGroundLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown/RoadTiles_Curve_R_Up/ground/RoadTile_Curve_R_Up_ground.obj");
 	strcpy(prefabHitboxFrontalLoadPath, "models/RoadTiles/RoadTiles_Curve_UpDown_FrontalHB/RoadTiles_Curve_R_Up_FrontalHB/RoadTile_Curve_R_Up3_FrontalHB.obj");
-	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), CHVector(0.0f, 2.0f, 0.0f), 1, 1);
+	SpecialPrefabRoads[count] = new SpecialPrefabRoad(prefabModelLoadPath, prefabHitboxGroundLoadPath, prefabHitboxFrontalLoadPath, &roadTilesHitboxGround, &roadTilesHitboxFrontal, CHVector(109.0f, 31.0f, -128.0f), CHVector(88.0f, 22.4f, -29.4f), CHVector(11.0f, 1.0f, 120.0f), 1, 1);
 	SpecialPrefabRoads[count]->addMaterial(&upDownCurveRoadTile);
 	count++;
 
@@ -462,7 +462,7 @@ void RoadManager::updateRoad()
 	}
 
 	//Ein zufälliges Item an das RoadTile anhängen
-	if (1 == std::rand() % itemSpawnChance) {
+	if (true) {	//1 == std::rand() % itemSpawnChance
 		RoadSector[activeSpawn]->addItem(myItemManager->getItem(random));
 	}
 
