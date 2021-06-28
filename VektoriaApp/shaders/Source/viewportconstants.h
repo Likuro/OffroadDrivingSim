@@ -13,5 +13,7 @@ cbuffer ViewportArt : register(b2)
 	uint uStyleFog					: packoffset(c2.y);
 	uint uStyleSnow					: packoffset(c2.z);
 	float fFarClipping				: packoffset(c2.w);
-	float fMistStartDistance			: packoffset(c3.x);
+	float fMistStartDistance		: packoffset(c3.x);
+	float fMistHeightMin			: packoffset(c3.y);
+	float fMistHeightMax			: packoffset(c3.z);
 }

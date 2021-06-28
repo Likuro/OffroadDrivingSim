@@ -29,9 +29,9 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 
 	m_Viewport->SetMistOn(true);
 	m_Viewport->SetMistStartDistance(roadTilelength * (anzahlRoadTiles / 2));
-	m_Viewport->SetMistStrength(0.001f); //1.0 / ((float)roadTilelength * (float)anzahlRoadTiles)
-	m_Viewport->SetMistHeightMax(10.f);
-	m_Viewport->SetMistHeightMin(1.f);
+	m_Viewport->SetMistStrength(0.01f); //1.0 / ((float)roadTilelength * (float)anzahlRoadTiles)
+	m_Viewport->SetMistHeightMax(3750.f);
+	m_Viewport->SetMistHeightMin(-5000.f);
 
 	// OvRoot Init
 	m_Viewport->AddOverlay(&m_OvRoot);

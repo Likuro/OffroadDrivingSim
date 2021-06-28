@@ -57,7 +57,7 @@ void RoadManager::init(CPlacement* tmp_scene, ItemManager* tmp_myItemManager, CR
 	
 	//Emitter Settings
 	
-	//wallofEMITTER.SetRate(3 * RoadTileBoundingBox * RoadTileBoundingBox);
+	wallofEMITTER.SetRate(1 * RoadTileBoundingBox * RoadTileBoundingBox);
 	wallofEMITTER.SetTimeToWait(0.1f);
 	wallofEMITTER.SetTimeToCome(2.0f);
 	wallofEMITTER.SetTimeToStay(20.0f);
