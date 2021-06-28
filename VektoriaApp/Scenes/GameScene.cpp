@@ -17,7 +17,7 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_Green.MakeTextureDiffuse("textures\\PrototypeTextures\\Green\\texture_06.png");
 	m_Orange.MakeTextureDiffuse("textures\\PrototypeTextures\\Orange\\texture_06.png");
 	m_Purple.MakeTextureDiffuse("textures\\PrototypeTextures\\Purple\\texture_06.png");
-	m_Red.MakeTextureDiffuse("textures\\PrototypeTextures\\Red\\texture_06.png");
+	m_Red.MakeTextureSprite("textures\\red_image.jpg");
 
 	// Button Materials
 	m_MatButtonHovered.MakeTextureSprite("textures\\Buttons\\Button_Pressed.png");
@@ -100,15 +100,15 @@ void GameScene::Init(CScene* scene, CViewport* viewport, CDeviceCursor* cursor, 
 	m_OvRoot.AddWriting(&m_ClutchValue);
 
 	// Third-Person-Camera
-	m_TPCamera.Init(100.f, 15.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
+	m_TPCamera.Init(100.f, 20.f, eAlignZAxisNegative, m_currentCar->GetMainPos(), &m_Camera);
 	m_TPCamera.SetTranslationSensitivity(200.f);
 	m_TPCamera.SetRotationSensitivity(2.f);
 	this->AddPlacement(&m_TPCamera);
 
 	// Healthbar
-	m_HealthBar = new ProgressBar(&m_Orange, &m_OvRoot, m_dController->getHealth()->getMaxHealth(), m_dController->getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
+	m_HealthBar = new ProgressBar(&m_Red, &m_OvRoot, m_dController->getHealth()->getMaxHealth(), m_dController->getHealth()->getHealth(), 0.7f, 0.9f, 0.25f, 0.05f);
 	// Boostbar
-	m_BoostBar = new ProgressBar(&m_Green, &m_OvRoot, m_dController->getBoost()->getMaxBoost(), m_dController->getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
+	//m_BoostBar = new ProgressBar(&m_Green, &m_OvRoot, m_dController->getBoost()->getMaxBoost(), m_dController->getBoost()->getBoost(), 0.05f, 0.9f, 0.25f, 0.05f);
 
 	//this->AddPlacement(&test);
 	////testcube.Init(1.f, &m_Dark);
@@ -154,6 +154,16 @@ void GameScene::update(float fTime, float fTimeDelta)
 		// Funktionen die nach dem ersten Tick aufgerufen werden sollen, aber dann nicht mehr
 		m_callOnceAfterTick = false;
 		Items->InitRays(m_currentCar->GetMainPos()->GetAABB());	// AABB des Players muss zu Beginn übergeben werden, um Strahlenbüschel zu nutzen
+	}
+	
+	//if(RoadMaster->checkCollisions(m_currentCar->GetMainPos()))
+	//{
+	//	m_dController->getHealth()->dealDamage(fTimeDelta * 50.f);
+	//}
+
+	if (m_Keyboard->KeyDown(DIK_X))
+	{
+		m_dController->getHealth()->dealDamage(100.f);
 	}
 
 	if (m_dController->getHealth()->isDead())
@@ -277,11 +287,13 @@ void GameScene::update(float fTime, float fTimeDelta)
 	SkyMaster->update(ScoreMaster->getScore());
 
 	//BoostBar
-	m_BoostBar->update(m_dController->getBoost()->getBoost());
+	//m_BoostBar->update(m_dController->getBoost()->getBoost());
 
-	m_dController->CheckCollisions(&RoadMaster->getGeosFrontal());
 	//HealthBar
 	m_HealthBar->update(m_dController->getHealth()->getHealth());
+
+	//Collision Check
+	m_dController->CheckCollisions(&RoadMaster->getGeosFrontal());
 }
 
 void GameScene::reset()

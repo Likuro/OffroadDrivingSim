@@ -27,11 +27,11 @@
 #define tilesremaining 5
 #define specialSpawnChanceSetting 1
 #define specialSpawnForce 5
-#define itemSpawnChance 5
+#define itemSpawnChance 3
 
 //Settings für den Sandsturm aka Suzanne
 #define wallofDEATHupdate 0.1
-#define wallofDEATHspeed 0.05
+#define wallofDEATHspeed 0.25
 
 using namespace Vektoria;
 
@@ -44,6 +44,7 @@ public:
 	void updateRoad();
 	void tryupdate(float tmp_ftime, CHVector tmp_carPos);
 	void resetRoad();
+	bool checkCollisions(CPlacement* currentCar);
 
 	//damit die Hitboxen witergegeben werden können
 	CGeos& getGeosGround();
@@ -94,6 +95,8 @@ private:
 	CPlacement wallofDEATH;
 	CGeo *wallofMODEL;
 	CGeoQuad wallofSTORM;
+	CPlacement PlacementfortherealWallofDeath;
+	CGeoCube therealWallofDeath;
 	CMaterial wallofCOLOR;
 	CEmitter wallofEMITTER;
 

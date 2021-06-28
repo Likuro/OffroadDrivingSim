@@ -290,8 +290,8 @@ void Vehicle::BuildOldCar(int ID)
 
 	// Materials
 	char* mainframeTexture = "textures\\OldCarTex\\Renault12TL_BaseColor.png";
-	char* wheelsTextureR = "";
-	char* wheelsTextureL = "";
+	char* wheelsTextureR = "textures\\OldCarTex\\Renault12TL_BaseColor.png";
+	char* wheelsTextureL = "textures\\OldCarTex\\Renault12TL_BaseColor.png";
 
 	m_MOldCar.MakeTextureDiffuse(mainframeTexture);
 	m_MOldCarWheelsR.MakeTextureDiffuse(wheelsTextureR);

@@ -278,7 +278,7 @@ void DriveController::CheckCollisions(CGeos* obstacle_Geos)
 }
 void DriveController::DealDamage() {
 	if (lastColObject != currentColObject && o_Collided) {
-		mHealth->dealDamage(10);		
+		mHealth->dealDamage(speed / 2.f);		
 		lastColObject = currentColObject;
 	}
 	//ULDebug("%i" , mHealth->getHealth());

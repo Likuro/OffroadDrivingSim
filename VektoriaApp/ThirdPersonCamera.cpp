@@ -27,7 +27,6 @@ void ThirdPersonCamera::update(float fTimeDelta)
 	float yaw = m_FollowObject->GetMat().GetYaw();
 	CHMat mat;	
 	mat.RotateY(yaw);
-	mat.RotateXDelta(-0.03f);//added by Mohamed
 	CHVector toCamera(0.f, m_height, (m_height / tan(angle)));
 
 	// Vektor zur Camera wird um den Zoomfaktor skaliert
@@ -48,6 +47,7 @@ void ThirdPersonCamera::update(float fTimeDelta)
 		break;
 	case eAlignZAxisNegative:
 		this->Translate(followPos.x, followPos.y + zoomedHeight, followPos.z + (zoomedHeight / tan(angle)));
+		m_CameraSwivel.RotateXDelta(0.1f);
 		break;
 	default:
 		break;
